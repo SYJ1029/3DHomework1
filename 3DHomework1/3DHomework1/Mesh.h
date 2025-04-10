@@ -22,7 +22,7 @@ public:
 	int							m_nVertices = 0;
 	CVertex						*m_pVertices = NULL;
 
-	void SetVertex(int nIndex, CVertex& vertex);
+	void SetVertex(int nIndex, const CVertex& vertex);
 };
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
