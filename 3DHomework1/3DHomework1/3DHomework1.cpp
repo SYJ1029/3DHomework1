@@ -34,7 +34,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 	// 전역 문자열을 초기화합니다.
 	LoadString(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
-	LoadString(hInstance, IDC_3DHOMEWORK1, szWindowClass, MAX_LOADSTRING);
+	LoadString(hInstance, IDC_MY3DHOMEWORK1, szWindowClass, MAX_LOADSTRING);
 	MyRegisterClass(hInstance);
 
 	// 응용 프로그램 초기화를 수행합니다.
@@ -43,7 +43,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		return FALSE;
 	}
 
-	hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_3DHOMEWORK1));
+	hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_MY3DHOMEWORK1));
 
 	// 기본 메시지 루프입니다.
 	while (1)
@@ -93,7 +93,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 	wcex.cbClsExtra = 0;
 	wcex.cbWndExtra = 0;
 	wcex.hInstance = hInstance;
-	wcex.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_3DHOMEWORK1));
+	wcex.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_MY3DHOMEWORK1));
 	wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
 	wcex.lpszMenuName = NULL;
