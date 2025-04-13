@@ -265,7 +265,7 @@ CWallMesh::CWallMesh(float fWidth, float fHeight, float fDepth, int nSubRects) :
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-CAirplaneMesh::CAirplaneMesh(float fWidth, float fHeight, float fDepth) : CMesh(24)
+CTankMesh::CTankMesh(float fWidth, float fHeight, float fDepth) : CMesh(24)
 {
 	float fx = fWidth*0.5f, fy = fHeight*0.5f, fz = fDepth*0.5f;
 

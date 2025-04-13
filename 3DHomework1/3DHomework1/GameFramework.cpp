@@ -70,9 +70,9 @@ void CGameFramework::BuildObjects()
 
 	pCamera->GenerateOrthographicProjectionMatrix(1.01f, 50.0f, FRAMEBUFFER_WIDTH, FRAMEBUFFER_HEIGHT);
 
-	CAirplaneMesh* pAirplaneMesh = new CAirplaneMesh(6.0f, 6.0f, 1.0f);
+	CTankMesh* pAirplaneMesh = new CTankMesh(6.0f, 6.0f, 1.0f);
 
-	m_pPlayer = new CAirplanePlayer();
+	m_pPlayer = new CTankPlayer();
 	m_pPlayer->SetPosition(0.0f, 0.0f, 0.0f);
 	m_pPlayer->SetMesh(pAirplaneMesh);
 	m_pPlayer->SetColor(RGB(0, 0, 255));
@@ -132,7 +132,7 @@ void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPA
 		case VK_RETURN:
 			break;
 		case VK_CONTROL:
-			((CAirplanePlayer*)m_pPlayer)->FireBullet(m_pLockedObject);
+			((CTankPlayer*)m_pPlayer)->FireBullet(m_pLockedObject);
 			m_pLockedObject = NULL;
 			break;
 		default:
