@@ -70,7 +70,7 @@ void CGameFramework::BuildObjects()
 
 	pCamera->GenerateOrthographicProjectionMatrix(1.01f, 50.0f, FRAMEBUFFER_WIDTH, FRAMEBUFFER_HEIGHT);
 
-	CTankMesh* pAirplaneMesh = new CTankMesh(6.0f, 6.0f, 1.0f);
+	CTankMesh* pAirplaneMesh = new CTankMesh(4.0f, 4.0f, 1.0f);
 
 	m_pPlayer = new CTankPlayer();
 	m_pPlayer->SetPosition(0.0f, 0.0f, 0.0f);
