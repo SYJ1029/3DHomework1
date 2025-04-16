@@ -16,7 +16,7 @@ void CGameFramework::OnCreate(HINSTANCE hInstance, HWND hMainWnd)
 
 	BuildObjects(); 
 
-	_tcscpy_s(m_pszFrameRate, _T("Homework1"));
+	_tcscpy_s(m_pszFrameRate, _T("Homework1 ("));
 }
 
 void CGameFramework::OnDestroy()
@@ -232,7 +232,7 @@ void CGameFramework::FrameAdvance()
 
 	PresentFrameBuffer();
 
-	m_GameTimer.GetFrameRate(m_pszFrameRate + 12, 37);
+	m_GameTimer.GetFrameRate(m_pszFrameRate + 11, 37);
 	::SetWindowText(m_hWnd, m_pszFrameRate);
 }
 
