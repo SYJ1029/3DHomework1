@@ -274,94 +274,97 @@ CTankMesh::CTankMesh(float fWidth, float fHeight, float fDepth) : CMesh(18)
 
 	for (int i = 0; i < 2; ++i) {
 		CPolygon* pFrontFace = new CPolygon(4);
-		pFrontFace->SetVertex(0, CVertex(-fHalfWidth, +fHalfHeight, -fHalfDepth - i));
-		pFrontFace->SetVertex(1, CVertex(+fHalfWidth, +fHalfHeight, -fHalfDepth - i));
-		pFrontFace->SetVertex(2, CVertex(+fHalfWidth, -fHalfHeight, -fHalfDepth - i));
-		pFrontFace->SetVertex(3, CVertex(-fHalfWidth, -fHalfHeight, -fHalfDepth - i));
+		pFrontFace->SetVertex(0, CVertex(-fHalfWidth, +fHalfHeight + i, -fHalfDepth));
+		pFrontFace->SetVertex(1, CVertex(+fHalfWidth, +fHalfHeight + i, -fHalfDepth));
+		pFrontFace->SetVertex(2, CVertex(+fHalfWidth, -fHalfHeight + i, -fHalfDepth));
+		pFrontFace->SetVertex(3, CVertex(-fHalfWidth, -fHalfHeight + i, -fHalfDepth));
 		SetPolygon(i * 6, pFrontFace);
 
 		CPolygon* pTopFace = new CPolygon(4);
-		pTopFace->SetVertex(0, CVertex(-fHalfWidth, +fHalfHeight, +fHalfDepth - i));
-		pTopFace->SetVertex(1, CVertex(+fHalfWidth, +fHalfHeight, +fHalfDepth - i));
-		pTopFace->SetVertex(2, CVertex(+fHalfWidth, +fHalfHeight, -fHalfDepth - i));
-		pTopFace->SetVertex(3, CVertex(-fHalfWidth, +fHalfHeight, -fHalfDepth - i));
+		pTopFace->SetVertex(0, CVertex(-fHalfWidth, +fHalfHeight + i, +fHalfDepth));
+		pTopFace->SetVertex(1, CVertex(+fHalfWidth, +fHalfHeight + i, +fHalfDepth));
+		pTopFace->SetVertex(2, CVertex(+fHalfWidth, +fHalfHeight + i, -fHalfDepth));
+		pTopFace->SetVertex(3, CVertex(-fHalfWidth, +fHalfHeight + i, -fHalfDepth));
 		SetPolygon(i * 6 + 1, pTopFace);
 
 		CPolygon* pBackFace = new CPolygon(4);
-		pBackFace->SetVertex(0, CVertex(-fHalfWidth, -fHalfHeight, +fHalfDepth - i));
-		pBackFace->SetVertex(1, CVertex(+fHalfWidth, -fHalfHeight, +fHalfDepth - i));
-		pBackFace->SetVertex(2, CVertex(+fHalfWidth, +fHalfHeight, +fHalfDepth - i));
-		pBackFace->SetVertex(3, CVertex(-fHalfWidth, +fHalfHeight, +fHalfDepth - i));
+		pBackFace->SetVertex(0, CVertex(-fHalfWidth, -fHalfHeight + i, +fHalfDepth));
+		pBackFace->SetVertex(1, CVertex(+fHalfWidth, -fHalfHeight + i, +fHalfDepth));
+		pBackFace->SetVertex(2, CVertex(+fHalfWidth, +fHalfHeight + i, +fHalfDepth));
+		pBackFace->SetVertex(3, CVertex(-fHalfWidth, +fHalfHeight + i, +fHalfDepth));
 		SetPolygon(i * 6 + 2, pBackFace);
 
 		CPolygon* pBottomFace = new CPolygon(4);
-		pBottomFace->SetVertex(0, CVertex(-fHalfWidth, -fHalfHeight, -fHalfDepth - i));
-		pBottomFace->SetVertex(1, CVertex(+fHalfWidth, -fHalfHeight, -fHalfDepth - i));
-		pBottomFace->SetVertex(2, CVertex(+fHalfWidth, -fHalfHeight, +fHalfDepth - i));
-		pBottomFace->SetVertex(3, CVertex(-fHalfWidth, -fHalfHeight, +fHalfDepth - i));
+		pBottomFace->SetVertex(0, CVertex(-fHalfWidth, -fHalfHeight + i, -fHalfDepth));
+		pBottomFace->SetVertex(1, CVertex(+fHalfWidth, -fHalfHeight + i, -fHalfDepth));
+		pBottomFace->SetVertex(2, CVertex(+fHalfWidth, -fHalfHeight + i, +fHalfDepth));
+		pBottomFace->SetVertex(3, CVertex(-fHalfWidth, -fHalfHeight + i, +fHalfDepth));
 		SetPolygon(i * 6 + 3, pBottomFace);
 
 		CPolygon* pLeftFace = new CPolygon(4);
-		pLeftFace->SetVertex(0, CVertex(-fHalfWidth, +fHalfHeight, +fHalfDepth - i));
-		pLeftFace->SetVertex(1, CVertex(-fHalfWidth, +fHalfHeight, -fHalfDepth - i));
-		pLeftFace->SetVertex(2, CVertex(-fHalfWidth, -fHalfHeight, -fHalfDepth - i));
-		pLeftFace->SetVertex(3, CVertex(-fHalfWidth, -fHalfHeight, +fHalfDepth - i));
+		pLeftFace->SetVertex(0, CVertex(-fHalfWidth, +fHalfHeight + i, +fHalfDepth));
+		pLeftFace->SetVertex(1, CVertex(-fHalfWidth, +fHalfHeight + i, -fHalfDepth));
+		pLeftFace->SetVertex(2, CVertex(-fHalfWidth, -fHalfHeight + i, -fHalfDepth));
+		pLeftFace->SetVertex(3, CVertex(-fHalfWidth, -fHalfHeight + i, +fHalfDepth));
 		SetPolygon(i * 6 + 4, pLeftFace);
 
 		CPolygon* pRightFace = new CPolygon(4);
-		pRightFace->SetVertex(0, CVertex(+fHalfWidth, +fHalfHeight, -fHalfDepth - i));
-		pRightFace->SetVertex(1, CVertex(+fHalfWidth, +fHalfHeight, +fHalfDepth - i));
-		pRightFace->SetVertex(2, CVertex(+fHalfWidth, -fHalfHeight, +fHalfDepth - i));
-		pRightFace->SetVertex(3, CVertex(+fHalfWidth, -fHalfHeight, -fHalfDepth - i));
+		pRightFace->SetVertex(0, CVertex(+fHalfWidth, +fHalfHeight + i, -fHalfDepth));
+		pRightFace->SetVertex(1, CVertex(+fHalfWidth, +fHalfHeight + i, +fHalfDepth));
+		pRightFace->SetVertex(2, CVertex(+fHalfWidth, -fHalfHeight + i, +fHalfDepth));
+		pRightFace->SetVertex(3, CVertex(+fHalfWidth, -fHalfHeight + i, -fHalfDepth));
 		SetPolygon(i * 6 + 5, pRightFace);
 
 		fHalfWidth /= 2.0f;
-		fHalfHeight /= 2.0f;
+		fHalfDepth /= 2.0f;
 	}
 
-	fHalfHeight *= 2.0f;
+	fHalfDepth *= 2.0f;
 
 	CPolygon* pFrontFace = new CPolygon(4);
-	pFrontFace->SetVertex(0, CVertex(-fHalfWidth, +fHalfHeight + 2.0f, -fHalfDepth));
-	pFrontFace->SetVertex(1, CVertex(+fHalfWidth, +fHalfHeight + 2.0f, -fHalfDepth));
-	pFrontFace->SetVertex(2, CVertex(+fHalfWidth, -fHalfHeight + 2.0f, -fHalfDepth));
-	pFrontFace->SetVertex(3, CVertex(-fHalfWidth, -fHalfHeight + 2.0f, -fHalfDepth));
+	pFrontFace->SetVertex(0, CVertex(-fHalfWidth, +fHalfHeight + 1.0f, -fHalfDepth + 2.0f));
+	pFrontFace->SetVertex(1, CVertex(+fHalfWidth, +fHalfHeight + 1.0f, -fHalfDepth + 2.0f));
+	pFrontFace->SetVertex(2, CVertex(+fHalfWidth, -fHalfHeight + 1.0f, -fHalfDepth + 2.0f));
+	pFrontFace->SetVertex(3, CVertex(-fHalfWidth, -fHalfHeight + 1.0f, -fHalfDepth + 2.0f));
 	SetPolygon(12, pFrontFace);
 
 	CPolygon* pTopFace = new CPolygon(4);
-	pTopFace->SetVertex(0, CVertex(-fHalfWidth, +fHalfHeight + 2.0f, +fHalfDepth - 1.0f));
-	pTopFace->SetVertex(1, CVertex(+fHalfWidth, +fHalfHeight + 2.0f, +fHalfDepth - 1.0f));
-	pTopFace->SetVertex(2, CVertex(+fHalfWidth, +fHalfHeight + 2.0f, -fHalfDepth - 1.0f));
-	pTopFace->SetVertex(3, CVertex(-fHalfWidth, +fHalfHeight + 2.0f, -fHalfDepth - 1.0f));
+	pTopFace->SetVertex(0, CVertex(-fHalfWidth, +fHalfHeight + 1.0f, +fHalfDepth + 2.0f));
+	pTopFace->SetVertex(1, CVertex(+fHalfWidth, +fHalfHeight + 1.0f, +fHalfDepth + 2.0f));
+	pTopFace->SetVertex(2, CVertex(+fHalfWidth, +fHalfHeight + 1.0f, -fHalfDepth + 2.0f));
+	pTopFace->SetVertex(3, CVertex(-fHalfWidth, +fHalfHeight + 1.0f, -fHalfDepth + 2.0f));
 	SetPolygon(13, pTopFace);
 
 	CPolygon* pBackFace = new CPolygon(4);
-	pBackFace->SetVertex(0, CVertex(-fHalfWidth, -fHalfHeight + 2.0f, +fHalfDepth - 1.0f));
-	pBackFace->SetVertex(1, CVertex(+fHalfWidth, -fHalfHeight + 2.0f, +fHalfDepth - 1.0f));
-	pBackFace->SetVertex(2, CVertex(+fHalfWidth, +fHalfHeight + 2.0f, +fHalfDepth - 1.0f));
-	pBackFace->SetVertex(3, CVertex(-fHalfWidth, +fHalfHeight + 2.0f, +fHalfDepth - 1.0f));
+	pBackFace->SetVertex(0, CVertex(-fHalfWidth, -fHalfHeight + 1.0f, +fHalfDepth + 2.0f));
+	pBackFace->SetVertex(1, CVertex(+fHalfWidth, -fHalfHeight + 1.0f, +fHalfDepth + 2.0f));
+	pBackFace->SetVertex(2, CVertex(+fHalfWidth, +fHalfHeight + 1.0f, +fHalfDepth + 2.0f));
+	pBackFace->SetVertex(3, CVertex(-fHalfWidth, +fHalfHeight + 1.0f, +fHalfDepth + 2.0f));
 	SetPolygon(14, pBackFace);
 
 	CPolygon* pBottomFace = new CPolygon(4);
-	pBottomFace->SetVertex(0, CVertex(-fHalfWidth, -fHalfHeight + 2.0f, -fHalfDepth - 1.0f));
-	pBottomFace->SetVertex(1, CVertex(+fHalfWidth, -fHalfHeight + 2.0f, -fHalfDepth - 1.0f));
-	pBottomFace->SetVertex(2, CVertex(+fHalfWidth, -fHalfHeight + 2.0f, +fHalfDepth - 1.0f));
-	pBottomFace->SetVertex(3, CVertex(-fHalfWidth, -fHalfHeight + 2.0f, +fHalfDepth - 1.0f));
+	pBottomFace->SetVertex(0, CVertex(-fHalfWidth, -fHalfHeight + 1.0f, -fHalfDepth + 2.0f));
+	pBottomFace->SetVertex(1, CVertex(+fHalfWidth, -fHalfHeight + 1.0f, -fHalfDepth + 2.0f));
+	pBottomFace->SetVertex(2, CVertex(+fHalfWidth, -fHalfHeight + 1.0f, +fHalfDepth + 2.0f));
+	pBottomFace->SetVertex(3, CVertex(-fHalfWidth, -fHalfHeight + 1.0f, +fHalfDepth + 2.0f));
 	SetPolygon(15, pBottomFace);
 
 	CPolygon* pLeftFace = new CPolygon(4);
-	pLeftFace->SetVertex(0, CVertex(-fHalfWidth, +fHalfHeight + 2.0f, +fHalfDepth - 1.0f));
-	pLeftFace->SetVertex(1, CVertex(-fHalfWidth, +fHalfHeight + 2.0f, -fHalfDepth - 1.0f));
-	pLeftFace->SetVertex(2, CVertex(-fHalfWidth, -fHalfHeight + 2.0f, -fHalfDepth - 1.0f));
-	pLeftFace->SetVertex(3, CVertex(-fHalfWidth, -fHalfHeight + 2.0f, +fHalfDepth - 1.0f));
+	pLeftFace->SetVertex(0, CVertex(-fHalfWidth, +fHalfHeight + 1.0f, +fHalfDepth + 2.0f));
+	pLeftFace->SetVertex(1, CVertex(-fHalfWidth, +fHalfHeight + 1.0f, -fHalfDepth + 2.0f));
+	pLeftFace->SetVertex(2, CVertex(-fHalfWidth, -fHalfHeight + 1.0f, -fHalfDepth + 2.0f));
+	pLeftFace->SetVertex(3, CVertex(-fHalfWidth, -fHalfHeight + 1.0f, +fHalfDepth + 2.0f));
 	SetPolygon(16, pLeftFace);
 
 	CPolygon* pRightFace = new CPolygon(4);
-	pRightFace->SetVertex(0, CVertex(+fHalfWidth, +fHalfHeight + 2.0f, -fHalfDepth - 1.0f));
-	pRightFace->SetVertex(1, CVertex(+fHalfWidth, +fHalfHeight + 2.0f, +fHalfDepth - 1.0f));
-	pRightFace->SetVertex(2, CVertex(+fHalfWidth, -fHalfHeight + 2.0f, +fHalfDepth - 1.0f));
-	pRightFace->SetVertex(3, CVertex(+fHalfWidth, -fHalfHeight + 2.0f, -fHalfDepth - 1.0f));
+	pRightFace->SetVertex(0, CVertex(+fHalfWidth, +fHalfHeight + 1.0f, -fHalfDepth + 2.0f));
+	pRightFace->SetVertex(1, CVertex(+fHalfWidth, +fHalfHeight + 1.0f, +fHalfDepth + 2.0f));
+	pRightFace->SetVertex(2, CVertex(+fHalfWidth, -fHalfHeight + 1.0f, +fHalfDepth + 2.0f));
+	pRightFace->SetVertex(3, CVertex(+fHalfWidth, -fHalfHeight + 1.0f, -fHalfDepth + 2.0f));
 	SetPolygon(17, pRightFace);
+
+	fHalfWidth *= 4.0f;
+	fHalfDepth *= 4.0f;
 
 	m_xmOOBB = BoundingOrientedBox(XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(fHalfWidth, fHalfHeight, fHalfDepth), XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
 }
