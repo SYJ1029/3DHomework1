@@ -16,7 +16,7 @@ void CGameFramework::OnCreate(HINSTANCE hInstance, HWND hMainWnd)
 
 	BuildObjects(); 
 
-	_tcscpy_s(m_pszFrameRate, _T("LabProject ("));
+	_tcscpy_s(m_pszFrameRate, _T("Homework1"));
 }
 
 void CGameFramework::OnDestroy()
@@ -70,11 +70,11 @@ void CGameFramework::BuildObjects()
 
 	pCamera->GenerateOrthographicProjectionMatrix(1.01f, 50.0f, FRAMEBUFFER_WIDTH, FRAMEBUFFER_HEIGHT);
 
-	CTankMesh* pAirplaneMesh = new CTankMesh(4.0f, 4.0f, 1.0f);
+	CTankMesh* pTankMesh = new CTankMesh(4.0f, 4.0f, 1.0f);
 
 	m_pPlayer = new CTankPlayer();
 	m_pPlayer->SetPosition(0.0f, 0.0f, 0.0f);
-	m_pPlayer->SetMesh(pAirplaneMesh);
+	m_pPlayer->SetMesh(pTankMesh);
 	m_pPlayer->SetColor(RGB(0, 0, 255));
 	m_pPlayer->SetCamera(pCamera);
 	m_pPlayer->SetCameraOffset(XMFLOAT3(0.0f, 5.0f, -15.0f));

@@ -164,7 +164,7 @@ void CTankPlayer::OnUpdateTransform()
 {
 	CPlayer::OnUpdateTransform();
 
-	m_xmf4x4World = Matrix4x4::Multiply(XMMatrixRotationRollPitchYaw(XMConvertToRadians(90.0f), 0.0f, 0.0f), m_xmf4x4World);
+	//m_xmf4x4World = Matrix4x4::Multiply(XMMatrixRotationRollPitchYaw(XMConvertToRadians(90.0f), 0.0f, 0.0f), m_xmf4x4World);
 }
 
 void CTankPlayer::Render(HDC hDCFrameBuffer, CCamera* pCamera)
