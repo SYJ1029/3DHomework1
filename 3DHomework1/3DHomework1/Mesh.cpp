@@ -319,7 +319,7 @@ CTankMesh::CTankMesh(float fWidth, float fHeight, float fDepth) : CMesh(18)
 		fHalfDepth /= 2.0f;
 	}
 
-	fHalfDepth *= 2.0f;
+	fHalfDepth *= 2.0f;		//포신의 깊이 값을 복구
 
 	CPolygon* pFrontFace = new CPolygon(4);
 	pFrontFace->SetVertex(0, CVertex(-fHalfWidth, +fHalfHeight + 1.0f, -fHalfDepth + 2.0f));
