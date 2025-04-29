@@ -78,6 +78,14 @@ public:
 	virtual ~CTankMesh() { }
 };
 
+
+class CNameMesh : public CMesh
+{
+public:
+	CNameMesh();
+	virtual ~CNameMesh();
+};
+
 class CAxisMesh : public CMesh
 {
 public:

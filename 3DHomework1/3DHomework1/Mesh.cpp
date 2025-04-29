@@ -369,6 +369,17 @@ CTankMesh::CTankMesh(float fWidth, float fHeight, float fDepth) : CMesh(18)
 	m_xmOOBB = BoundingOrientedBox(XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(fHalfWidth, fHalfHeight, fHalfDepth), XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+CNameMesh::CNameMesh() : CMesh(32)
+{
+	// 하나의 큰 육면체를 기준으로
+	// y, x의 위치, 길이를 바꿔서 다르게 채우면?
+
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
 CAxisMesh::CAxisMesh(float fWidth, float fHeight, float fDepth) : CMesh(3)
 {
 	float fHalfWidth = fWidth * 0.5f;
