@@ -146,13 +146,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="3DHomework1.cpp" />
+    <ClCompile Include="BaseScene.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="GameFramework.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GraphicsPipeline.cpp" />
+    <ClCompile Include="Level1Scene.cpp" />
+    <ClCompile Include="MenuScene.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="TankScene.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
