@@ -2,16 +2,16 @@
 #include "Scene.h"
 #include "GraphicsPipeline.h"
 
-CScene::CScene(CPlayer* pPlayer)
+CTankScene::CTankScene(CPlayer* pPlayer)
 {
 	m_pPlayer = pPlayer;
 }
 
-CScene::~CScene()
+CTankScene::~CTankScene()
 {
 }
 
-void CScene::BuildObjects()
+void CTankScene::BuildObjects()
 {
 	CExplosiveObject::PrepareExplosion();
 
@@ -132,7 +132,7 @@ void CScene::BuildObjects()
 #endif
 }
 
-void CScene::ReleaseObjects()
+void CTankScene::ReleaseObjects()
 {
 	if (CExplosiveObject::m_pExplosionMesh) CExplosiveObject::m_pExplosionMesh->Release();
 
@@ -146,11 +146,11 @@ void CScene::ReleaseObjects()
 #endif
 }
 
-void CScene::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
+void CTankScene::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
 {
 }
 
-void CScene::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
+void CTankScene::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
 {
 	switch (nMessageID)
 	{
@@ -187,7 +187,7 @@ void CScene::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM wPar
 	}
 }
 
-CGameObject* CScene::PickObjectPointedByCursor(int xClient, int yClient, CCamera* pCamera)
+CGameObject* CTankScene::PickObjectPointedByCursor(int xClient, int yClient, CCamera* pCamera)
 {
 	XMFLOAT3 xmf3PickPosition;
 	xmf3PickPosition.x = (((2.0f * xClient) / (float)pCamera->m_Viewport.m_nWidth) - 1) / pCamera->m_xmf4x4PerspectiveProject._11;
@@ -213,7 +213,7 @@ CGameObject* CScene::PickObjectPointedByCursor(int xClient, int yClient, CCamera
 	return(pNearestObject);
 }
 
-void CScene::CheckObjectByObjectCollisions()
+void CTankScene::CheckObjectByObjectCollisions()
 {
 	for (int i = 0; i < m_nObjects; i++) m_ppObjects[i]->m_pObjectCollided = NULL;
 	for (int i = 0; i < m_nObjects; i++)
@@ -243,7 +243,7 @@ void CScene::CheckObjectByObjectCollisions()
 	}
 }
 
-void CScene::CheckObjectByWallCollisions()
+void CTankScene::CheckObjectByWallCollisions()
 {
 	for (int i = 0; i < m_nObjects; i++)
 	{
@@ -296,7 +296,7 @@ void CScene::CheckObjectByWallCollisions()
 	}
 }
 
-void CScene::CheckPlayerByWallCollision()
+void CTankScene::CheckPlayerByWallCollision()
 {
 	BoundingOrientedBox xmOOBBPlayerMoveCheck;
 	m_pWallsObject->m_xmOOBBPlayerMoveCheck.Transform(xmOOBBPlayerMoveCheck, XMLoadFloat4x4(&m_pWallsObject->m_xmf4x4World));
@@ -305,7 +305,7 @@ void CScene::CheckPlayerByWallCollision()
 	if (!xmOOBBPlayerMoveCheck.Intersects(m_pPlayer->m_xmOOBB)) m_pWallsObject->SetPosition(m_pPlayer->m_xmf3Position);
 }
 
-void CScene::CheckObjectByBulletCollisions()
+void CTankScene::CheckObjectByBulletCollisions()
 {
 	CBulletObject** ppBullets = ((CTankPlayer*)m_pPlayer)->m_ppBullets;
 	for (int i = 0; i < m_nObjects; i++)
@@ -322,7 +322,7 @@ void CScene::CheckObjectByBulletCollisions()
 	}
 }
 
-void CScene::Animate(float fElapsedTime)
+void CTankScene::Animate(float fElapsedTime)
 {
 	m_pWallsObject->Animate(fElapsedTime);
 
@@ -337,7 +337,7 @@ void CScene::Animate(float fElapsedTime)
 	CheckObjectByBulletCollisions();
 }
 
-void CScene::Render(HDC hDCFrameBuffer, CCamera* pCamera)
+void CTankScene::Render(HDC hDCFrameBuffer, CCamera* pCamera)
 {
 	CGraphicsPipeline::SetViewport(&pCamera->m_Viewport);
 

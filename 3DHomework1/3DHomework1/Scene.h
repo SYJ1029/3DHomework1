@@ -4,11 +4,48 @@
 #include "Camera.h"
 #include "Player.h"
 
-class CScene
+
+
+class CBaseScene
 {
 public:
-	CScene(CPlayer *pPlayer);
-	virtual ~CScene();
+	CBaseScene();
+	virtual ~CBaseScene();
+private:
+	int							m_nObjects = 0;
+	CGameObject** m_ppObjects = NULL;
+
+	CWallsObject* m_pWallsObject = NULL;
+
+	CPlayer* m_pPlayer = NULL;
+public:
+public:
+	virtual void BuildObjects();
+	virtual void ReleaseObjects();
+
+	virtual void CheckObjectByObjectCollisions();
+	virtual void CheckObjectByWallCollisions();
+	virtual void CheckPlayerByWallCollision();
+	virtual void CheckObjectByBulletCollisions();
+
+	virtual void Animate(float fElapsedTime);
+	virtual void Render(HDC hDCFrameBuffer, CCamera* pCamera);
+
+	virtual void OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam);
+	virtual void OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam);
+
+	virtual CGameObject* PickObjectPointedByCursor(int xClient, int yClient, CCamera* pCamera);
+};
+
+
+////////////////////////////////////////////////
+
+
+class CTankScene
+{
+public:
+	CTankScene(CPlayer *pPlayer);
+	virtual ~CTankScene();
 
 private:
 	int							m_nObjects = 0;
@@ -39,4 +76,8 @@ public:
 
 	CGameObject* PickObjectPointedByCursor(int xClient, int yClient, CCamera* pCamera);
 };
+
+
+
+///////////////////////////////////////////
 
