@@ -128,9 +128,7 @@ void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPA
 	case WM_KEYDOWN:
 		switch (wParam)
 		{
-		case VK_ESCAPE:
-			::PostQuitMessage(0);
-			break;
+
 		case VK_RETURN:
 			break;
 		case VK_CONTROL:
@@ -139,11 +137,6 @@ void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPA
 			break;
 		case VK_SPACE:
 			m_pScene->Setlevel(1);
-			BuildObjects();
-			break;
-		case VK_BACK:
-			m_pScene->Setlevel(2);
-			BuildObjects();
 			break;
 		default:
 			m_pScene->OnProcessingKeyboardMessage(hWnd, nMessageID, wParam, lParam);
@@ -152,6 +145,11 @@ void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPA
 		break;
 	default:
 		break;
+	}
+
+	if (m_pScene != nullptr && m_pScene->levelFlag) {
+		BuildObjects();
+		m_pScene->levelFlag = false;
 	}
 }
 

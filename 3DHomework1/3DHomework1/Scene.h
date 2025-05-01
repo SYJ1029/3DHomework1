@@ -20,6 +20,8 @@ private:
 
 	CPlayer* m_pPlayer = NULL;
 public:
+	BOOL						levelFlag = false;
+
 	void Setlevel(int newLevel);
 	CBaseScene* SetScene();
 
@@ -55,6 +57,8 @@ private:
 	CGameObject** m_ppObjects = NULL;
 
 public:
+	BOOL						levelFlag = false;
+
 	virtual void BuildObjects();
 	virtual void ReleaseObjects();
 
@@ -79,6 +83,8 @@ private:
 	CGameObject** m_ppObjects = NULL;
 
 public:
+	BOOL						levelFlag = false;
+
 	virtual void BuildObjects();
 	virtual void ReleaseObjects();
 
@@ -111,6 +117,8 @@ private:
 #endif
 
 public:
+	BOOL						levelFlag = false;
+
 	virtual void BuildObjects();
 	virtual void ReleaseObjects();
 
@@ -153,6 +161,8 @@ private:
 #endif
 
 public:
+	BOOL						levelFlag = false;
+
 	virtual void BuildObjects();
 	virtual void ReleaseObjects();
 

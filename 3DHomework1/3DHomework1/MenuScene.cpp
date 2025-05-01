@@ -49,3 +49,58 @@ CGameObject* CStartScene::PickObjectPointedByCursor(int xClient, int yClient, CC
 
 	return NULL;
 }
+
+
+CMenuScene::CMenuScene()
+{
+
+}
+CMenuScene::~CMenuScene()
+{
+
+}
+
+void CMenuScene::BuildObjects()
+{
+
+}
+void CMenuScene::ReleaseObjects()
+{
+
+}
+
+void CMenuScene::Animate(float fElapsedTime)
+{
+
+}
+void CMenuScene::Render(HDC hDCFrameBuffer, CCamera* pCamera)
+{
+
+}
+
+void CMenuScene::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
+{
+
+}
+void CMenuScene::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
+{
+	switch (nMessageID)
+	{
+	case WM_KEYDOWN:
+		switch (wParam)
+		{
+		case VK_ESCAPE:
+			::PostQuitMessage(0);
+			break;
+		}
+		break;
+	default:
+		break;
+	}
+}
+
+CGameObject* CMenuScene::PickObjectPointedByCursor(int xClient, int yClient, CCamera* pCamera)
+{
+
+	return NULL;
+}

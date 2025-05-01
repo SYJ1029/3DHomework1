@@ -58,7 +58,26 @@ void CLevel1Scene::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM w
 }
 void CLevel1Scene::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
 {
-
+	switch (nMessageID)
+	{
+	case WM_KEYDOWN:
+		switch (wParam)
+		{
+		case VK_ESCAPE:
+			Setlevel(3);
+			SetScene();
+			break;
+		case VK_BACK:
+			Setlevel(2);
+			SetScene();
+			break;
+		default:
+			break;
+		}
+		break;
+	default:
+		break;
+	}
 }
 
 CGameObject* CLevel1Scene::PickObjectPointedByCursor(int xClient, int yClient, CCamera* pCamera)

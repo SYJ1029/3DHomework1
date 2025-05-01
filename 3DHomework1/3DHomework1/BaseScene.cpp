@@ -15,6 +15,8 @@ CBaseScene::~CBaseScene()
 void CBaseScene::Setlevel(int newLevel)
 {
 	level = newLevel;
+
+	levelFlag = true;
 }
 
 CBaseScene* CBaseScene::SetScene()
@@ -26,6 +28,8 @@ CBaseScene* CBaseScene::SetScene()
 		return new CLevel1Scene();
 	case 2:
 		return new CTankScene(); 
+	case 3:
+		return new CMenuScene();
 	}
 
 	return new CBaseScene();
