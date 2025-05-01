@@ -14,6 +14,7 @@ void CGameFramework::OnCreate(HINSTANCE hInstance, HWND hMainWnd)
 
 	BuildFrameBuffer(); 
 
+	m_pScene = new CBaseScene();
 	BuildObjects(); 
 
 	_tcscpy_s(m_pszFrameRate, _T("Homework1 ("));
@@ -79,7 +80,7 @@ void CGameFramework::BuildObjects()
 	m_pPlayer->SetCamera(pCamera);
 	m_pPlayer->SetCameraOffset(XMFLOAT3(0.0f, 5.0f, -15.0f));
 
-	m_pScene = new CLevel1Scene();
+	m_pScene = m_pScene->SetScene();
 	m_pScene->SetPlayer(m_pPlayer);
 	m_pScene->BuildObjects();
 }
@@ -135,6 +136,14 @@ void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPA
 		case VK_CONTROL:
 			((CTankPlayer*)m_pPlayer)->FireBullet(m_pLockedObject);
 			m_pLockedObject = NULL;
+			break;
+		case VK_SPACE:
+			m_pScene->Setlevel(1);
+			BuildObjects();
+			break;
+		case VK_BACK:
+			m_pScene->Setlevel(2);
+			BuildObjects();
 			break;
 		default:
 			m_pScene->OnProcessingKeyboardMessage(hWnd, nMessageID, wParam, lParam);

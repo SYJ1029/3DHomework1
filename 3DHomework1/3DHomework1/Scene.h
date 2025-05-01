@@ -13,13 +13,16 @@ public:
 	virtual ~CBaseScene();
 private:
 	int							m_nObjects = 0;
-	int							level{ 2 };
+	int							level = 2;
 	CGameObject** m_ppObjects = NULL;
 
 	CWallsObject* m_pWallsObject = NULL;
 
 	CPlayer* m_pPlayer = NULL;
 public:
+	void Setlevel(int newLevel);
+	CBaseScene* SetScene();
+
 	virtual void BuildObjects();
 	virtual void ReleaseObjects();
 

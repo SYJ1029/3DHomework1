@@ -4,12 +4,31 @@
 
 CBaseScene::CBaseScene()
 {
-
+	level = 0;
 }
 CBaseScene::~CBaseScene()
 {
 
 }
+
+
+void CBaseScene::Setlevel(int newLevel)
+{
+	level = newLevel;
+}
+
+CBaseScene* CBaseScene::SetScene()
+{
+	switch (level) {
+	case 1: 
+		return new CLevel1Scene();
+	case 2:
+		return new CTankScene(); 
+	}
+
+	return new CBaseScene();
+}
+
 
 void CBaseScene::BuildObjects()
 {
