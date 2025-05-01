@@ -1,7 +1,7 @@
 #pragma once
 
-#include "GameObject.h"
 #include "Camera.h"
+#include "GameObject.h"
 #include "Player.h"
 
 
@@ -51,6 +51,7 @@ public:
 	CStartScene();
 	virtual ~CStartScene();
 private:
+	int							m_nObjects = 0;
 	CGameObject** m_ppObjects = NULL;
 
 public:
@@ -74,6 +75,7 @@ public:
 	CMenuScene();
 	virtual ~CMenuScene();
 private:
+	int							m_nObjects = 0;
 	CGameObject** m_ppObjects = NULL;
 
 public:

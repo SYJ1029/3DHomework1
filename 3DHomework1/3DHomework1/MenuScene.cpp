@@ -16,7 +16,10 @@ CStartScene::~CStartScene()
 
 void CStartScene::BuildObjects()
 {
+	CExplosiveObject::PrepareExplosion();
 
+	m_nObjects = 2;
+	m_ppObjects = new CGameObject * [m_nObjects];
 }
 void CStartScene::ReleaseObjects()
 {
