@@ -40,7 +40,7 @@ public:
 class CTankScene
 {
 public:
-	CTankScene(CPlayer *pPlayer);
+	CTankScene();
 	virtual ~CTankScene();
 
 private:
@@ -63,6 +63,8 @@ public:
 	void CheckObjectByWallCollisions();
 	void CheckPlayerByWallCollision();
 	void CheckObjectByBulletCollisions();
+
+	virtual void SetPlayer(CPlayer* pPlayer);
 
 	virtual void Animate(float fElapsedTime);
 	virtual void Render(HDC hDCFrameBuffer, CCamera* pCamera);

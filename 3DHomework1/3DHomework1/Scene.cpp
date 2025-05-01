@@ -2,13 +2,18 @@
 #include "Scene.h"
 #include "GraphicsPipeline.h"
 
-CTankScene::CTankScene(CPlayer* pPlayer)
+CTankScene::CTankScene()
 {
-	m_pPlayer = pPlayer;
+	
 }
 
 CTankScene::~CTankScene()
 {
+}
+
+void CTankScene::SetPlayer(CPlayer* pPlayer)
+{
+	m_pPlayer = pPlayer;
 }
 
 void CTankScene::BuildObjects()
