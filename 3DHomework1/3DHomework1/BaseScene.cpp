@@ -20,6 +20,8 @@ void CBaseScene::Setlevel(int newLevel)
 CBaseScene* CBaseScene::SetScene()
 {
 	switch (level) {
+	case 0:
+		return new CStartScene();
 	case 1: 
 		return new CLevel1Scene();
 	case 2:
