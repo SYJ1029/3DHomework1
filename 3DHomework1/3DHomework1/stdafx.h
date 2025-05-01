@@ -19,6 +19,13 @@
 #include <Mmsystem.h>
 #pragma comment(lib, "winmm.lib")
 
+
+//C++ 런타임 헤더 파일입니다
+#include <iostream>
+#include <memory>
+
+
+//D3DMath 헤더 파일입니다
 #include <DirectXMath.h>
 #include <DirectXPackedVector.h>
 #include <DirectXColors.h>

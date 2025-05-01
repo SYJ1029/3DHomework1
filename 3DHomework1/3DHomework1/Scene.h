@@ -13,17 +13,22 @@ public:
 	virtual ~CBaseScene();
 private:
 	int							m_nObjects = 0;
+	int							level{ 2 };
 	CGameObject** m_ppObjects = NULL;
 
 	CWallsObject* m_pWallsObject = NULL;
 
 	CPlayer* m_pPlayer = NULL;
 public:
-public:
 	virtual void BuildObjects();
 	virtual void ReleaseObjects();
 
 	virtual void CheckObjectByObjectCollisions();
+	virtual void CheckObjectByWallCollisions();
+	virtual void CheckPlayerByWallCollision();
+	virtual void CheckObjectByBulletCollisions();
+
+	virtual void SetPlayer(CPlayer* pPlayer);
 
 	virtual void Animate(float fElapsedTime);
 	virtual void Render(HDC hDCFrameBuffer, CCamera* pCamera);
@@ -31,13 +36,20 @@ public:
 	virtual void OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam);
 	virtual void OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam);
 
+	virtual CGameObject* PickObjectPointedByCursor(int xClient, int yClient, CCamera* pCamera);
+
 };
 
+
+class CStartScene
+{
+
+};
 
 ////////////////////////////////////////////////
 
 
-class CTankScene
+class CTankScene : public CBaseScene
 {
 public:
 	CTankScene();
