@@ -13,7 +13,7 @@ public:
 	virtual ~CBaseScene();
 private:
 	int							m_nObjects = 0;
-	int							level = 0;
+	int							level = 3;
 	CGameObject** m_ppObjects = NULL;
 
 	CWallsObject* m_pWallsObject = NULL;

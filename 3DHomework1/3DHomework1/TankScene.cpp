@@ -164,6 +164,10 @@ void CTankScene::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM 
 	case WM_KEYDOWN:
 		switch (wParam)
 		{
+		case VK_ESCAPE:
+			Setlevel(3);
+			SetScene();
+			break;
 		case '1':
 		case '2':
 		case '3':

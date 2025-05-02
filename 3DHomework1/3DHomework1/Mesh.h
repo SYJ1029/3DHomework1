@@ -82,7 +82,7 @@ public:
 class CNameMesh : public CMesh
 {
 public:
-	CNameMesh();
+	CNameMesh(float fWidth, float fHeight, float fDepth);
 	virtual ~CNameMesh();
 };
 

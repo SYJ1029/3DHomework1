@@ -371,12 +371,15 @@ CTankMesh::CTankMesh(float fWidth, float fHeight, float fDepth) : CMesh(18)
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-//CNameMesh::CNameMesh() : CMesh(32)
-//{
-//	// 하나의 큰 육면체를 기준으로
-//	// y, x의 위치, 길이를 바꿔서 다르게 채우면?
-//
-//}
+CNameMesh::CNameMesh(float fWidth, float fHeight, float fDepth) : CMesh(24)
+{
+	
+}
+
+CNameMesh::~CNameMesh()
+{
+
+}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
