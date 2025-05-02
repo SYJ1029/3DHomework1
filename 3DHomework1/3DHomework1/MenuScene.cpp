@@ -29,7 +29,7 @@ void CStartScene::BuildObjects()
 	m_ppObjects[0]->SetColor(RGB(255, 0, 0));
 	m_ppObjects[0]->SetPosition(0.0f, 2.0f, 0.0f);
 	m_ppObjects[0]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
-	m_ppObjects[0]->SetRotationSpeed(90.0f);
+	m_ppObjects[0]->SetRotationSpeed(0.0f);
 	m_ppObjects[0]->SetMovingDirection(XMFLOAT3(1.0f, 0.0f, 0.0f));
 	m_ppObjects[0]->SetMovingSpeed(0.0f);
 
@@ -38,7 +38,7 @@ void CStartScene::BuildObjects()
 	m_ppObjects[1]->SetColor(RGB(255, 0, 0));
 	m_ppObjects[1]->SetPosition(0.0f, 0.0f, 0.0f);
 	m_ppObjects[1]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
-	m_ppObjects[1]->SetRotationSpeed(90.0f);
+	m_ppObjects[1]->SetRotationSpeed(0.0f);
 	m_ppObjects[1]->SetMovingDirection(XMFLOAT3(1.0f, 0.0f, 0.0f));
 	m_ppObjects[1]->SetMovingSpeed(0.0f);
 
@@ -47,7 +47,7 @@ void CStartScene::BuildObjects()
 	m_ppObjects[2]->SetColor(RGB(255, 0, 0));
 	m_ppObjects[2]->SetPosition(0.0f, -2.0f, 0.0f);
 	m_ppObjects[2]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
-	m_ppObjects[2]->SetRotationSpeed(90.0f);
+	m_ppObjects[2]->SetRotationSpeed(0.0f);
 	m_ppObjects[2]->SetMovingDirection(XMFLOAT3(1.0f, 0.0f, 0.0f));
 	m_ppObjects[2]->SetMovingSpeed(0.0f);
 
@@ -58,9 +58,9 @@ void CStartScene::BuildObjects()
 	m_ppObjects[3] = new CExplosiveObject();
 	m_ppObjects[3]->SetMesh(pCubeMesh);
 	m_ppObjects[3]->SetColor(RGB(255, 0, 0));
-	m_ppObjects[3]->SetPosition(2.0f, 0.0f, 0.0f);
+	m_ppObjects[3]->SetPosition(1.0f, 0.0f, 0.0f);
 	m_ppObjects[3]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
-	m_ppObjects[3]->SetRotationSpeed(90.0f);
+	m_ppObjects[3]->SetRotationSpeed(0.0f);
 	m_ppObjects[3]->SetMovingDirection(XMFLOAT3(1.0f, 0.0f, 0.0f));
 	m_ppObjects[3]->SetMovingSpeed(0.0f);
 	
