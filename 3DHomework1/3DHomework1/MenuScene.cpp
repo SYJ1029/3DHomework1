@@ -18,22 +18,22 @@ void CStartScene::BuildObjects()
 {
 	CExplosiveObject::PrepareExplosion();
 
-	m_nObjects = 4;
+	m_nObjects = 1;
 	m_ppObjects = new CGameObject * [m_nObjects];
 
 	// 3의 경우엔 4개의 CubeMesh면 구성할 수 있다
-	CCubeMesh* pCubeMesh = new CCubeMesh(2.0f, 0.75f, 1.0f);
+	CNameMesh* pNameMesh = new CNameMesh(2.0f, 2.0f, 0.5f);
 
 	m_ppObjects[0] = new CExplosiveObject();
-	m_ppObjects[0]->SetMesh(pCubeMesh);
+	m_ppObjects[0]->SetMesh(pNameMesh);
 	m_ppObjects[0]->SetColor(RGB(255, 0, 0));
 	m_ppObjects[0]->SetPosition(0.0f, 2.0f, 0.0f);
 	m_ppObjects[0]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
-	m_ppObjects[0]->SetRotationSpeed(0.0f);
+	m_ppObjects[0]->SetRotationSpeed(90.0f);
 	m_ppObjects[0]->SetMovingDirection(XMFLOAT3(1.0f, 0.0f, 0.0f));
 	m_ppObjects[0]->SetMovingSpeed(0.0f);
 
-	m_ppObjects[1] = new CExplosiveObject();
+	/*m_ppObjects[1] = new CExplosiveObject();
 	m_ppObjects[1]->SetMesh(pCubeMesh);
 	m_ppObjects[1]->SetColor(RGB(255, 0, 0));
 	m_ppObjects[1]->SetPosition(0.0f, 0.0f, 0.0f);
@@ -62,7 +62,7 @@ void CStartScene::BuildObjects()
 	m_ppObjects[3]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
 	m_ppObjects[3]->SetRotationSpeed(0.0f);
 	m_ppObjects[3]->SetMovingDirection(XMFLOAT3(1.0f, 0.0f, 0.0f));
-	m_ppObjects[3]->SetMovingSpeed(0.0f);
+	m_ppObjects[3]->SetMovingSpeed(0.0f);*/
 	
 	//CNameMesh* pNameMesh = new CNameMesh(4.0f, 1.0f, 4.0f);
 	//m_ppObjects[m_nObjects]->SetMesh(pNameMesh);

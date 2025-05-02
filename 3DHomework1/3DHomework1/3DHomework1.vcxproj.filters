@@ -22,6 +22,9 @@
     <Filter Include="소스 파일\Scene\UseRendering">
       <UniqueIdentifier>{37d97e5f-81b1-45f1-908a-d01ed7826822}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Mesh">
+      <UniqueIdentifier>{2762342f-ee5e-4019-a9ea-b5dc769a8ca7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -77,9 +80,6 @@
     <ClCompile Include="GraphicsPipeline.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -100,6 +100,12 @@
     </ClCompile>
     <ClCompile Include="TankScene.cpp">
       <Filter>소스 파일\Scene\UseRendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>소스 파일\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="StartMesh.cpp">
+      <Filter>소스 파일\Mesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
