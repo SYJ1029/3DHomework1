@@ -13,10 +13,9 @@ CNameMesh::CNameMesh(float fWidth, float fHeight, float fDepth) : CMesh(24)
 	std::list<std::pair<CVertex*, CVertex*>> lines;
 
 	lines.push_back({ new CVertex(-1.0f,  1.0f, 0.0f), new CVertex(1.0f,  1.0f, 0.0f) }); // 위 가로
-	lines.push_back({ new CVertex(1.0f,  1.0f, 0.0f), new CVertex(1.0f,  0.0f, 0.0f) }); // 오른쪽 위 수직
 	lines.push_back({ new CVertex(-1.0f,  0.0f, 0.0f), new CVertex(1.0f,  0.0f, 0.0f) }); // 중간 가로
-	lines.push_back({ new CVertex(-1.0f,  0.0f, 0.0f), new CVertex(1.0f, -1.0f, 0.0f) }); // 오른쪽 아래 수직
 	lines.push_back({ new CVertex(-1.0f, -1.0f, 0.0f), new CVertex(1.0f, -1.0f, 0.0f) }); // 아래 가로
+	lines.push_back({ new CVertex(1.0f,  1.0f, 0.0f), new CVertex(1.0f, -1.0f, 0.0f) }); // 오른쪽 아래 수직
 
 	LinesToCube(lines);
 
@@ -129,7 +128,7 @@ void CNameMesh::SingleLineToCube(CVertex* dot1, CVertex* dot2, float depth, int 
 
 	XMVECTOR appdir = XMVector3Cross(vdir, right);
 
-	appdir = XMVectorScale(appdir, 0.2f);
+	appdir = XMVectorScale(appdir, 0.1f);
 
 	XMFLOAT3 p0;
 	XMStoreFloat3(&p0, XMVectorSubtract(XMVectorAdd(v1, appdir), XMVectorSet(0, 0, depth / 2, 0)));
@@ -205,8 +204,8 @@ void CNameMesh::LinesToCube(std::list<std::pair<CVertex*, CVertex*>>& lines)
 
 	int i{ 0 };
 	while (lines.size() > 0) {
-		auto [dot1, dot2] = lines.back();
-		lines.pop_back();
+		auto [dot1, dot2] = lines.front();
+		lines.pop_front();
 
 		SingleLineToCube(dot1, dot2, depth, i);
 
