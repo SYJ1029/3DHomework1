@@ -117,6 +117,7 @@ CNameMesh::~CNameMesh()
 void CNameMesh::LinesToCube(std::list<std::pair<CVertex*, CVertex*>>& lines)
 {
 	// 선을 이루는 두 점으로 육면체를 생성합니다.
+	float depth{ 0.5f };
 
 	auto [dot1, dot2] = lines.back();
 	lines.pop_back();
@@ -130,22 +131,21 @@ void CNameMesh::LinesToCube(std::list<std::pair<CVertex*, CVertex*>>& lines)
 
 	XMVECTOR appdir = XMVector3Cross(vdir, right);
 
-	appdir = XMVectorScale(appdir, 0.5f);
+	appdir = XMVectorScale(appdir, 0.2f);
 
 	XMFLOAT3 p0; 
-	XMStoreFloat3(&p0, XMVectorAdd(v1, appdir));
+	XMStoreFloat3(&p0, (XMVectorAdd(v1, appdir)));
 	XMFLOAT3 p1;
-	XMStoreFloat3(&p1, XMVectorSubtract(v1, appdir));
+	XMStoreFloat3(&p1, (XMVectorSubtract(v1, appdir)));
 	XMFLOAT3 p2;
-	XMStoreFloat3(&p2, XMVectorSubtract(v2, appdir));
+	XMStoreFloat3(&p2, (XMVectorSubtract(v2, appdir)));
 	XMFLOAT3 p3;
-	XMStoreFloat3(&p3, XMVectorAdd(v2, appdir));
+	XMStoreFloat3(&p3, (XMVectorAdd(v2, appdir)));
+
+	
 
 
 
-
-
-	float depth{ 0.5f };
 
 	XMFLOAT3 p4{ p0.x, p0.y, p0.z + depth };
 	XMFLOAT3 p5{ p1.x, p1.y, p1.z + depth };
