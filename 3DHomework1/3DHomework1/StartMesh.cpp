@@ -133,13 +133,13 @@ void CNameMesh::LinesToCube(std::list<std::pair<CVertex*, CVertex*>>& lines)
 	appdir = XMVectorScale(appdir, 0.5f);
 
 	XMFLOAT3 p0; 
-	XMStoreFloat3(&p0, XMVectorAdd(v1, right));
+	XMStoreFloat3(&p0, XMVectorAdd(v1, appdir));
 	XMFLOAT3 p1;
-	XMStoreFloat3(&p1, XMVectorSubtract(v1, right));
+	XMStoreFloat3(&p1, XMVectorSubtract(v1, appdir));
 	XMFLOAT3 p2;
-	XMStoreFloat3(&p2, XMVectorSubtract(v2, right));
+	XMStoreFloat3(&p2, XMVectorSubtract(v2, appdir));
 	XMFLOAT3 p3;
-	XMStoreFloat3(&p3, XMVectorAdd(v2, right));
+	XMStoreFloat3(&p3, XMVectorAdd(v2, appdir));
 
 
 
