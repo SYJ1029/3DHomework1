@@ -3,7 +3,7 @@
 #include "GraphicsPipeline.h"
 
 
-CNameMesh::CNameMesh(float fWidth, float fHeight, float fDepth) : CMesh(6)
+CNameMesh::CNameMesh(float fWidth, float fHeight, float fDepth) : CMesh(24)
 {
 
 	float fHalfWidth = fWidth / 2;
@@ -12,7 +12,11 @@ CNameMesh::CNameMesh(float fWidth, float fHeight, float fDepth) : CMesh(6)
 
 	std::list<std::pair<CVertex*, CVertex*>> lines;
 
-	lines.push_back(std::pair<CVertex*, CVertex*>{new CVertex(-1.0f, 0.0f, 0.0f), new CVertex(1.0f, 0.0f, 0.0f)});
+	lines.push_back({ new CVertex(-1.0f,  1.0f, 0.0f), new CVertex(1.0f,  1.0f, 0.0f) }); // 위 가로
+	lines.push_back({ new CVertex(1.0f,  1.0f, 0.0f), new CVertex(1.0f,  0.0f, 0.0f) }); // 오른쪽 위 수직
+	lines.push_back({ new CVertex(-1.0f,  0.0f, 0.0f), new CVertex(1.0f,  0.0f, 0.0f) }); // 중간 가로
+	lines.push_back({ new CVertex(-1.0f,  0.0f, 0.0f), new CVertex(1.0f, -1.0f, 0.0f) }); // 오른쪽 아래 수직
+	lines.push_back({ new CVertex(-1.0f, -1.0f, 0.0f), new CVertex(1.0f, -1.0f, 0.0f) }); // 아래 가로
 
 	LinesToCube(lines);
 
@@ -198,8 +202,14 @@ void CNameMesh::LinesToCube(std::list<std::pair<CVertex*, CVertex*>>& lines)
 	// 선을 이루는 두 점으로 육면체를 생성합니다.
 	float depth{ 0.5f };
 
-	auto [dot1, dot2] = lines.back();
-	lines.pop_back();
+
+
+	while (lines.size() > 0) {
+		auto [dot1, dot2] = lines.back();
+		lines.pop_back();
+
+		SingleLineToCube(dot1, dot2, depth);
+	}
 	
-	SingleLineToCube(dot1, dot2, depth);
+	std::cout << "end LTC" << std::endl;
 }
