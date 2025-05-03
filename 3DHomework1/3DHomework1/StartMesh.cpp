@@ -147,10 +147,10 @@ void CNameMesh::LinesToCube(std::list<std::pair<CVertex*, CVertex*>>& lines)
 
 	float depth{ 0.5f };
 
-	XMFLOAT3 p4{ p0.x + depth, p0.y + depth, p0.z + depth };
-	XMFLOAT3 p5{ p1.x + depth, p1.y + depth, p1.z + depth };
-	XMFLOAT3 p6{ p2.x + depth, p2.y + depth, p2.z + depth };
-	XMFLOAT3 p7{ p3.x + depth, p3.y + depth, p3.z + depth };
+	XMFLOAT3 p4{ p0.x, p0.y, p0.z + depth };
+	XMFLOAT3 p5{ p1.x, p1.y, p1.z + depth };
+	XMFLOAT3 p6{ p2.x, p2.y, p2.z + depth };
+	XMFLOAT3 p7{ p3.x, p3.y, p3.z + depth };
 
 	{
 		CPolygon* pFrontFace = new CPolygon(4);
