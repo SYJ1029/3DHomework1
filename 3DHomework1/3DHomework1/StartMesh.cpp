@@ -210,7 +210,7 @@ void CNameMesh::LinesToCube(std::list<std::pair<CVertex*, CVertex*>>& lines)
 
 		SingleLineToCube(dot1, dot2, depth, i);
 
-		++i;
+		i += 6;
 	}
 	
 	std::cout << "end LTC" << std::endl;
