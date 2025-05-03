@@ -7,6 +7,7 @@ class CVertex
 public:
 	CVertex() { m_xmf3Position = XMFLOAT3(0.0f, 0.0f, 0.0f); }
 	CVertex(float x, float y, float z) { m_xmf3Position = XMFLOAT3(x, y, z); }
+	CVertex(XMFLOAT3 xyz) { m_xmf3Position = xyz; };
 	~CVertex() { }
 
 	XMFLOAT3					m_xmf3Position = XMFLOAT3(0.0f, 0.0f, 0.0f);
@@ -84,6 +85,7 @@ class CNameMesh : public CMesh
 public:
 	CNameMesh(float fWidth, float fHeight, float fDepth);
 	virtual ~CNameMesh();
+	virtual void LinesToCube(std::list<std::pair<CVertex*, CVertex*>>& lines);
 };
 
 class CAxisMesh : public CMesh
