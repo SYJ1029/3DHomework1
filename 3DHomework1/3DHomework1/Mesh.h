@@ -85,7 +85,7 @@ class CNameMesh : public CMesh
 public:
 	CNameMesh(float fWidth, float fHeight, float fDepth);
 	virtual ~CNameMesh();
-	virtual void SingleLineToCube(CVertex*, CVertex*, float);
+	virtual void SingleLineToCube(CVertex*, CVertex*, float, int);
 	virtual void LinesToCube(std::list<std::pair<CVertex*, CVertex*>>& lines);
 };
 

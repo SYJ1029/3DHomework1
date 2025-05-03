@@ -118,7 +118,7 @@ CNameMesh::~CNameMesh()
 
 }
 
-void CNameMesh::SingleLineToCube(CVertex* dot1, CVertex* dot2, float depth)
+void CNameMesh::SingleLineToCube(CVertex* dot1, CVertex* dot2, float depth, int index)
 {
 	XMVECTOR v1 = XMLoadFloat3(&dot1->m_xmf3Position);
 	XMVECTOR v2 = XMLoadFloat3(&dot2->m_xmf3Position);
@@ -156,28 +156,28 @@ void CNameMesh::SingleLineToCube(CVertex* dot1, CVertex* dot2, float depth)
 		pFrontFace->SetVertex(1, CVertex(p1));
 		pFrontFace->SetVertex(2, CVertex(p2));
 		pFrontFace->SetVertex(3, CVertex(p3));
-		SetPolygon(0, pFrontFace);
+		SetPolygon(index, pFrontFace);
 
 		CPolygon* pBackFace = new CPolygon(4);
 		pBackFace->SetVertex(0, CVertex(p4));
 		pBackFace->SetVertex(1, CVertex(p5));
 		pBackFace->SetVertex(2, CVertex(p6));
 		pBackFace->SetVertex(3, CVertex(p7));
-		SetPolygon(1, pBackFace);
+		SetPolygon(index + 1, pBackFace);
 
 		CPolygon* pTopFace = new CPolygon(4);
 		pTopFace->SetVertex(0, CVertex(p1));
 		pTopFace->SetVertex(1, CVertex(p5));
 		pTopFace->SetVertex(2, CVertex(p6));
 		pTopFace->SetVertex(3, CVertex(p2));
-		SetPolygon(2, pTopFace);
+		SetPolygon(index + 2, pTopFace);
 
 		CPolygon* pBottomFace = new CPolygon(4);
 		pBottomFace->SetVertex(0, CVertex(p0));
 		pBottomFace->SetVertex(1, CVertex(p4));
 		pBottomFace->SetVertex(2, CVertex(p7));
 		pBottomFace->SetVertex(3, CVertex(p3));
-		SetPolygon(3, pBottomFace);
+		SetPolygon(index + 3, pBottomFace);
 
 		CPolygon* pLeftFace = new CPolygon(4);
 
@@ -185,7 +185,7 @@ void CNameMesh::SingleLineToCube(CVertex* dot1, CVertex* dot2, float depth)
 		pLeftFace->SetVertex(1, CVertex(p5));
 		pLeftFace->SetVertex(2, CVertex(p1));
 		pLeftFace->SetVertex(3, CVertex(p0));
-		SetPolygon(4, pLeftFace);
+		SetPolygon(index + 4, pLeftFace);
 
 		CPolygon* pRightFace = new CPolygon(4);
 
@@ -193,7 +193,7 @@ void CNameMesh::SingleLineToCube(CVertex* dot1, CVertex* dot2, float depth)
 		pRightFace->SetVertex(1, CVertex(p2));
 		pRightFace->SetVertex(2, CVertex(p6));
 		pRightFace->SetVertex(3, CVertex(p7));
-		SetPolygon(5, pRightFace);
+		SetPolygon(index + 5, pRightFace);
 	}
 }
 
@@ -203,12 +203,14 @@ void CNameMesh::LinesToCube(std::list<std::pair<CVertex*, CVertex*>>& lines)
 	float depth{ 0.5f };
 
 
-
+	int i{ 0 };
 	while (lines.size() > 0) {
 		auto [dot1, dot2] = lines.back();
 		lines.pop_back();
 
-		SingleLineToCube(dot1, dot2, depth);
+		SingleLineToCube(dot1, dot2, depth, i);
+
+		++i;
 	}
 	
 	std::cout << "end LTC" << std::endl;
