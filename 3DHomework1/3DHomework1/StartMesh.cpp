@@ -3,110 +3,140 @@
 #include "GraphicsPipeline.h"
 
 
-CNameMesh::CNameMesh(float fWidth, float fHeight, float fDepth) : CMesh(24)
+CNameMesh::CNameMesh(float fWidth, float fHeight, float fDepth) : CMesh(24 + 24 + 30 + 54 + 30 + 42 + 18 + 30 + 18 + 24 + 6 + 24)
 {
 
 	float fHalfWidth = fWidth / 2;
 	float fHalfHeight = fHeight / 8;
 	float fHalfDepth = fDepth / 2;
 
+	float offsetX = -10.0f; // x 이동 시작
+	const float letterGap = 2.0f; // 글자 간 간격
+	const float size = 0.5f; // 한 글자 기본 스케일
+	const float rhombusSize = 0.5f; // 마름모꼴(ㅇ) 한 변 길이
+
 	std::list<std::pair<CVertex*, CVertex*>> lines;
 
-	lines.push_back({ new CVertex(-1.0f,  1.0f, 0.0f), new CVertex(1.0f,  1.0f, 0.0f) }); // 위 가로
-	lines.push_back({ new CVertex(-1.0f,  0.0f, 0.0f), new CVertex(1.0f,  0.0f, 0.0f) }); // 중간 가로
-	lines.push_back({ new CVertex(-1.0f, -1.0f, 0.0f), new CVertex(1.0f, -1.0f, 0.0f) }); // 아래 가로
-	lines.push_back({ new CVertex(1.0f,  1.0f, 0.0f), new CVertex(1.0f, -1.0f, 0.0f) }); // 오른쪽 아래 수직
+	lines.push_back({ new CVertex(offsetX - size,  size, 0.0f), new CVertex(offsetX + size,  size, 0.0f) }); // 위 가로
+	lines.push_back({ new CVertex(offsetX - size,  0.0f, 0.0f), new CVertex(offsetX + size,  0.0f, 0.0f) }); // 중간 가로
+	lines.push_back({ new CVertex(offsetX - size, -size, 0.0f), new CVertex(offsetX + size, -size, 0.0f) }); // 아래 가로
+	lines.push_back({ new CVertex(offsetX + size,  size, 0.0f), new CVertex(offsetX + size, -size, 0.0f) }); // 오른쪽 수직
+
+	// D
+
+	offsetX += letterGap;
+
+	lines.push_back({ new CVertex(offsetX - size,  size, 0.0f), new CVertex(offsetX - size, -size, 0.0f) }); // 왼쪽 수직
+	lines.push_back({ new CVertex(offsetX - size,  size, 0.0f), new CVertex(offsetX + size,  size * 0.7f, 0.0f) }); // 위 사선
+	lines.push_back({ new CVertex(offsetX + size,  size * 0.7f, 0.0f), new CVertex(offsetX + size,  size * -0.7f, 0.0f) }); // 오른쪽 수직
+	lines.push_back({ new CVertex(offsetX + size,  size * -0.7f, 0.0f), new CVertex(offsetX - size, -size, 0.0f) }); // 아래 사선
+
+	offsetX += letterGap;
+
+
+	// ㄱ
+	//lines.push_back({ new CVertex(offsetX - size,  size, 0.0f), new CVertex(offsetX,  size, 0.0f) });
+	//lines.push_back({ new CVertex(offsetX - size,  size, 0.0f), new CVertex(offsetX - size,  0.0f, 0.0f) });
+	lines.push_back({ new CVertex(offsetX - 1.75f, 1.0f, 0.0f), new CVertex(offsetX - 0.25f, 1.0f, 0.0f) }); // ㄱ 가로
+	lines.push_back({ new CVertex(offsetX - 0.25f, 1.0f, 0.0f), new CVertex(offsetX - 0.25f, -0.5f, 0.0f) }); // ㄱ 수직
+
+
+	// ㅔ
+	lines.push_back({ new CVertex(offsetX + 0.5f,  size + 0.5f, 0.0f), new CVertex(offsetX + 0.5f, -size - 0.5f, 0.0f) });
+	lines.push_back({ new CVertex(offsetX + 1.0f,  size + 0.5f, 0.0f), new CVertex(offsetX + 1.0f, -size - 0.5f, 0.0f) });
+	lines.push_back({ new CVertex(offsetX,  0.5f, 0.0f), new CVertex(offsetX + 0.5f,  0.5f, 0.0f) });
+
+
+	offsetX += letterGap;
+	// ㅇ (마름모꼴) 좌상단
+	lines.push_back({ new CVertex(offsetX - 0.5f, 1.0f, 0.0f), new CVertex(offsetX, 1.5f, 0.0f) });
+	lines.push_back({ new CVertex(offsetX, 1.5f, 0.0f), new CVertex(offsetX + 0.5f, 1.0f, 0.0f) });
+	lines.push_back({ new CVertex(offsetX + 0.5f, 1.0f, 0.0f), new CVertex(offsetX, 0.5f, 0.0f) });
+	lines.push_back({ new CVertex(offsetX, 0.5f, 0.0f), new CVertex(offsetX - 0.5f, 1.0f, 0.0f) });
+
+	// ㅣ 우상단
+	lines.push_back({ new CVertex(offsetX + 1.0f, 1.5f, 0.0f), new CVertex(offsetX + 1.0f, 0.5f, 0.0f) });
+
+	// ㅁ 하단
+	lines.push_back({ new CVertex(offsetX - 0.5f, 0.0f, 0.0f), new CVertex(offsetX + 0.5f, 0.0f, 0.0f) });
+	lines.push_back({ new CVertex(offsetX + 0.5f, 0.0f, 0.0f), new CVertex(offsetX + 0.5f, -1.0f, 0.0f) });
+	lines.push_back({ new CVertex(offsetX + 0.5f, -1.0f, 0.0f), new CVertex(offsetX - 0.5f, -1.0f, 0.0f) });
+	lines.push_back({ new CVertex(offsetX - 0.5f, -1.0f, 0.0f), new CVertex(offsetX - 0.5f, 0.0f, 0.0f) });
+
+	offsetX += letterGap * 2;
+
+
+	lines.push_back({ new CVertex(offsetX - 1.0f,  1.0f, 0.0f), new CVertex(offsetX + 1.0f,  1.0f, 0.0f) }); // 위 가로
+	lines.push_back({ new CVertex(offsetX - 1.0f,  0.0f, 0.0f), new CVertex(offsetX + 1.0f,  0.0f, 0.0f) }); // 중간 가로
+	lines.push_back({ new CVertex(offsetX - 0.5f,  1.0f, 0.0f), new CVertex(offsetX - 0.5f, 0.0f, 0.0f) }); // 왼쪽 수직
+	lines.push_back({ new CVertex(offsetX + 0.5f,  1.0f, 0.0f), new CVertex(offsetX + 0.5f, 0.0f, 0.0f) }); // 오른쪽 수직
+	lines.push_back({ new CVertex(offsetX - 1.0f,  -1.5f, 0.0f), new CVertex(offsetX + 1.0f,  -1.5f, 0.0f) });
+
+	offsetX += letterGap;
+
+	float baseX = offsetX + 1.25f;
+
+	// ㄹ 부분
+	// 1. 위 가로
+	lines.push_back({ new CVertex(baseX,  1.0f, 0.0f), new CVertex(baseX - 1.0f,  1.0f, 0.0f) });
+	// 2. 오른쪽 수직
+	lines.push_back({ new CVertex(baseX,  1.0f, 0.0f), new CVertex(baseX,  0.5f, 0.0f) });
+	// 3. 중간 가로
+	lines.push_back({ new CVertex(baseX,  0.5f, 0.0f), new CVertex(baseX - 1.0f,  0.5f, 0.0f) });
+	// 4. 왼쪽 수직
+	lines.push_back({ new CVertex(baseX - 1.0f,  0.5f, 0.0f), new CVertex(baseX - 1.0f, -0.5f, 0.0f) });
+	// 5. 아래 가로
+	lines.push_back({ new CVertex(baseX - 1.0f, -0.5f, 0.0f), new CVertex(baseX, -0.5f, 0.0f) });
+
+	// ㅗ 부분
+	lines.push_back({ new CVertex(offsetX - 0.25f, -1.5f, 0.0f), new CVertex(offsetX + 1.75f, -1.5f, 0.0f) }); // ㅡ 가로 (늘린 버전)
+	lines.push_back({ new CVertex(offsetX + 0.75f, -1.5f, 0.0f), new CVertex(offsetX + 0.75f, -1.0f, 0.0f) }); // ㅣ 세로 (변화 없음)
+
+	offsetX += letterGap;
+
+
+
+	//그
+	lines.push_back({ new CVertex(offsetX - 1.0f,  1.0f, 0.0f), new CVertex(offsetX + 0.5f,  1.0f, 0.0f) }); // ㄱ 가로
+	lines.push_back({ new CVertex(offsetX + 0.5f,  1.0f, 0.0f), new CVertex(offsetX + 0.5f, -0.5f, 0.0f) }); // ㄱ 수직
+	lines.push_back({ new CVertex(offsetX - 1.0f, -1.0f, 0.0f), new CVertex(offsetX + 1.0f, -1.0f, 0.0f) }); // ㅡ 가로
+
+	offsetX += letterGap;
+
+
+	// ㄹ
+	lines.push_back({ new CVertex(offsetX,  1.0f, 0.0f), new CVertex(offsetX - 1.0f,  1.0f, 0.0f) }); // 위 가로
+	lines.push_back({ new CVertex(offsetX,  1.0f, 0.0f), new CVertex(offsetX,  0.5f, 0.0f) }); // 오른쪽 수직
+	lines.push_back({ new CVertex(offsetX,  0.5f, 0.0f), new CVertex(offsetX - 1.0f,  0.5f, 0.0f) }); // 중간 가로
+	lines.push_back({ new CVertex(offsetX - 1.0f,  0.5f, 0.0f), new CVertex(offsetX - 1.0f, -0.5f, 0.0f) }); // 왼쪽 수직
+	lines.push_back({ new CVertex(offsetX - 1.0f, -0.5f, 0.0f), new CVertex(offsetX, -0.5f, 0.0f) }); // 아래 가로
+
+	// ㅐ
+	lines.push_back({ new CVertex(offsetX + 0.5f,  1.0f, 0.0f), new CVertex(offsetX + 0.5f, -1.0f, 0.0f) }); // 세로
+	lines.push_back({ new CVertex(offsetX + 0.5f,  0.0f, 0.0f), new CVertex(offsetX + 1.0f,  0.0f, 0.0f) }); // 가로
+	lines.push_back({ new CVertex(offsetX + 1.0f,  1.0f, 0.0f), new CVertex(offsetX + 1.0f, -1.0f, 0.0f) }); // ㅣ 세로
+
+	offsetX += letterGap;
+
+
+	// ㅁ
+	lines.push_back({ new CVertex(offsetX - 1.0f,  1.0f, 0.0f), new CVertex(offsetX + 1.0f,  1.0f, 0.0f) }); // 위 가로
+	lines.push_back({ new CVertex(offsetX - 1.0f, -1.0f, 0.0f), new CVertex(offsetX + 1.0f, -1.0f, 0.0f) }); // 아래 가로
+	lines.push_back({ new CVertex(offsetX - 1.0f,  1.0f, 0.0f), new CVertex(offsetX - 1.0f, -1.0f, 0.0f) }); // 왼쪽 수직
+	lines.push_back({ new CVertex(offsetX + 1.0f,  1.0f, 0.0f), new CVertex(offsetX + 1.0f, -1.0f, 0.0f) }); // 오른쪽 수직
+
+	// ㅣ
+	lines.push_back({ new CVertex(offsetX + 1.5f,  1.0f, 0.0f), new CVertex(offsetX + 1.5f, -1.0f, 0.0f) }); // ㅣ 세로
+
+	// ㅇ (받침, 마름모꼴)
+	lines.push_back({ new CVertex(offsetX, -1.5f, 0.0f), new CVertex(offsetX + 0.5f, -2.0f, 0.0f) }); // ↘
+	lines.push_back({ new CVertex(offsetX + 0.5f, -2.0f, 0.0f), new CVertex(offsetX + 1.0f, -1.5f, 0.0f) }); // ↗
+	lines.push_back({ new CVertex(offsetX + 1.0f, -1.5f, 0.0f), new CVertex(offsetX + 0.5f, -1.0f, 0.0f) }); // ↖
+	lines.push_back({ new CVertex(offsetX + 0.5f, -1.0f, 0.0f), new CVertex(offsetX, -1.5f, 0.0f) }); // ↙
+
 
 	LinesToCube(lines);
 
-	//int i;
-	//for (i = 0; i < 3; ++i) {
-	//	CPolygon* pFrontFace = new CPolygon(4);
-	//	pFrontFace->SetVertex(0, CVertex(-fHalfWidth, +fHalfHeight - 2 * i, -fHalfDepth));
-	//	pFrontFace->SetVertex(1, CVertex(+fHalfWidth, +fHalfHeight - 2 * i, -fHalfDepth));
-	//	pFrontFace->SetVertex(2, CVertex(+fHalfWidth, -fHalfHeight - 2 * i, -fHalfDepth));
-	//	pFrontFace->SetVertex(3, CVertex(-fHalfWidth, -fHalfHeight - 2 * i, -fHalfDepth));
-	//	SetPolygon(i * 6, pFrontFace);
-
-	//	CPolygon* pTopFace = new CPolygon(4);
-	//	pTopFace->SetVertex(0, CVertex(-fHalfWidth, +fHalfHeight - 2 * i, +fHalfDepth));
-	//	pTopFace->SetVertex(1, CVertex(+fHalfWidth, +fHalfHeight - 2 * i, +fHalfDepth));
-	//	pTopFace->SetVertex(2, CVertex(+fHalfWidth, +fHalfHeight - 2 * i, -fHalfDepth));
-	//	pTopFace->SetVertex(3, CVertex(-fHalfWidth, +fHalfHeight - 2 * i, -fHalfDepth));
-	//	SetPolygon(i * 6 + 1, pTopFace);
-
-	//	CPolygon* pBackFace = new CPolygon(4);
-	//	pBackFace->SetVertex(0, CVertex(-fHalfWidth, -fHalfHeight - 2 * i, +fHalfDepth));
-	//	pBackFace->SetVertex(1, CVertex(+fHalfWidth, -fHalfHeight - 2 * i, +fHalfDepth));
-	//	pBackFace->SetVertex(2, CVertex(+fHalfWidth, +fHalfHeight - 2 * i, +fHalfDepth));
-	//	pBackFace->SetVertex(3, CVertex(-fHalfWidth, +fHalfHeight - 2 * i, +fHalfDepth));
-	//	SetPolygon(i * 6 + 2, pBackFace);
-
-	//	CPolygon* pBottomFace = new CPolygon(4);
-	//	pBottomFace->SetVertex(0, CVertex(-fHalfWidth, -fHalfHeight - 2 * i, -fHalfDepth));
-	//	pBottomFace->SetVertex(1, CVertex(+fHalfWidth, -fHalfHeight - 2 * i, -fHalfDepth));
-	//	pBottomFace->SetVertex(2, CVertex(+fHalfWidth, -fHalfHeight - 2 * i, +fHalfDepth));
-	//	pBottomFace->SetVertex(3, CVertex(-fHalfWidth, -fHalfHeight - 2 * i, +fHalfDepth));
-	//	SetPolygon(i * 6 + 3, pBottomFace);
-
-	//	CPolygon* pLeftFace = new CPolygon(4);
-	//	pLeftFace->SetVertex(0, CVertex(-fHalfWidth, +fHalfHeight - 2 * i, +fHalfDepth));
-	//	pLeftFace->SetVertex(1, CVertex(-fHalfWidth, +fHalfHeight - 2 * i, -fHalfDepth));
-	//	pLeftFace->SetVertex(2, CVertex(-fHalfWidth, -fHalfHeight - 2 * i, -fHalfDepth));
-	//	pLeftFace->SetVertex(3, CVertex(-fHalfWidth, -fHalfHeight - 2 * i, +fHalfDepth));
-	//	SetPolygon(i * 6 + 4, pLeftFace);
-
-	//	CPolygon* pRightFace = new CPolygon(4);
-	//	pRightFace->SetVertex(0, CVertex(+fHalfWidth, +fHalfHeight - 2 * i, -fHalfDepth));
-	//	pRightFace->SetVertex(1, CVertex(+fHalfWidth, +fHalfHeight - 2 * i, +fHalfDepth));
-	//	pRightFace->SetVertex(2, CVertex(+fHalfWidth, -fHalfHeight - 2 * i, +fHalfDepth));
-	//	pRightFace->SetVertex(3, CVertex(+fHalfWidth, -fHalfHeight - 2 * i, -fHalfDepth));
-	//	SetPolygon(i * 6 + 5, pRightFace);
-
-	//}
-	//fHalfHeight *= 8.0f;
-	//fHalfWidth /= 2.0f;
-	//CPolygon* pFrontFace = new CPolygon(4);
-	//pFrontFace->SetVertex(0, CVertex(-fHalfWidth + 1.0f, +fHalfHeight - 2.0f, -fHalfDepth));
-	//pFrontFace->SetVertex(1, CVertex(+fHalfWidth + 1.0f, +fHalfHeight - 2.0f, -fHalfDepth));
-	//pFrontFace->SetVertex(2, CVertex(+fHalfWidth + 1.0f, -fHalfHeight - 2.0f, -fHalfDepth));
-	//pFrontFace->SetVertex(3, CVertex(-fHalfWidth + 1.0f, -fHalfHeight - 2.0f, -fHalfDepth));
-	//SetPolygon(i * 6, pFrontFace);
-
-	//CPolygon* pTopFace = new CPolygon(4);
-	//pTopFace->SetVertex(0, CVertex(-fHalfWidth + 1.0f, +fHalfHeight - 2.0f, +fHalfDepth));
-	//pTopFace->SetVertex(1, CVertex(+fHalfWidth + 1.0f, +fHalfHeight - 2.0f, +fHalfDepth));
-	//pTopFace->SetVertex(2, CVertex(+fHalfWidth + 1.0f, +fHalfHeight - 2.0f, -fHalfDepth));
-	//pTopFace->SetVertex(3, CVertex(-fHalfWidth + 1.0f, +fHalfHeight - 2.0f, -fHalfDepth));
-	//SetPolygon(i * 6 + 1, pTopFace);
-
-	//CPolygon* pBackFace = new CPolygon(4);
-	//pBackFace->SetVertex(0, CVertex(-fHalfWidth + 1.0f, -fHalfHeight - 2.0f, +fHalfDepth));
-	//pBackFace->SetVertex(1, CVertex(+fHalfWidth + 1.0f, -fHalfHeight - 2.0f, +fHalfDepth));
-	//pBackFace->SetVertex(2, CVertex(+fHalfWidth + 1.0f, +fHalfHeight - 2.0f, +fHalfDepth));
-	//pBackFace->SetVertex(3, CVertex(-fHalfWidth + 1.0f, +fHalfHeight - 2.0f, +fHalfDepth));
-	//SetPolygon(i * 6 + 2, pBackFace);
-
-	//CPolygon* pBottomFace = new CPolygon(4);
-	//pBottomFace->SetVertex(0, CVertex(-fHalfWidth + 1.0f, -fHalfHeight - 2.0f, -fHalfDepth));
-	//pBottomFace->SetVertex(1, CVertex(+fHalfWidth + 1.0f, -fHalfHeight - 2.0f, -fHalfDepth));
-	//pBottomFace->SetVertex(2, CVertex(+fHalfWidth + 1.0f, -fHalfHeight - 2.0f, +fHalfDepth));
-	//pBottomFace->SetVertex(3, CVertex(-fHalfWidth + 1.0f, -fHalfHeight - 2.0f, +fHalfDepth));
-	//SetPolygon(i * 6 + 3, pBottomFace);
-
-	//CPolygon* pLeftFace = new CPolygon(4);
-	//pLeftFace->SetVertex(0, CVertex(-fHalfWidth + 1.0f, +fHalfHeight - 2.0f, +fHalfDepth));
-	//pLeftFace->SetVertex(1, CVertex(-fHalfWidth + 1.0f, +fHalfHeight - 2.0f, -fHalfDepth));
-	//pLeftFace->SetVertex(2, CVertex(-fHalfWidth + 1.0f, -fHalfHeight - 2.0f, -fHalfDepth));
-	//pLeftFace->SetVertex(3, CVertex(-fHalfWidth + 1.0f, -fHalfHeight - 2.0f, +fHalfDepth));
-	//SetPolygon(i * 6 + 4, pLeftFace);
-
-	//CPolygon* pRightFace = new CPolygon(4);
-	//pRightFace->SetVertex(0, CVertex(+fHalfWidth + 1.0f, +fHalfHeight - 2.0f, -fHalfDepth));
-	//pRightFace->SetVertex(1, CVertex(+fHalfWidth + 1.0f, +fHalfHeight - 2.0f, +fHalfDepth));
-	//pRightFace->SetVertex(2, CVertex(+fHalfWidth + 1.0f, -fHalfHeight - 2.0f, +fHalfDepth));
-	//pRightFace->SetVertex(3, CVertex(+fHalfWidth + 1.0f, -fHalfHeight - 2.0f, -fHalfDepth));
-	//SetPolygon(i * 6 + 5, pRightFace);
 	
 
 	m_xmOOBB = BoundingOrientedBox(XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(fHalfWidth, fHalfHeight, fHalfDepth), XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
