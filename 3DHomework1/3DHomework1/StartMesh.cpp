@@ -2,6 +2,31 @@
 #include "Mesh.h"
 #include "GraphicsPipeline.h"
 
+void CNameMesh::Savelines(std::string filename, std::list<std::pair<CVertex*, CVertex*>>& lines)
+{
+	std::ofstream out(filename);
+	for (auto& line : lines)
+	{
+		CVertex* pStart = line.first;
+		CVertex* pEnd = line.second;
+
+		out << pStart->m_xmf3Position.x << ' ' << pStart->m_xmf3Position.y << ' ' << pStart->m_xmf3Position.z << ' '
+			<< pEnd->m_xmf3Position.x << ' ' << pEnd->m_xmf3Position.y << ' ' << pEnd->m_xmf3Position.z << '\n';
+	}
+	out.close();
+}
+
+void CNameMesh::Loadlines(std::string filename, std::list<std::pair<CVertex*, CVertex*>>& lines)
+{
+	std::ifstream in(filename);
+	float sx, sy, sz, ex, ey, ez;
+	while (in >> sx >> sy >> sz >> ex >> ey >> ez)
+	{
+		lines.push_back({ new CVertex(sx, sy, sz), new CVertex(ex, ey, ez) });
+	}
+	in.close();
+}
+
 
 CNameMesh::CNameMesh(float fWidth, float fHeight, float fDepth) : CMesh(24 + 24 + 30 + 54 + 30 + 42 + 18 + 30 + 18 + 24 + 6 + 24)
 {
@@ -17,123 +42,126 @@ CNameMesh::CNameMesh(float fWidth, float fHeight, float fDepth) : CMesh(24 + 24 
 
 	std::list<std::pair<CVertex*, CVertex*>> lines;
 
-	lines.push_back({ new CVertex(offsetX - size,  size, 0.0f), new CVertex(offsetX + size,  size, 0.0f) }); // 위 가로
-	lines.push_back({ new CVertex(offsetX - size,  0.0f, 0.0f), new CVertex(offsetX + size,  0.0f, 0.0f) }); // 중간 가로
-	lines.push_back({ new CVertex(offsetX - size, -size, 0.0f), new CVertex(offsetX + size, -size, 0.0f) }); // 아래 가로
-	lines.push_back({ new CVertex(offsetX + size,  size, 0.0f), new CVertex(offsetX + size, -size, 0.0f) }); // 오른쪽 수직
+	Loadlines("3D게임 프로그래밍.txt", lines);
 
-	// D
+	//lines.push_back({ new CVertex(offsetX - size,  size, 0.0f), new CVertex(offsetX + size,  size, 0.0f) }); // 위 가로
+	//lines.push_back({ new CVertex(offsetX - size,  0.0f, 0.0f), new CVertex(offsetX + size,  0.0f, 0.0f) }); // 중간 가로
+	//lines.push_back({ new CVertex(offsetX - size, -size, 0.0f), new CVertex(offsetX + size, -size, 0.0f) }); // 아래 가로
+	//lines.push_back({ new CVertex(offsetX + size,  size, 0.0f), new CVertex(offsetX + size, -size, 0.0f) }); // 오른쪽 수직
 
-	offsetX += letterGap;
+	//// D
 
-	lines.push_back({ new CVertex(offsetX - size,  size, 0.0f), new CVertex(offsetX - size, -size, 0.0f) }); // 왼쪽 수직
-	lines.push_back({ new CVertex(offsetX - size,  size, 0.0f), new CVertex(offsetX + size,  size * 0.7f, 0.0f) }); // 위 사선
-	lines.push_back({ new CVertex(offsetX + size,  size * 0.7f, 0.0f), new CVertex(offsetX + size,  size * -0.7f, 0.0f) }); // 오른쪽 수직
-	lines.push_back({ new CVertex(offsetX + size,  size * -0.7f, 0.0f), new CVertex(offsetX - size, -size, 0.0f) }); // 아래 사선
+	//offsetX += letterGap;
 
-	offsetX += letterGap;
+	//lines.push_back({ new CVertex(offsetX - size,  size, 0.0f), new CVertex(offsetX - size, -size, 0.0f) }); // 왼쪽 수직
+	//lines.push_back({ new CVertex(offsetX - size,  size, 0.0f), new CVertex(offsetX + size,  size * 0.7f, 0.0f) }); // 위 사선
+	//lines.push_back({ new CVertex(offsetX + size,  size * 0.7f, 0.0f), new CVertex(offsetX + size,  size * -0.7f, 0.0f) }); // 오른쪽 수직
+	//lines.push_back({ new CVertex(offsetX + size,  size * -0.7f, 0.0f), new CVertex(offsetX - size, -size, 0.0f) }); // 아래 사선
 
-
-	// ㄱ
-	//lines.push_back({ new CVertex(offsetX - size,  size, 0.0f), new CVertex(offsetX,  size, 0.0f) });
-	//lines.push_back({ new CVertex(offsetX - size,  size, 0.0f), new CVertex(offsetX - size,  0.0f, 0.0f) });
-	lines.push_back({ new CVertex(offsetX - 1.75f, 1.0f, 0.0f), new CVertex(offsetX - 0.25f, 1.0f, 0.0f) }); // ㄱ 가로
-	lines.push_back({ new CVertex(offsetX - 0.25f, 1.0f, 0.0f), new CVertex(offsetX - 0.25f, -0.5f, 0.0f) }); // ㄱ 수직
+	//offsetX += letterGap;
 
 
-	// ㅔ
-	lines.push_back({ new CVertex(offsetX + 0.5f,  size + 0.5f, 0.0f), new CVertex(offsetX + 0.5f, -size - 0.5f, 0.0f) });
-	lines.push_back({ new CVertex(offsetX + 1.0f,  size + 0.5f, 0.0f), new CVertex(offsetX + 1.0f, -size - 0.5f, 0.0f) });
-	lines.push_back({ new CVertex(offsetX,  0.5f, 0.0f), new CVertex(offsetX + 0.5f,  0.5f, 0.0f) });
+	//// ㄱ
+	////lines.push_back({ new CVertex(offsetX - size,  size, 0.0f), new CVertex(offsetX,  size, 0.0f) });
+	////lines.push_back({ new CVertex(offsetX - size,  size, 0.0f), new CVertex(offsetX - size,  0.0f, 0.0f) });
+	//lines.push_back({ new CVertex(offsetX - 1.75f, 1.0f, 0.0f), new CVertex(offsetX - 0.25f, 1.0f, 0.0f) }); // ㄱ 가로
+	//lines.push_back({ new CVertex(offsetX - 0.25f, 1.0f, 0.0f), new CVertex(offsetX - 0.25f, -0.5f, 0.0f) }); // ㄱ 수직
 
 
-	offsetX += letterGap;
-	// ㅇ (마름모꼴) 좌상단
-	lines.push_back({ new CVertex(offsetX - 0.5f, 1.0f, 0.0f), new CVertex(offsetX, 1.5f, 0.0f) });
-	lines.push_back({ new CVertex(offsetX, 1.5f, 0.0f), new CVertex(offsetX + 0.5f, 1.0f, 0.0f) });
-	lines.push_back({ new CVertex(offsetX + 0.5f, 1.0f, 0.0f), new CVertex(offsetX, 0.5f, 0.0f) });
-	lines.push_back({ new CVertex(offsetX, 0.5f, 0.0f), new CVertex(offsetX - 0.5f, 1.0f, 0.0f) });
-
-	// ㅣ 우상단
-	lines.push_back({ new CVertex(offsetX + 1.0f, 1.5f, 0.0f), new CVertex(offsetX + 1.0f, 0.5f, 0.0f) });
-
-	// ㅁ 하단
-	lines.push_back({ new CVertex(offsetX - 0.5f, 0.0f, 0.0f), new CVertex(offsetX + 0.5f, 0.0f, 0.0f) });
-	lines.push_back({ new CVertex(offsetX + 0.5f, 0.0f, 0.0f), new CVertex(offsetX + 0.5f, -1.0f, 0.0f) });
-	lines.push_back({ new CVertex(offsetX + 0.5f, -1.0f, 0.0f), new CVertex(offsetX - 0.5f, -1.0f, 0.0f) });
-	lines.push_back({ new CVertex(offsetX - 0.5f, -1.0f, 0.0f), new CVertex(offsetX - 0.5f, 0.0f, 0.0f) });
-
-	offsetX += letterGap * 2;
+	//// ㅔ
+	//lines.push_back({ new CVertex(offsetX + 0.5f,  size + 0.5f, 0.0f), new CVertex(offsetX + 0.5f, -size - 0.5f, 0.0f) });
+	//lines.push_back({ new CVertex(offsetX + 1.0f,  size + 0.5f, 0.0f), new CVertex(offsetX + 1.0f, -size - 0.5f, 0.0f) });
+	//lines.push_back({ new CVertex(offsetX,  0.5f, 0.0f), new CVertex(offsetX + 0.5f,  0.5f, 0.0f) });
 
 
-	lines.push_back({ new CVertex(offsetX - 1.0f,  1.0f, 0.0f), new CVertex(offsetX + 1.0f,  1.0f, 0.0f) }); // 위 가로
-	lines.push_back({ new CVertex(offsetX - 1.0f,  0.0f, 0.0f), new CVertex(offsetX + 1.0f,  0.0f, 0.0f) }); // 중간 가로
-	lines.push_back({ new CVertex(offsetX - 0.5f,  1.0f, 0.0f), new CVertex(offsetX - 0.5f, 0.0f, 0.0f) }); // 왼쪽 수직
-	lines.push_back({ new CVertex(offsetX + 0.5f,  1.0f, 0.0f), new CVertex(offsetX + 0.5f, 0.0f, 0.0f) }); // 오른쪽 수직
-	lines.push_back({ new CVertex(offsetX - 1.0f,  -1.5f, 0.0f), new CVertex(offsetX + 1.0f,  -1.5f, 0.0f) });
+	//offsetX += letterGap;
+	//// ㅇ (마름모꼴) 좌상단
+	//lines.push_back({ new CVertex(offsetX - 0.5f, 1.0f, 0.0f), new CVertex(offsetX, 1.5f, 0.0f) });
+	//lines.push_back({ new CVertex(offsetX, 1.5f, 0.0f), new CVertex(offsetX + 0.5f, 1.0f, 0.0f) });
+	//lines.push_back({ new CVertex(offsetX + 0.5f, 1.0f, 0.0f), new CVertex(offsetX, 0.5f, 0.0f) });
+	//lines.push_back({ new CVertex(offsetX, 0.5f, 0.0f), new CVertex(offsetX - 0.5f, 1.0f, 0.0f) });
 
-	offsetX += letterGap;
+	//// ㅣ 우상단
+	//lines.push_back({ new CVertex(offsetX + 1.0f, 1.5f, 0.0f), new CVertex(offsetX + 1.0f, 0.5f, 0.0f) });
 
-	float baseX = offsetX + 1.25f;
+	//// ㅁ 하단
+	//lines.push_back({ new CVertex(offsetX - 0.5f, 0.0f, 0.0f), new CVertex(offsetX + 0.5f, 0.0f, 0.0f) });
+	//lines.push_back({ new CVertex(offsetX + 0.5f, 0.0f, 0.0f), new CVertex(offsetX + 0.5f, -1.0f, 0.0f) });
+	//lines.push_back({ new CVertex(offsetX + 0.5f, -1.0f, 0.0f), new CVertex(offsetX - 0.5f, -1.0f, 0.0f) });
+	//lines.push_back({ new CVertex(offsetX - 0.5f, -1.0f, 0.0f), new CVertex(offsetX - 0.5f, 0.0f, 0.0f) });
 
-	// ㄹ 부분
-	// 1. 위 가로
-	lines.push_back({ new CVertex(baseX,  1.0f, 0.0f), new CVertex(baseX - 1.0f,  1.0f, 0.0f) });
-	// 2. 오른쪽 수직
-	lines.push_back({ new CVertex(baseX,  1.0f, 0.0f), new CVertex(baseX,  0.5f, 0.0f) });
-	// 3. 중간 가로
-	lines.push_back({ new CVertex(baseX,  0.5f, 0.0f), new CVertex(baseX - 1.0f,  0.5f, 0.0f) });
-	// 4. 왼쪽 수직
-	lines.push_back({ new CVertex(baseX - 1.0f,  0.5f, 0.0f), new CVertex(baseX - 1.0f, -0.5f, 0.0f) });
-	// 5. 아래 가로
-	lines.push_back({ new CVertex(baseX - 1.0f, -0.5f, 0.0f), new CVertex(baseX, -0.5f, 0.0f) });
-
-	// ㅗ 부분
-	lines.push_back({ new CVertex(offsetX - 0.25f, -1.5f, 0.0f), new CVertex(offsetX + 1.75f, -1.5f, 0.0f) }); // ㅡ 가로 (늘린 버전)
-	lines.push_back({ new CVertex(offsetX + 0.75f, -1.5f, 0.0f), new CVertex(offsetX + 0.75f, -1.0f, 0.0f) }); // ㅣ 세로 (변화 없음)
-
-	offsetX += letterGap;
+	//offsetX += letterGap * 2;
 
 
+	//lines.push_back({ new CVertex(offsetX - 1.0f,  1.0f, 0.0f), new CVertex(offsetX + 1.0f,  1.0f, 0.0f) }); // 위 가로
+	//lines.push_back({ new CVertex(offsetX - 1.0f,  0.0f, 0.0f), new CVertex(offsetX + 1.0f,  0.0f, 0.0f) }); // 중간 가로
+	//lines.push_back({ new CVertex(offsetX - 0.5f,  1.0f, 0.0f), new CVertex(offsetX - 0.5f, 0.0f, 0.0f) }); // 왼쪽 수직
+	//lines.push_back({ new CVertex(offsetX + 0.5f,  1.0f, 0.0f), new CVertex(offsetX + 0.5f, 0.0f, 0.0f) }); // 오른쪽 수직
+	//lines.push_back({ new CVertex(offsetX - 1.0f,  -1.5f, 0.0f), new CVertex(offsetX + 1.0f,  -1.5f, 0.0f) });
 
-	//그
-	lines.push_back({ new CVertex(offsetX - 1.0f,  1.0f, 0.0f), new CVertex(offsetX + 0.5f,  1.0f, 0.0f) }); // ㄱ 가로
-	lines.push_back({ new CVertex(offsetX + 0.5f,  1.0f, 0.0f), new CVertex(offsetX + 0.5f, -0.5f, 0.0f) }); // ㄱ 수직
-	lines.push_back({ new CVertex(offsetX - 1.0f, -1.0f, 0.0f), new CVertex(offsetX + 1.0f, -1.0f, 0.0f) }); // ㅡ 가로
+	//offsetX += letterGap;
 
-	offsetX += letterGap;
+	//float baseX = offsetX + 1.25f;
+
+	//// ㄹ 부분
+	//// 1. 위 가로
+	//lines.push_back({ new CVertex(baseX,  1.0f, 0.0f), new CVertex(baseX - 1.0f,  1.0f, 0.0f) });
+	//// 2. 오른쪽 수직
+	//lines.push_back({ new CVertex(baseX,  1.0f, 0.0f), new CVertex(baseX,  0.5f, 0.0f) });
+	//// 3. 중간 가로
+	//lines.push_back({ new CVertex(baseX,  0.5f, 0.0f), new CVertex(baseX - 1.0f,  0.5f, 0.0f) });
+	//// 4. 왼쪽 수직
+	//lines.push_back({ new CVertex(baseX - 1.0f,  0.5f, 0.0f), new CVertex(baseX - 1.0f, -0.5f, 0.0f) });
+	//// 5. 아래 가로
+	//lines.push_back({ new CVertex(baseX - 1.0f, -0.5f, 0.0f), new CVertex(baseX, -0.5f, 0.0f) });
+
+	//// ㅗ 부분
+	//lines.push_back({ new CVertex(offsetX - 0.25f, -1.5f, 0.0f), new CVertex(offsetX + 1.75f, -1.5f, 0.0f) }); // ㅡ 가로 (늘린 버전)
+	//lines.push_back({ new CVertex(offsetX + 0.75f, -1.5f, 0.0f), new CVertex(offsetX + 0.75f, -1.0f, 0.0f) }); // ㅣ 세로 (변화 없음)
+
+	//offsetX += letterGap;
 
 
-	// ㄹ
-	lines.push_back({ new CVertex(offsetX,  1.0f, 0.0f), new CVertex(offsetX - 1.0f,  1.0f, 0.0f) }); // 위 가로
-	lines.push_back({ new CVertex(offsetX,  1.0f, 0.0f), new CVertex(offsetX,  0.5f, 0.0f) }); // 오른쪽 수직
-	lines.push_back({ new CVertex(offsetX,  0.5f, 0.0f), new CVertex(offsetX - 1.0f,  0.5f, 0.0f) }); // 중간 가로
-	lines.push_back({ new CVertex(offsetX - 1.0f,  0.5f, 0.0f), new CVertex(offsetX - 1.0f, -0.5f, 0.0f) }); // 왼쪽 수직
-	lines.push_back({ new CVertex(offsetX - 1.0f, -0.5f, 0.0f), new CVertex(offsetX, -0.5f, 0.0f) }); // 아래 가로
 
-	// ㅐ
-	lines.push_back({ new CVertex(offsetX + 0.5f,  1.0f, 0.0f), new CVertex(offsetX + 0.5f, -1.0f, 0.0f) }); // 세로
-	lines.push_back({ new CVertex(offsetX + 0.5f,  0.0f, 0.0f), new CVertex(offsetX + 1.0f,  0.0f, 0.0f) }); // 가로
-	lines.push_back({ new CVertex(offsetX + 1.0f,  1.0f, 0.0f), new CVertex(offsetX + 1.0f, -1.0f, 0.0f) }); // ㅣ 세로
+	////그
+	//lines.push_back({ new CVertex(offsetX - 1.0f,  1.0f, 0.0f), new CVertex(offsetX + 0.5f,  1.0f, 0.0f) }); // ㄱ 가로
+	//lines.push_back({ new CVertex(offsetX + 0.5f,  1.0f, 0.0f), new CVertex(offsetX + 0.5f, -0.5f, 0.0f) }); // ㄱ 수직
+	//lines.push_back({ new CVertex(offsetX - 1.0f, -1.0f, 0.0f), new CVertex(offsetX + 1.0f, -1.0f, 0.0f) }); // ㅡ 가로
 
-	offsetX += letterGap;
+	//offsetX += letterGap;
 
 
-	// ㅁ
-	lines.push_back({ new CVertex(offsetX - 1.0f,  1.0f, 0.0f), new CVertex(offsetX + 1.0f,  1.0f, 0.0f) }); // 위 가로
-	lines.push_back({ new CVertex(offsetX - 1.0f, -1.0f, 0.0f), new CVertex(offsetX + 1.0f, -1.0f, 0.0f) }); // 아래 가로
-	lines.push_back({ new CVertex(offsetX - 1.0f,  1.0f, 0.0f), new CVertex(offsetX - 1.0f, -1.0f, 0.0f) }); // 왼쪽 수직
-	lines.push_back({ new CVertex(offsetX + 1.0f,  1.0f, 0.0f), new CVertex(offsetX + 1.0f, -1.0f, 0.0f) }); // 오른쪽 수직
+	//// ㄹ
+	//lines.push_back({ new CVertex(offsetX,  1.0f, 0.0f), new CVertex(offsetX - 1.0f,  1.0f, 0.0f) }); // 위 가로
+	//lines.push_back({ new CVertex(offsetX,  1.0f, 0.0f), new CVertex(offsetX,  0.5f, 0.0f) }); // 오른쪽 수직
+	//lines.push_back({ new CVertex(offsetX,  0.5f, 0.0f), new CVertex(offsetX - 1.0f,  0.5f, 0.0f) }); // 중간 가로
+	//lines.push_back({ new CVertex(offsetX - 1.0f,  0.5f, 0.0f), new CVertex(offsetX - 1.0f, -0.5f, 0.0f) }); // 왼쪽 수직
+	//lines.push_back({ new CVertex(offsetX - 1.0f, -0.5f, 0.0f), new CVertex(offsetX, -0.5f, 0.0f) }); // 아래 가로
 
-	// ㅣ
-	lines.push_back({ new CVertex(offsetX + 1.5f,  1.0f, 0.0f), new CVertex(offsetX + 1.5f, -1.0f, 0.0f) }); // ㅣ 세로
+	//// ㅐ
+	//lines.push_back({ new CVertex(offsetX + 0.5f,  1.0f, 0.0f), new CVertex(offsetX + 0.5f, -1.0f, 0.0f) }); // 세로
+	//lines.push_back({ new CVertex(offsetX + 0.5f,  0.0f, 0.0f), new CVertex(offsetX + 1.0f,  0.0f, 0.0f) }); // 가로
+	//lines.push_back({ new CVertex(offsetX + 1.0f,  1.0f, 0.0f), new CVertex(offsetX + 1.0f, -1.0f, 0.0f) }); // ㅣ 세로
 
-	// ㅇ (받침, 마름모꼴)
-	lines.push_back({ new CVertex(offsetX, -1.5f, 0.0f), new CVertex(offsetX + 0.5f, -2.0f, 0.0f) }); // ↘
-	lines.push_back({ new CVertex(offsetX + 0.5f, -2.0f, 0.0f), new CVertex(offsetX + 1.0f, -1.5f, 0.0f) }); // ↗
-	lines.push_back({ new CVertex(offsetX + 1.0f, -1.5f, 0.0f), new CVertex(offsetX + 0.5f, -1.0f, 0.0f) }); // ↖
-	lines.push_back({ new CVertex(offsetX + 0.5f, -1.0f, 0.0f), new CVertex(offsetX, -1.5f, 0.0f) }); // ↙
+	//offsetX += letterGap;
 
+
+	//// ㅁ
+	//lines.push_back({ new CVertex(offsetX - 1.0f,  1.0f, 0.0f), new CVertex(offsetX + 1.0f,  1.0f, 0.0f) }); // 위 가로
+	//lines.push_back({ new CVertex(offsetX - 1.0f, -1.0f, 0.0f), new CVertex(offsetX + 1.0f, -1.0f, 0.0f) }); // 아래 가로
+	//lines.push_back({ new CVertex(offsetX - 1.0f,  1.0f, 0.0f), new CVertex(offsetX - 1.0f, -1.0f, 0.0f) }); // 왼쪽 수직
+	//lines.push_back({ new CVertex(offsetX + 1.0f,  1.0f, 0.0f), new CVertex(offsetX + 1.0f, -1.0f, 0.0f) }); // 오른쪽 수직
+
+	//// ㅣ
+	//lines.push_back({ new CVertex(offsetX + 1.5f,  1.0f, 0.0f), new CVertex(offsetX + 1.5f, -1.0f, 0.0f) }); // ㅣ 세로
+
+	//// ㅇ (받침, 마름모꼴)
+	//lines.push_back({ new CVertex(offsetX, -1.5f, 0.0f), new CVertex(offsetX + 0.5f, -2.0f, 0.0f) }); // ↘
+	//lines.push_back({ new CVertex(offsetX + 0.5f, -2.0f, 0.0f), new CVertex(offsetX + 1.0f, -1.5f, 0.0f) }); // ↗
+	//lines.push_back({ new CVertex(offsetX + 1.0f, -1.5f, 0.0f), new CVertex(offsetX + 0.5f, -1.0f, 0.0f) }); // ↖
+	//lines.push_back({ new CVertex(offsetX + 0.5f, -1.0f, 0.0f), new CVertex(offsetX, -1.5f, 0.0f) }); // ↙
+
+	//Savelines("3D게임 프로그래밍.txt", lines);
 
 	LinesToCube(lines);
 

@@ -14,6 +14,8 @@ CStartScene::~CStartScene()
 
 }
 
+
+
 void CStartScene::BuildObjects()
 {
 	CExplosiveObject::PrepareExplosion();

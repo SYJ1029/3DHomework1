@@ -87,6 +87,9 @@ public:
 	virtual ~CNameMesh();
 	virtual void SingleLineToCube(CVertex*, CVertex*, float, int);
 	virtual void LinesToCube(std::list<std::pair<CVertex*, CVertex*>>& lines);
+
+	void Savelines(std::string filename, std::list<std::pair<CVertex*, CVertex*>>& lines);
+	void Loadlines(std::string filename, std::list<std::pair<CVertex*, CVertex*>>& lines);
 };
 
 class CAxisMesh : public CMesh

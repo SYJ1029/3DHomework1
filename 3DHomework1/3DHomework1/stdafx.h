@@ -22,9 +22,11 @@
 
 //C++ 런타임 헤더 파일입니다
 #include <iostream>
+#include <fstream>
 #include <memory>
 #include <list>
 #include <array>
+#include <string>
 
 
 //D3DMath 헤더 파일입니다
