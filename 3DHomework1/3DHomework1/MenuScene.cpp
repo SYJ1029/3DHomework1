@@ -23,8 +23,9 @@ void CStartScene::BuildObjects()
 	m_nObjects = 1;
 	m_ppObjects = new CGameObject * [m_nObjects];
 
-	// 3의 경우엔 4개의 CubeMesh면 구성할 수 있다
-	CNameMesh* pNameMesh = new CNameMesh(2.0f, 2.0f, 0.5f);
+	std::list<std::pair<CVertex*, CVertex*>> lines;
+
+	CNameMesh* pNameMesh = new CNameMesh(2.0f, 2.0f, 0.5f, "3D게임 프로그래밍.txt", lines);
 
 	m_ppObjects[0] = new CExplosiveObject();
 	m_ppObjects[0]->SetMesh(pNameMesh);

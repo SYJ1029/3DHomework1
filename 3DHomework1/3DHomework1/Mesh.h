@@ -84,12 +84,13 @@ class CNameMesh : public CMesh
 {
 public:
 	CNameMesh(float fWidth, float fHeight, float fDepth);
+	CNameMesh(float fWidth, float fHeight, float fDepth, std::string filename, std::list<std::pair<CVertex*, CVertex*>>&);
 	virtual ~CNameMesh();
 	virtual void SingleLineToCube(CVertex*, CVertex*, float, int);
 	virtual void LinesToCube(std::list<std::pair<CVertex*, CVertex*>>& lines);
 
-	void Savelines(std::string filename, std::list<std::pair<CVertex*, CVertex*>>& lines);
-	void Loadlines(std::string filename, std::list<std::pair<CVertex*, CVertex*>>& lines);
+	void Savelines(std::string filename, std::list<std::pair<CVertex*, CVertex*>>&);
+	void Loadlines(std::string filename, std::list<std::pair<CVertex*, CVertex*>>&);
 };
 
 class CAxisMesh : public CMesh
