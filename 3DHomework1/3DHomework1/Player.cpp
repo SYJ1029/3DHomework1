@@ -177,11 +177,11 @@ void CTankPlayer::Render(HDC hDCFrameBuffer, CCamera* pCamera)
 void CTankPlayer::FireBullet(CGameObject* pLockedObject)
 {
 
-	if (pLockedObject) 
-	{
-		LookAt(pLockedObject->GetPosition(), XMFLOAT3(0.0f, 1.0f, 0.0f));
-		OnUpdateTransform();
-	}
+	//if (pLockedObject) 
+	//{
+	//	LookAt(pLockedObject->GetPosition(), XMFLOAT3(0.0f, 1.0f, 0.0f));
+	//	OnUpdateTransform();
+	//}
 
 
 	CBulletObject* pBulletObject = NULL;

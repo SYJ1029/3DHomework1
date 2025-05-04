@@ -24,7 +24,7 @@ private:
 
 	CPlayer*					m_pPlayer = NULL;
 	CBaseScene*						m_pScene = NULL;
-	CGameObject*				m_pLockedObject = NULL;
+	/*CGameObject*				m_pLockedObject = NULL;*/
 
 	CGameTimer					m_GameTimer;
 

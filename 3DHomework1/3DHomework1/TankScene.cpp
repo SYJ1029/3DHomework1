@@ -26,7 +26,7 @@ void CTankScene::BuildObjects()
 	CWallMesh* pWallCubeMesh = new CWallMesh(fHalfWidth * 2.0f, fHalfHeight * 2.0f, fHalfDepth * 2.0f, 30);
 
 	m_pWallsObject = new CWallsObject();
-	m_pWallsObject->SetPosition(0.0f, 0.0f, 0.0f);
+	m_pWallsObject->SetPosition(0.0f, 45.0f, 0.0f);
 	m_pWallsObject->SetMesh(pWallCubeMesh);
 	m_pWallsObject->SetColor(RGB(0, 0, 0));
 	m_pWallsObject->m_pxmf4WallPlanes[0] = XMFLOAT4(+1.0f, 0.0f, 0.0f, fHalfWidth);
@@ -46,7 +46,7 @@ void CTankScene::BuildObjects()
 	m_ppObjects[0]->SetMesh(pTankMesh);
 	m_ppObjects[0]->SetColor(RGB(255, 0, 0));
 	m_ppObjects[0]->SetPosition(-13.5f, 0.0f, -14.0f);
-	m_ppObjects[0]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 1.0f));
+	m_ppObjects[0]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
 	m_ppObjects[0]->SetRotationSpeed(90.0f);
 	m_ppObjects[0]->SetMovingDirection(XMFLOAT3(1.0f, 0.0f, 0.0f));
 	m_ppObjects[0]->SetMovingSpeed(10.5f);
@@ -55,7 +55,7 @@ void CTankScene::BuildObjects()
 	m_ppObjects[1]->SetMesh(pTankMesh);
 	m_ppObjects[1]->SetColor(RGB(0, 0, 255));
 	m_ppObjects[1]->SetPosition(+13.5f, 0.0f, -14.0f);
-	m_ppObjects[1]->SetRotationAxis(XMFLOAT3(1.0f, 1.0f, 0.0f));
+	m_ppObjects[1]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
 	m_ppObjects[1]->SetRotationSpeed(180.0f);
 	m_ppObjects[1]->SetMovingDirection(XMFLOAT3(-1.0f, 0.0f, 0.0f));
 	m_ppObjects[1]->SetMovingSpeed(8.8f);
@@ -63,9 +63,9 @@ void CTankScene::BuildObjects()
 	m_ppObjects[2] = new CExplosiveObject();
 	m_ppObjects[2]->SetMesh(pTankMesh);
 	m_ppObjects[2]->SetColor(RGB(0, 255, 0));
-	m_ppObjects[2]->SetPosition(0.0f, +5.0f, 20.0f);
-	m_ppObjects[2]->SetRotationAxis(XMFLOAT3(1.0f, 1.0f, 0.0f));
-	m_ppObjects[2]->SetRotationSpeed(30.15f);
+	m_ppObjects[2]->SetPosition(0.0f, 0.0f, 20.0f);
+	m_ppObjects[2]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
+	m_ppObjects[2]->SetRotationSpeed(0.0);
 	m_ppObjects[2]->SetMovingDirection(XMFLOAT3(1.0f, -1.0f, 0.0f));
 	m_ppObjects[2]->SetMovingSpeed(5.2f);
 
@@ -73,8 +73,8 @@ void CTankScene::BuildObjects()
 	m_ppObjects[3]->SetMesh(pTankMesh);
 	m_ppObjects[3]->SetColor(RGB(0, 255, 255));
 	m_ppObjects[3]->SetPosition(0.0f, 0.0f, 0.0f);
-	m_ppObjects[3]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 1.0f));
-	m_ppObjects[3]->SetRotationSpeed(40.6f);
+	m_ppObjects[3]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
+	m_ppObjects[3]->SetRotationSpeed(20.0f);
 	m_ppObjects[3]->SetMovingDirection(XMFLOAT3(0.0f, 0.0f, 1.0f));
 	m_ppObjects[3]->SetMovingSpeed(20.4f);
 
@@ -99,7 +99,7 @@ void CTankScene::BuildObjects()
 	m_ppObjects[6] = new CExplosiveObject();
 	m_ppObjects[6]->SetMesh(pTankMesh);
 	m_ppObjects[6]->SetColor(RGB(255, 0, 255));
-	m_ppObjects[6]->SetPosition(-10.0f, 10.0f, -10.0f);
+	m_ppObjects[6]->SetPosition(-10.0f, 0.0f, -10.0f);
 	m_ppObjects[6]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
 	m_ppObjects[6]->SetRotationSpeed(60.06f);
 	m_ppObjects[6]->SetMovingDirection(XMFLOAT3(1.0f, 1.0f, 1.0f));
@@ -108,7 +108,7 @@ void CTankScene::BuildObjects()
 	m_ppObjects[7] = new CExplosiveObject();
 	m_ppObjects[7]->SetMesh(pTankMesh);
 	m_ppObjects[7]->SetColor(RGB(255, 0, 128));
-	m_ppObjects[7]->SetPosition(-10.0f, 10.0f, -20.0f);
+	m_ppObjects[7]->SetPosition(-10.0f, 0.0f, -20.0f);
 	m_ppObjects[7]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
 	m_ppObjects[7]->SetRotationSpeed(70.06f);
 	m_ppObjects[7]->SetMovingDirection(XMFLOAT3(-1.0f, 1.0f, 1.0f));
@@ -117,8 +117,8 @@ void CTankScene::BuildObjects()
 	m_ppObjects[8] = new CExplosiveObject();
 	m_ppObjects[8]->SetMesh(pTankMesh);
 	m_ppObjects[8]->SetColor(RGB(128, 0, 255));
-	m_ppObjects[8]->SetPosition(-15.0f, 10.0f, -30.0f);
-	m_ppObjects[8]->SetRotationAxis(XMFLOAT3(1.0f, 1.0f, 0.0f));
+	m_ppObjects[8]->SetPosition(-15.0f, 0.0f, -30.0f);
+	m_ppObjects[8]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
 	m_ppObjects[8]->SetRotationSpeed(90.06f);
 	m_ppObjects[8]->SetMovingDirection(XMFLOAT3(0.0f, 0.0f, -1.0f));
 	m_ppObjects[8]->SetMovingSpeed(15.0f);
@@ -126,8 +126,8 @@ void CTankScene::BuildObjects()
 	m_ppObjects[9] = new CExplosiveObject();
 	m_ppObjects[9]->SetMesh(pTankMesh);
 	m_ppObjects[9]->SetColor(RGB(255, 64, 64));
-	m_ppObjects[9]->SetPosition(+15.0f, 10.0f, 0.0f);
-	m_ppObjects[9]->SetRotationAxis(XMFLOAT3(1.0f, 1.0f, 0.0f));
+	m_ppObjects[9]->SetPosition(+15.0f, 0.0f, 0.0f);
+	m_ppObjects[9]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
 	m_ppObjects[9]->SetRotationSpeed(90.06f);
 	m_ppObjects[9]->SetMovingDirection(XMFLOAT3(-0.0f, 0.0f, -1.0f));
 	m_ppObjects[9]->SetMovingSpeed(15.0f);
@@ -155,6 +155,26 @@ void CTankScene::ReleaseObjects()
 
 void CTankScene::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
 {
+	switch (nMessageID)
+	{
+	case WM_LBUTTONDOWN:
+		::SetCapture(hWnd);
+		break;
+	case WM_RBUTTONDOWN:
+		m_pLockedObject = PickObjectPointedByCursor(LOWORD(lParam), HIWORD(lParam), m_pPlayer->m_pCamera);
+		break;
+	case WM_LBUTTONUP:
+		::ReleaseCapture();
+		break;
+	case WM_RBUTTONUP:
+		break;
+	case WM_MOUSEMOVE:
+		break;
+	default:
+		break;
+	}
+
+
 }
 
 void CTankScene::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
@@ -167,6 +187,14 @@ void CTankScene::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM 
 		case VK_ESCAPE:
 			Setlevel(3);
 			SetScene();
+			break;
+		case '0':
+
+			for (int i = 0; i < m_nObjects; i++)
+			{
+				CExplosiveObject* pExplosiveObject = (CExplosiveObject*)m_ppObjects[i];
+				pExplosiveObject->m_bBlowingUp = true;
+			}
 			break;
 		case '1':
 		case '2':
@@ -183,11 +211,7 @@ void CTankScene::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM 
 			break;
 		}
 		case 'A':
-			for (int i = 0; i < m_nObjects; i++)
-			{
-				CExplosiveObject* pExplosiveObject = (CExplosiveObject*)m_ppObjects[i];
-				pExplosiveObject->m_bBlowingUp = true;
-			}
+			((CTankPlayer*)m_pPlayer)->FireBullet(m_pLockedObject);
 			break;
 		default:
 			break;

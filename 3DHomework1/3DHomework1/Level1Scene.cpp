@@ -67,7 +67,7 @@ void CLevel1Scene::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARA
 			Setlevel(3);
 			SetScene();
 			break;
-		case VK_BACK:
+		case 'N':
 			Setlevel(2);
 			SetScene();
 			break;
