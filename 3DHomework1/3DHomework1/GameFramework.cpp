@@ -119,10 +119,7 @@ void CGameFramework::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM
 		break;
 	}
 
-	if (m_pScene != nullptr && m_pScene->levelFlag) {
-		BuildObjects();
-		m_pScene->levelFlag = false;
-	}
+
 }
 
 void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
@@ -153,10 +150,7 @@ void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPA
 		break;
 	}
 
-	if (m_pScene != nullptr && m_pScene->levelFlag) {
-		BuildObjects();
-		m_pScene->levelFlag = false;
-	}
+
 }
 
 LRESULT CALLBACK CGameFramework::OnProcessingWindowMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
@@ -229,6 +223,11 @@ void CGameFramework::AnimateObjects()
 	float fTimeElapsed = m_GameTimer.GetTimeElapsed();
 	if (m_pPlayer) m_pPlayer->Animate(fTimeElapsed);
 	if (m_pScene) m_pScene->Animate(fTimeElapsed);
+
+	if (m_pScene != nullptr && m_pScene->levelFlag) {
+		BuildObjects();
+		m_pScene->levelFlag = false;
+	}
 }
 
 void CGameFramework::FrameAdvance()
