@@ -25,12 +25,15 @@ void CMenuScene::CheckLevel(CGameObject* picked)
 		break;
 	case 0:
 		Setlevel(1);
+		SetScene();
 		break;
 	case -1:
 		Setlevel(1);
+		SetScene();
 		break;
 	case -2:
 		Setlevel(2);
+		SetScene();
 		break;
 	case -3:
 		::PostQuitMessage(0);
