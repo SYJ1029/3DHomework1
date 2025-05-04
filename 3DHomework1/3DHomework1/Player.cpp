@@ -63,7 +63,7 @@ void CPlayer::Move(float x, float y, float z)
 
 void CPlayer::Rotate(float fPitch, float fYaw, float fRoll)
 {
-	m_pCamera->Rotate(fPitch, fYaw, fRoll);
+	m_pCamera->Rotate(0, fYaw, 0);
 	//if (fPitch != 0.0f)
 	//{
 	//	XMMATRIX mtxRotate = XMMatrixRotationAxis(XMLoadFloat3(&m_xmf3Right), XMConvertToRadians(fPitch));

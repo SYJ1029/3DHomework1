@@ -38,8 +38,9 @@ void CTankScene::BuildObjects()
 	m_pWallsObject->m_xmOOBBPlayerMoveCheck = BoundingOrientedBox(XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(fHalfWidth, fHalfHeight, fHalfDepth * 0.05f), XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
 
 	CTankMesh* pTankMesh = new CTankMesh(4.0f, 1.0f, 4.0f);
+	CCubeMesh* pCubeMesh = new CCubeMesh(4.0f, 2.0f, 1.0f);
 
-	m_nObjects = 10;
+	m_nObjects = 15;
 	m_ppObjects = new CGameObject * [m_nObjects];
 
 	m_ppObjects[0] = new CExplosiveObject();
@@ -131,6 +132,52 @@ void CTankScene::BuildObjects()
 	m_ppObjects[9]->SetRotationSpeed(90.06f);
 	m_ppObjects[9]->SetMovingDirection(XMFLOAT3(-0.0f, 0.0f, -1.0f));
 	m_ppObjects[9]->SetMovingSpeed(15.0f);
+
+
+	m_ppObjects[10] = new CGameObject();
+	m_ppObjects[10]->SetMesh(pCubeMesh);
+	m_ppObjects[10]->SetColor(RGB(255, 64, 64));
+	m_ppObjects[10]->SetPosition(+20.0f, 0.0f, 10.0f);
+	m_ppObjects[10]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
+	m_ppObjects[10]->SetRotationSpeed(0.0f);
+	m_ppObjects[10]->SetMovingDirection(XMFLOAT3(0.0f, 0.0f, 1.0f));
+	m_ppObjects[10]->SetMovingSpeed(0.0f);
+
+	m_ppObjects[11] = new CGameObject();
+	m_ppObjects[11]->SetMesh(pCubeMesh);
+	m_ppObjects[11]->SetColor(RGB(255, 64, 64));
+	m_ppObjects[11]->SetPosition(+20.0f, 0.0f, 10.0f);
+	m_ppObjects[11]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
+	m_ppObjects[11]->SetRotationSpeed(0.0f);
+	m_ppObjects[11]->SetMovingDirection(XMFLOAT3(0.0f, 0.0f, 1.0f));
+	m_ppObjects[11]->SetMovingSpeed(0.0f);
+
+	m_ppObjects[12] = new CGameObject();
+	m_ppObjects[12]->SetMesh(pCubeMesh);
+	m_ppObjects[12]->SetColor(RGB(255, 64, 64));
+	m_ppObjects[12]->SetPosition(-10.0f, 0.0f, 3.0f);
+	m_ppObjects[12]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
+	m_ppObjects[12]->SetRotationSpeed(0.0f);
+	m_ppObjects[12]->SetMovingDirection(XMFLOAT3(0.0f, 0.0f, 1.0f));
+	m_ppObjects[12]->SetMovingSpeed(0.0f);
+
+	m_ppObjects[13] = new CGameObject();
+	m_ppObjects[13]->SetMesh(pCubeMesh);
+	m_ppObjects[13]->SetColor(RGB(255, 64, 64));
+	m_ppObjects[13]->SetPosition(26.0f, 0.0f, 5.0f);
+	m_ppObjects[13]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
+	m_ppObjects[13]->SetRotationSpeed(0.0f);
+	m_ppObjects[13]->SetMovingDirection(XMFLOAT3(0.0f, 0.0f, 1.0f));
+	m_ppObjects[13]->SetMovingSpeed(0.0f);
+
+	m_ppObjects[14] = new CGameObject();
+	m_ppObjects[14]->SetMesh(pCubeMesh);
+	m_ppObjects[14]->SetColor(RGB(255, 64, 64));
+	m_ppObjects[14]->SetPosition(+5.0f, 0.0f, 30.0f);
+	m_ppObjects[14]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
+	m_ppObjects[14]->SetRotationSpeed(0.0f);
+	m_ppObjects[14]->SetMovingDirection(XMFLOAT3(0.0f, 0.0f, 1.0f));
+	m_ppObjects[14]->SetMovingSpeed(0.0f);
 
 #ifdef _WITH_DRAW_AXIS
 	m_pWorldAxis = new CGameObject();
@@ -238,11 +285,13 @@ CGameObject* CTankScene::PickObjectPointedByCursor(int xClient, int yClient, CCa
 	for (int i = 0; i < m_nObjects; i++)
 	{
 		float fHitDistance = FLT_MAX;
-		nIntersected = m_ppObjects[i]->PickObjectByRayIntersection(xmvPickPosition, xmmtxView, &fHitDistance);
-		if ((nIntersected > 0) && (fHitDistance < fNearestHitDistance))
-		{
-			fNearestHitDistance = fHitDistance;
-			pNearestObject = m_ppObjects[i];
+		if (m_ppObjects[i]->m_bActive) {
+			nIntersected = m_ppObjects[i]->PickObjectByRayIntersection(xmvPickPosition, xmmtxView, &fHitDistance);
+			if ((nIntersected > 0) && (fHitDistance < fNearestHitDistance) && i < 10)
+			{
+				fNearestHitDistance = fHitDistance;
+				pNearestObject = m_ppObjects[i];
+			}
 		}
 	}
 	return(pNearestObject);
@@ -282,6 +331,7 @@ void CTankScene::CheckObjectByWallCollisions()
 {
 	for (int i = 0; i < m_nObjects; i++)
 	{
+		if (m_ppObjects[i]->m_bActive == false) continue;
 		ContainmentType containType = m_pWallsObject->m_xmOOBB.Contains(m_ppObjects[i]->m_xmOOBB);
 		switch (containType)
 		{
@@ -347,7 +397,7 @@ void CTankScene::CheckObjectByBulletCollisions()
 	{
 		for (int j = 0; j < BULLETS; j++)
 		{
-			if (ppBullets[j]->m_bActive && m_ppObjects[i]->m_xmOOBB.Intersects(ppBullets[j]->m_xmOOBB))
+			if (ppBullets[j]->m_bActive && (m_ppObjects[i]->m_bActive) && m_ppObjects[i]->m_xmOOBB.Intersects(ppBullets[j]->m_xmOOBB))
 			{
 				CExplosiveObject* pExplosiveObject = (CExplosiveObject*)m_ppObjects[i];
 				pExplosiveObject->m_bBlowingUp = true;
@@ -361,7 +411,8 @@ void CTankScene::Animate(float fElapsedTime)
 {
 	m_pWallsObject->Animate(fElapsedTime);
 
-	for (int i = 0; i < m_nObjects; i++) m_ppObjects[i]->Animate(fElapsedTime);
+	for (int i = 0; i < m_nObjects; i++) 
+		if(m_ppObjects[i]->m_bActive)m_ppObjects[i]->Animate(fElapsedTime);
 
 	CheckPlayerByWallCollision();
 
@@ -370,6 +421,7 @@ void CTankScene::Animate(float fElapsedTime)
 	CheckObjectByObjectCollisions();
 
 	CheckObjectByBulletCollisions();
+
 }
 
 void CTankScene::Render(HDC hDCFrameBuffer, CCamera* pCamera)
@@ -378,7 +430,8 @@ void CTankScene::Render(HDC hDCFrameBuffer, CCamera* pCamera)
 
 	CGraphicsPipeline::SetViewPerspectiveProjectTransform(&pCamera->m_xmf4x4ViewPerspectiveProject);
 	m_pWallsObject->Render(hDCFrameBuffer, pCamera);
-	for (int i = 0; i < m_nObjects; i++) m_ppObjects[i]->Render(hDCFrameBuffer, pCamera);
+	for (int i = 0; i < m_nObjects; i++) 
+		if (m_ppObjects[i]->m_bActive)m_ppObjects[i]->Render(hDCFrameBuffer, pCamera);
 
 	if (m_pPlayer) m_pPlayer->Render(hDCFrameBuffer, pCamera);
 
