@@ -13,12 +13,12 @@ public:
 	virtual ~CBaseScene();
 private:
 	int							m_nObjects = 0;
-	int							level = 3;
-	CGameObject** m_ppObjects = NULL;
+	CGameObject**				m_ppObjects = NULL;
 
-	CWallsObject* m_pWallsObject = NULL;
+	CWallsObject*				m_pWallsObject = NULL;
 protected:
-	CPlayer* m_pPlayer = NULL;
+	int							level = 0;
+	CPlayer*					m_pPlayer = NULL;
 public:
 	BOOL						levelFlag = false;
 
@@ -54,8 +54,8 @@ public:
 	virtual ~CStartScene();
 private:
 	int							m_nObjects = 0;
-	CGameObject** m_ppObjects = NULL;
-	CExplosiveObject* pExplosiveObject = NULL;
+	CGameObject**				m_ppObjects = NULL;
+	CExplosiveObject*			pExplosiveObject = NULL;
 
 public:
 	BOOL						levelFlag = false;
@@ -82,10 +82,11 @@ public:
 	virtual ~CMenuScene();
 private:
 	int							m_nObjects = 0;
-	CGameObject** m_ppObjects = NULL;
-
+	CGameObject**				m_ppObjects = NULL;
 public:
 	BOOL						levelFlag = false;
+
+	void CheckLevel(CGameObject*);
 
 	virtual void BuildObjects();
 	virtual void ReleaseObjects();
