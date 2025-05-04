@@ -20,7 +20,7 @@ void CStartScene::BuildObjects()
 {
 	CExplosiveObject::PrepareExplosion();
 
-	m_nObjects = 1;
+	m_nObjects = 2;
 	m_ppObjects = new CGameObject * [m_nObjects];
 
 	std::list<std::pair<CVertex*, CVertex*>> lines;
@@ -30,42 +30,24 @@ void CStartScene::BuildObjects()
 	m_ppObjects[0] = new CExplosiveObject();
 	m_ppObjects[0]->SetMesh(pNameMesh);
 	m_ppObjects[0]->SetColor(RGB(255, 0, 0));
-	m_ppObjects[0]->SetPosition(0.0f, 2.0f, 0.0f);
+	m_ppObjects[0]->SetPosition(0.0f, 4.0f, 4.0f);
 	m_ppObjects[0]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
 	m_ppObjects[0]->SetRotationSpeed(90.0f);
 	m_ppObjects[0]->SetMovingDirection(XMFLOAT3(1.0f, 0.0f, 0.0f));
 	m_ppObjects[0]->SetMovingSpeed(0.0f);
 
-	/*m_ppObjects[1] = new CExplosiveObject();
-	m_ppObjects[1]->SetMesh(pCubeMesh);
+	CNameMesh* pNameMesh2 = new CNameMesh(2.0f, 2.0f, 0.5f, "¼Û¿µÁØ.txt", lines);
+
+	m_ppObjects[1] = new CExplosiveObject();
+	m_ppObjects[1]->SetMesh(pNameMesh2);
 	m_ppObjects[1]->SetColor(RGB(255, 0, 0));
 	m_ppObjects[1]->SetPosition(0.0f, 0.0f, 0.0f);
 	m_ppObjects[1]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
-	m_ppObjects[1]->SetRotationSpeed(0.0f);
+	m_ppObjects[1]->SetRotationSpeed(90.0f);
 	m_ppObjects[1]->SetMovingDirection(XMFLOAT3(1.0f, 0.0f, 0.0f));
 	m_ppObjects[1]->SetMovingSpeed(0.0f);
 
-	m_ppObjects[2] = new CExplosiveObject();
-	m_ppObjects[2]->SetMesh(pCubeMesh);
-	m_ppObjects[2]->SetColor(RGB(255, 0, 0));
-	m_ppObjects[2]->SetPosition(0.0f, -2.0f, 0.0f);
-	m_ppObjects[2]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
-	m_ppObjects[2]->SetRotationSpeed(0.0f);
-	m_ppObjects[2]->SetMovingDirection(XMFLOAT3(1.0f, 0.0f, 0.0f));
-	m_ppObjects[2]->SetMovingSpeed(0.0f);
-
-	pCubeMesh->Release();
-
-	pCubeMesh = new CCubeMesh(0.75f, 5.0f, 1.0f);
-
-	m_ppObjects[3] = new CExplosiveObject();
-	m_ppObjects[3]->SetMesh(pCubeMesh);
-	m_ppObjects[3]->SetColor(RGB(255, 0, 0));
-	m_ppObjects[3]->SetPosition(1.0f, 0.0f, 0.0f);
-	m_ppObjects[3]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
-	m_ppObjects[3]->SetRotationSpeed(0.0f);
-	m_ppObjects[3]->SetMovingDirection(XMFLOAT3(1.0f, 0.0f, 0.0f));
-	m_ppObjects[3]->SetMovingSpeed(0.0f);*/
+	
 	
 	//CNameMesh* pNameMesh = new CNameMesh(4.0f, 1.0f, 4.0f);
 	//m_ppObjects[m_nObjects]->SetMesh(pNameMesh);
