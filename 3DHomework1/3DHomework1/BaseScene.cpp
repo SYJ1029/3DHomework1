@@ -64,7 +64,7 @@ void CBaseScene::CheckObjectByBulletCollisions()
 
 void CBaseScene::SetPlayer(CPlayer* pPlayer)
 {
-
+	m_pPlayer = pPlayer;
 }
 
 void CBaseScene::Animate(float fElapsedTime)

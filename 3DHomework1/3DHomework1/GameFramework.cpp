@@ -104,18 +104,24 @@ void CGameFramework::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM
 	{
 	case WM_RBUTTONDOWN:
 	case WM_LBUTTONDOWN:
-		::SetCapture(hWnd);
+		//::SetCapture(hWnd);
 		::GetCursorPos(&m_ptOldCursorPos);
-		if (nMessageID == WM_RBUTTONDOWN) m_pLockedObject = m_pScene->PickObjectPointedByCursor(LOWORD(lParam), HIWORD(lParam), m_pPlayer->m_pCamera);
+		if (nMessageID == WM_RBUTTONDOWN) 
+			m_pLockedObject = m_pScene->PickObjectPointedByCursor(LOWORD(lParam), HIWORD(lParam), m_pPlayer->m_pCamera);
 		break;
 	case WM_LBUTTONUP:
 	case WM_RBUTTONUP:
-		::ReleaseCapture();
+		//::ReleaseCapture();
 		break;
 	case WM_MOUSEMOVE:
 		break;
 	default:
 		break;
+	}
+
+	if (m_pScene != nullptr && m_pScene->levelFlag) {
+		BuildObjects();
+		m_pScene->levelFlag = false;
 	}
 }
 

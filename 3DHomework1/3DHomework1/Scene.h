@@ -17,7 +17,7 @@ private:
 	CGameObject** m_ppObjects = NULL;
 
 	CWallsObject* m_pWallsObject = NULL;
-
+protected:
 	CPlayer* m_pPlayer = NULL;
 public:
 	BOOL						levelFlag = false;
@@ -55,6 +55,7 @@ public:
 private:
 	int							m_nObjects = 0;
 	CGameObject** m_ppObjects = NULL;
+	CExplosiveObject* pExplosiveObject = NULL;
 
 public:
 	BOOL						levelFlag = false;
@@ -64,6 +65,7 @@ public:
 
 	virtual void Animate(float fElapsedTime);
 	virtual void Render(HDC hDCFrameBuffer, CCamera* pCamera);
+
 
 	virtual void OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam);
 	virtual void OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam);
