@@ -19,11 +19,14 @@
     <Filter Include="소스 파일\Scene\Base">
       <UniqueIdentifier>{9cd29590-48f4-46b3-8e6f-9e09fc920fc8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Scene\UseRendering">
-      <UniqueIdentifier>{37d97e5f-81b1-45f1-908a-d01ed7826822}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\Mesh">
       <UniqueIdentifier>{2762342f-ee5e-4019-a9ea-b5dc769a8ca7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Scene\Game">
+      <UniqueIdentifier>{0b7de5bc-982e-408f-8560-638716be2bdb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Scene\Menu">
+      <UniqueIdentifier>{559bfbf8-b262-48bb-8f96-84d915501a42}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -92,23 +95,23 @@
     <ClCompile Include="BaseScene.cpp">
       <Filter>소스 파일\Scene\Base</Filter>
     </ClCompile>
-    <ClCompile Include="Level1Scene.cpp">
-      <Filter>소스 파일\Scene\UseRendering</Filter>
-    </ClCompile>
-    <ClCompile Include="MenuScene.cpp">
-      <Filter>소스 파일\Scene\UseRendering</Filter>
-    </ClCompile>
-    <ClCompile Include="TankScene.cpp">
-      <Filter>소스 파일\Scene\UseRendering</Filter>
-    </ClCompile>
     <ClCompile Include="Mesh.cpp">
       <Filter>소스 파일\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="StartMesh.cpp">
       <Filter>소스 파일\Mesh</Filter>
     </ClCompile>
+    <ClCompile Include="Level1Scene.cpp">
+      <Filter>소스 파일\Scene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="TankScene.cpp">
+      <Filter>소스 파일\Scene\Game</Filter>
+    </ClCompile>
     <ClCompile Include="StartScene.cpp">
-      <Filter>소스 파일\Scene\UseRendering</Filter>
+      <Filter>소스 파일\Scene\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuScene.cpp">
+      <Filter>소스 파일\Scene\Menu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

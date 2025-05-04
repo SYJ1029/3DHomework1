@@ -19,6 +19,11 @@ void CNameMesh::Savelines(std::string filename, std::list<std::pair<CVertex*, CV
 void CNameMesh::Loadlines(std::string filename, std::list<std::pair<CVertex*, CVertex*>>& lines)
 {
 	std::ifstream in(filename);
+
+	if (in.is_open() == false) {
+		return;
+	}
+
 	float sx, sy, sz, ex, ey, ez;
 	while (in >> sx >> sy >> sz >> ex >> ey >> ez)
 	{

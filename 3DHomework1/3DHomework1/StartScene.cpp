@@ -57,7 +57,7 @@ void CStartScene::ReleaseObjects()
 void CStartScene::Animate(float fElapsedTime)
 {
 	if (pExplosiveObject != NULL && !(pExplosiveObject->m_bBlowingUp) && pExplosiveObject->m_bBlowingUp == false) {
-		Setlevel(1);
+		Setlevel(3);
 	}
 
 	for (int i = 0; i < m_nObjects; i++) {
