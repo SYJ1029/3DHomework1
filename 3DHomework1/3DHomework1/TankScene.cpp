@@ -66,7 +66,7 @@ void CTankScene::BuildObjects()
 	m_ppObjects[2]->SetPosition(0.0f, 0.0f, 20.0f);
 	m_ppObjects[2]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
 	m_ppObjects[2]->SetRotationSpeed(0.0);
-	m_ppObjects[2]->SetMovingDirection(XMFLOAT3(1.0f, -1.0f, 0.0f));
+	m_ppObjects[2]->SetMovingDirection(XMFLOAT3(1.0f, 0.0f, 0.0f));
 	m_ppObjects[2]->SetMovingSpeed(5.2f);
 
 	m_ppObjects[3] = new CExplosiveObject();
@@ -84,7 +84,7 @@ void CTankScene::BuildObjects()
 	m_ppObjects[4]->SetPosition(10.0f, 0.0f, 0.0f);
 	m_ppObjects[4]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
 	m_ppObjects[4]->SetRotationSpeed(50.06f);
-	m_ppObjects[4]->SetMovingDirection(XMFLOAT3(0.0f, 1.0f, 1.0f));
+	m_ppObjects[4]->SetMovingDirection(XMFLOAT3(0.0f, 0.0f, 1.0f));
 	m_ppObjects[4]->SetMovingSpeed(6.4f);
 
 	m_ppObjects[5] = new CExplosiveObject();
@@ -102,7 +102,7 @@ void CTankScene::BuildObjects()
 	m_ppObjects[6]->SetPosition(-10.0f, 0.0f, -10.0f);
 	m_ppObjects[6]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
 	m_ppObjects[6]->SetRotationSpeed(60.06f);
-	m_ppObjects[6]->SetMovingDirection(XMFLOAT3(1.0f, 1.0f, 1.0f));
+	m_ppObjects[6]->SetMovingDirection(XMFLOAT3(1.0f, 0.0f, 1.0f));
 	m_ppObjects[6]->SetMovingSpeed(9.7f);
 
 	m_ppObjects[7] = new CExplosiveObject();
@@ -111,7 +111,7 @@ void CTankScene::BuildObjects()
 	m_ppObjects[7]->SetPosition(-10.0f, 0.0f, -20.0f);
 	m_ppObjects[7]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
 	m_ppObjects[7]->SetRotationSpeed(70.06f);
-	m_ppObjects[7]->SetMovingDirection(XMFLOAT3(-1.0f, 1.0f, 1.0f));
+	m_ppObjects[7]->SetMovingDirection(XMFLOAT3(-1.0f, 0.0f, 1.0f));
 	m_ppObjects[7]->SetMovingSpeed(15.6f);
 
 	m_ppObjects[8] = new CExplosiveObject();
@@ -337,7 +337,7 @@ void CTankScene::CheckPlayerByWallCollision()
 	m_pWallsObject->m_xmOOBBPlayerMoveCheck.Transform(xmOOBBPlayerMoveCheck, XMLoadFloat4x4(&m_pWallsObject->m_xmf4x4World));
 	XMStoreFloat4(&xmOOBBPlayerMoveCheck.Orientation, XMQuaternionNormalize(XMLoadFloat4(&xmOOBBPlayerMoveCheck.Orientation)));
 
-	if (!xmOOBBPlayerMoveCheck.Intersects(m_pPlayer->m_xmOOBB)) m_pWallsObject->SetPosition(m_pPlayer->m_xmf3Position);
+	//if (!xmOOBBPlayerMoveCheck.Intersects(m_pPlayer->m_xmOOBB)) m_pWallsObject->SetPosition(m_pPlayer->m_xmf3Position);
 }
 
 void CTankScene::CheckObjectByBulletCollisions()
