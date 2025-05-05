@@ -126,7 +126,7 @@ public:
 	BOOL						levelFlag = false;
 
 
-	void MoveByLine(std::list<std::pair<CVertex*, CVertex*>>&);
+	void MoveByLine(std::list<std::pair<CVertex*, CVertex*>>&, float);
 
 	virtual void BuildObjects();
 	virtual void ReleaseObjects();

@@ -72,6 +72,8 @@ void CLevel1Scene::Animate(float fElapsedTime)
 		m_ppObjects[i]->Animate(fElapsedTime);
 	
 	}
+
+	MoveByLine(lines, fElapsedTime);
 	m_pPlayer->Animate(fElapsedTime);
 }
 void CLevel1Scene::Render(HDC hDCFrameBuffer, CCamera* pCamera)
@@ -132,15 +134,15 @@ CGameObject* CLevel1Scene::PickObjectPointedByCursor(int xClient, int yClient, C
 	return NULL;
 }
 
-void CLevel1Scene::MoveByLine(std::list<std::pair<CVertex*, CVertex*>>& lines)
+void CLevel1Scene::MoveByLine(std::list<std::pair<CVertex*, CVertex*>>& lines, float fElapsedTime)
 {
 
 	auto [start, end] = lines.front();
+	
 
-	const Line& currentLine = course[currentLineIndex];
 
-	XMVECTOR playerPos = XMLoadFloat3(&playerPosition);
-	XMVECTOR endPos = XMLoadFloat3(&currentLine.end);
+	XMVECTOR playerPos = XMLoadFloat3(&m_pPlayer->m_xmf3Position);
+	XMVECTOR endPos = XMLoadFloat3(&end->m_xmf3Position);
 
 	XMVECTOR dir = XMVectorSubtract(endPos, playerPos);
 	dir = XMVector3Normalize(dir);
@@ -149,13 +151,17 @@ void CLevel1Scene::MoveByLine(std::list<std::pair<CVertex*, CVertex*>>& lines)
 	float speed = 5.0f; // 예시
 
 	// 이동
-	playerPos = XMVectorAdd(playerPos, XMVectorScale(dir, speed * deltaTime));
-	XMStoreFloat3(&playerPosition, playerPos);
+	playerPos = XMVectorAdd(playerPos, XMVectorScale(dir, speed * fElapsedTime));
+	XMStoreFloat3(&m_pPlayer->m_xmf3Position, playerPos);
 
 	// 목표에 거의 다 왔으면 다음 선으로
 	XMVECTOR diff = XMVectorSubtract(endPos, playerPos);
 	if (XMVectorGetX(XMVector3Length(diff)) < 0.1f) {
-		playerPosition = currentLine.end; // 목표 위치 정밀 보정
-		currentLineIndex++;
+		m_pPlayer->SetPosition(end->m_xmf3Position.x, end->m_xmf3Position.y, end->m_xmf3Position.z);
+		lines.pop_front();
+		if (lines.size() <= 0) {
+			Setlevel(2);
+		}
+		
 	}
 }
