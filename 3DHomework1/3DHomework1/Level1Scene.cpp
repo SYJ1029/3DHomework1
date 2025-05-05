@@ -22,7 +22,7 @@ void CLevel1Scene::BuildObjects()
 	m_nObjects = 1;
 	m_ppObjects = new CGameObject * [m_nObjects];
 
-	CNameMesh* pNameMesh = new CNameMesh(24.0f, 4.0f, 2.0f, "Rail.txt", lines);
+	CNameMesh* pNameMesh = new CNameMesh(150.0f, 125.0f, 120.0f, "Rail.txt", lines);
 
 	pNameMesh->Loadlines("Rail.txt", lines);
 
