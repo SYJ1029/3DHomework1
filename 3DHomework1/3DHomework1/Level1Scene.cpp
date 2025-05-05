@@ -14,6 +14,11 @@ CLevel1Scene::~CLevel1Scene()
 
 void CLevel1Scene::BuildObjects()
 {
+
+	CCubeMesh* pCubeMesh = new CCubeMesh(2.0f, 1.0f, 2.0f);
+
+	m_pPlayer->SetMesh(pCubeMesh);
+
 	m_nObjects = 1;
 	m_ppObjects = new CGameObject * [m_nObjects];
 

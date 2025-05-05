@@ -46,6 +46,8 @@ void CMenuScene::CheckLevel(CGameObject* picked)
 
 void CMenuScene::BuildObjects()
 {
+	
+
 	CExplosiveObject::PrepareExplosion();
 
 	m_nObjects = 5;

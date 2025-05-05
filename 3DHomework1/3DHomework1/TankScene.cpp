@@ -20,6 +20,12 @@ void CTankScene::SetPlayer(CPlayer* pPlayer)
 
 void CTankScene::BuildObjects()
 {
+
+
+	CTankMesh* pTankMesh = new CTankMesh(4.0f, 1.0f, 4.0f);
+	CCubeMesh* pCubeMesh = new CCubeMesh(4.0f, 2.0f, 1.0f);
+
+
 	CExplosiveObject::PrepareExplosion();
 
 	float fHalfWidth = 45.0f, fHalfHeight = 45.0f, fHalfDepth = 200.0f;
@@ -37,8 +43,6 @@ void CTankScene::BuildObjects()
 	m_pWallsObject->m_pxmf4WallPlanes[5] = XMFLOAT4(0.0f, 0.0f, -1.0f, fHalfDepth);
 	m_pWallsObject->m_xmOOBBPlayerMoveCheck = BoundingOrientedBox(XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(fHalfWidth, fHalfHeight, fHalfDepth * 0.05f), XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
 
-	CTankMesh* pTankMesh = new CTankMesh(4.0f, 1.0f, 4.0f);
-	CCubeMesh* pCubeMesh = new CCubeMesh(4.0f, 2.0f, 1.0f);
 
 	m_nObjects = 15;
 	m_ppObjects = new CGameObject * [m_nObjects];
@@ -432,8 +436,6 @@ void CTankScene::Render(HDC hDCFrameBuffer, CCamera* pCamera)
 	m_pWallsObject->Render(hDCFrameBuffer, pCamera);
 	for (int i = 0; i < m_nObjects; i++) 
 		if (m_ppObjects[i]->m_bActive)m_ppObjects[i]->Render(hDCFrameBuffer, pCamera);
-
-	if (m_pPlayer) m_pPlayer->Render(hDCFrameBuffer, pCamera);
 
 //UI
 #ifdef _WITH_DRAW_AXIS
