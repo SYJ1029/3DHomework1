@@ -51,7 +51,10 @@ void CStartScene::BuildObjects()
 }
 void CStartScene::ReleaseObjects()
 {
+	if (CExplosiveObject::m_pExplosionMesh) CExplosiveObject::m_pExplosionMesh->Release();
 
+	for (int i = 0; i < m_nObjects; i++) if (m_ppObjects[i]) delete m_ppObjects[i];
+	if (m_ppObjects) delete[] m_ppObjects;
 }
 
 void CStartScene::Animate(float fElapsedTime)
