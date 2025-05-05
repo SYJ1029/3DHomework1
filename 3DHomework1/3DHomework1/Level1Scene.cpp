@@ -29,7 +29,7 @@ void CLevel1Scene::BuildObjects()
 	m_ppObjects[0] = new CExplosiveObject();
 	m_ppObjects[0]->SetMesh(pNameMesh);
 	m_ppObjects[0]->SetColor(RGB(255, 0, 0));
-	m_ppObjects[0]->SetPosition(-3.0f, 3.0f, 10.0f);
+	m_ppObjects[0]->SetPosition(0.0f, 0.0f, 0.0f);
 	m_ppObjects[0]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
 	m_ppObjects[0]->SetRotationSpeed(0.0f);
 	m_ppObjects[0]->SetMovingDirection(XMFLOAT3(1.0f, 0.0f, 0.0f));
@@ -86,7 +86,21 @@ void CLevel1Scene::Render(HDC hDCFrameBuffer, CCamera* pCamera)
 
 void CLevel1Scene::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
 {
-
+	switch (nMessageID)
+	{
+	case WM_LBUTTONDOWN:
+		::SetCapture(hWnd);
+		break;
+	case WM_LBUTTONUP:
+		::ReleaseCapture();
+		break;
+	case WM_RBUTTONUP:
+		break;
+	case WM_MOUSEMOVE:
+		break;
+	default:
+		break;
+	}
 }
 void CLevel1Scene::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
 {
