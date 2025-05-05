@@ -148,7 +148,7 @@ void CLevel1Scene::MoveByLine(std::list<std::pair<CVertex*, CVertex*>>& lines, f
 	dir = XMVector3Normalize(dir);
 
 	// 이동 속도
-	float speed = 5.0f; // 예시
+	float speed = 10.0f; // 예시
 
 	// 이동
 	playerPos = XMVectorAdd(playerPos, XMVectorScale(dir, speed * fElapsedTime));
