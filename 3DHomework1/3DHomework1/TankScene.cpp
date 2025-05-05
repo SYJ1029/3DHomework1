@@ -23,12 +23,29 @@ void CTankScene::BuildObjects()
 
 
 	CTankMesh* pTankMesh = new CTankMesh(4.0f, 1.0f, 4.0f);
-	CCubeMesh* pCubeMesh = new CCubeMesh(4.0f, 2.0f, 1.0f);
+	CCubeMesh* pShieldMesh = new CCubeMesh(4.0f, 3.0f, 4.0f);
+	CCubeMesh* pCubeMesh = new CCubeMesh(6.0f, 4.0f, 1.0f);
+
+
+
 
 
 	CExplosiveObject::PrepareExplosion();
 
 	float fHalfWidth = 45.0f, fHalfHeight = 45.0f, fHalfDepth = 200.0f;
+
+
+	m_pShieldObject = new CExplosiveObject();
+	m_pShieldObject->SetMesh(pShieldMesh);
+	m_pShieldObject->SetColor(RGB(0, 0, 0));
+	m_pShieldObject->SetPosition(0.0f, 1.0f, 0.0f);
+	m_pShieldObject->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
+	m_pShieldObject->SetRotationSpeed(0.0f);
+	m_pShieldObject->SetMovingDirection(XMFLOAT3(1.0f, 0.0f, 0.0f));
+	m_pShieldObject->SetMovingSpeed(0.0f);
+	m_pShieldObject->SetActive(false);
+
+
 	CWallMesh* pWallCubeMesh = new CWallMesh(fHalfWidth * 2.0f, fHalfHeight * 2.0f, fHalfDepth * 2.0f, 30);
 
 	m_pWallsObject = new CWallsObject();
@@ -183,6 +200,9 @@ void CTankScene::BuildObjects()
 	m_ppObjects[14]->SetMovingDirection(XMFLOAT3(0.0f, 0.0f, 1.0f));
 	m_ppObjects[14]->SetMovingSpeed(0.0f);
 
+
+	
+
 #ifdef _WITH_DRAW_AXIS
 	m_pWorldAxis = new CGameObject();
 	CAxisMesh* pAxisMesh = new CAxisMesh(0.5f, 0.5f, 0.5f);
@@ -264,9 +284,16 @@ void CTankScene::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM 
 		case 'A':
 			((CTankPlayer*)m_pPlayer)->FireBullet(m_pLockedObject);
 			break;
+		case 'S':
+		{
+			m_pShieldObject->SetActive(true);
+		}
 		default:
 			break;
 		}
+		break;
+	case WM_KEYUP:
+		m_pShieldObject->SetActive(false);
 		break;
 	default:
 		break;
@@ -418,6 +445,9 @@ void CTankScene::Animate(float fElapsedTime)
 	for (int i = 0; i < m_nObjects; i++) 
 		if(m_ppObjects[i]->m_bActive)m_ppObjects[i]->Animate(fElapsedTime);
 
+	if (m_pWinObject)m_pWinObject->Animate(fElapsedTime);
+	if (m_pShieldObject)m_pShieldObject->Animate(fElapsedTime);
+
 	CheckPlayerByWallCollision();
 
 	CheckObjectByWallCollisions();
@@ -426,7 +456,10 @@ void CTankScene::Animate(float fElapsedTime)
 
 	CheckObjectByBulletCollisions();
 
+
 }
+
+
 
 void CTankScene::Render(HDC hDCFrameBuffer, CCamera* pCamera)
 {
@@ -438,6 +471,33 @@ void CTankScene::Render(HDC hDCFrameBuffer, CCamera* pCamera)
 		if (m_ppObjects[i]->m_bActive)m_ppObjects[i]->Render(hDCFrameBuffer, pCamera);
 
 	if (m_pPlayer)m_pPlayer->Render(hDCFrameBuffer, pCamera);
+	if (m_pShieldObject && m_pShieldObject->m_bActive == true)m_pShieldObject->Render(hDCFrameBuffer, pCamera);
+	if (m_pWinObject)m_pWinObject->Render(hDCFrameBuffer, pCamera);
+
+	winFlag = true;
+
+	for (int i = 0; i < 10; i++) {
+		if (m_ppObjects[i]->m_bActive) {
+			winFlag = false;
+			break;
+		}
+	}
+
+	if (winFlag == true) {
+		CNameMesh* pNameMesh = new CNameMesh(24.0f, 4.0f, 2.0f, "You Win!.txt", lines);
+
+		m_pWinObject = new CExplosiveObject();
+		m_pWinObject->SetMesh(pNameMesh);
+		m_pWinObject->SetColor(RGB(255, 0, 0));
+		if(m_pPlayer)
+			m_pWinObject->SetPosition(m_pPlayer->m_xmf3Position.x + 3.0f, m_pPlayer->m_xmf3Position.y + 2.0f, m_pPlayer->m_xmf3Position.z);
+		else
+			m_pWinObject->SetPosition(3.0f, 0.0f, 0.0f);
+		m_pWinObject->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
+		m_pWinObject->SetRotationSpeed(0.0f);
+		m_pWinObject->SetMovingDirection(XMFLOAT3(1.0f, 0.0f, 0.0f));
+		m_pWinObject->SetMovingSpeed(0.0f);
+	}
 //UI
 #ifdef _WITH_DRAW_AXIS
 	CGraphicsPipeline::SetViewOrthographicProjectTransform(&pCamera->m_xmf4x4ViewOrthographicProject);

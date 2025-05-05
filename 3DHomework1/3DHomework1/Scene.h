@@ -116,6 +116,8 @@ private:
 
 	CPlayer* m_pPlayer = NULL;
 
+	
+
 #ifdef _WITH_DRAW_AXIS
 	CGameObject* m_pWorldAxis = NULL;
 #endif
@@ -166,13 +168,18 @@ private:
 	CPlayer*					m_pPlayer = NULL;
 
 	CGameObject* m_pLockedObject = NULL;
+	CGameObject* m_pShieldObject = NULL;
+	CGameObject* m_pWinObject = NULL;
 
 #ifdef _WITH_DRAW_AXIS
 	CGameObject*				m_pWorldAxis = NULL;
 #endif
+protected:
+	std::list<std::pair<CVertex*, CVertex*>> lines;
 
 public:
 	BOOL						levelFlag = false;
+	BOOL						winFlag = false;
 
 	virtual void BuildObjects();
 	virtual void ReleaseObjects();
