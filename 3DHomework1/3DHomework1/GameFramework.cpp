@@ -71,16 +71,30 @@ void CGameFramework::BuildObjects()
 
 	pCamera->GenerateOrthographicProjectionMatrix(1.01f, 50.0f, FRAMEBUFFER_WIDTH, FRAMEBUFFER_HEIGHT);
 
-	CTankMesh* pTankMesh = new CTankMesh(4.0f, 1.0f, 4.0f);
 
-	m_pPlayer = new CTankPlayer();
-	m_pPlayer->SetPosition(0.0f, 0.0f, 0.0f);
-	m_pPlayer->SetMesh(pTankMesh);
-	m_pPlayer->SetColor(RGB(0, 0, 255));
-	m_pPlayer->SetCamera(pCamera);
-	m_pPlayer->SetCameraOffset(XMFLOAT3(0.0f, 5.0f, -15.0f));
 
 	m_pScene = m_pScene->SetScene();
+
+	if (m_pScene->GetLevel() != 1) {
+		CTankMesh* pMesh = new CTankMesh(4.0f, 1.0f, 4.0f);
+
+		m_pPlayer = new CTankPlayer();
+		m_pPlayer->SetPosition(0.0f, 0.0f, 0.0f);
+		m_pPlayer->SetMesh(pMesh);
+		m_pPlayer->SetColor(RGB(0, 0, 255));
+		m_pPlayer->SetCamera(pCamera);
+		m_pPlayer->SetCameraOffset(XMFLOAT3(0.0f, 5.0f, -15.0f));
+	}
+	else {
+		CTankMesh* pMesh = new CTankMesh(4.0f, 1.0f, 4.0f);
+
+		m_pPlayer = new CTankPlayer();
+		m_pPlayer->SetPosition(0.0f, 0.0f, 0.0f);
+		m_pPlayer->SetMesh(pMesh);
+		m_pPlayer->SetColor(RGB(0, 0, 255));
+		m_pPlayer->SetCamera(pCamera);
+		m_pPlayer->SetCameraOffset(XMFLOAT3(0.0f, 5.0f, -15.0f));
+	}
 	m_pScene->SetPlayer(m_pPlayer);
 	m_pScene->BuildObjects();
 }

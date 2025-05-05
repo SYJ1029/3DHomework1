@@ -35,6 +35,11 @@ CBaseScene* CBaseScene::SetScene()
 	return new CBaseScene();
 }
 
+int CBaseScene::GetLevel()
+{
+
+	return level;
+}
 
 void CBaseScene::BuildObjects()
 {

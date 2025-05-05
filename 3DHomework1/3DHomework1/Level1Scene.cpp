@@ -22,9 +22,9 @@ void CLevel1Scene::BuildObjects()
 	m_nObjects = 1;
 	m_ppObjects = new CGameObject * [m_nObjects];
 
-	std::list<std::pair<CVertex*, CVertex*>> lines;
-
 	CNameMesh* pNameMesh = new CNameMesh(24.0f, 4.0f, 2.0f, "Rail.txt", lines);
+
+	pNameMesh->Loadlines("Rail.txt", lines);
 
 	m_ppObjects[0] = new CExplosiveObject();
 	m_ppObjects[0]->SetMesh(pNameMesh);
@@ -130,4 +130,32 @@ CGameObject* CLevel1Scene::PickObjectPointedByCursor(int xClient, int yClient, C
 {
 
 	return NULL;
+}
+
+void CLevel1Scene::MoveByLine(std::list<std::pair<CVertex*, CVertex*>>& lines)
+{
+
+	auto [start, end] = lines.front();
+
+	const Line& currentLine = course[currentLineIndex];
+
+	XMVECTOR playerPos = XMLoadFloat3(&playerPosition);
+	XMVECTOR endPos = XMLoadFloat3(&currentLine.end);
+
+	XMVECTOR dir = XMVectorSubtract(endPos, playerPos);
+	dir = XMVector3Normalize(dir);
+
+	// 이동 속도
+	float speed = 5.0f; // 예시
+
+	// 이동
+	playerPos = XMVectorAdd(playerPos, XMVectorScale(dir, speed * deltaTime));
+	XMStoreFloat3(&playerPosition, playerPos);
+
+	// 목표에 거의 다 왔으면 다음 선으로
+	XMVECTOR diff = XMVectorSubtract(endPos, playerPos);
+	if (XMVectorGetX(XMVector3Length(diff)) < 0.1f) {
+		playerPosition = currentLine.end; // 목표 위치 정밀 보정
+		currentLineIndex++;
+	}
 }

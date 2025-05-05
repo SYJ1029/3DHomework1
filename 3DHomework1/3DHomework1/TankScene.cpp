@@ -437,6 +437,7 @@ void CTankScene::Render(HDC hDCFrameBuffer, CCamera* pCamera)
 	for (int i = 0; i < m_nObjects; i++) 
 		if (m_ppObjects[i]->m_bActive)m_ppObjects[i]->Render(hDCFrameBuffer, pCamera);
 
+	if (m_pPlayer)m_pPlayer->Render(hDCFrameBuffer, pCamera);
 //UI
 #ifdef _WITH_DRAW_AXIS
 	CGraphicsPipeline::SetViewOrthographicProjectTransform(&pCamera->m_xmf4x4ViewOrthographicProject);

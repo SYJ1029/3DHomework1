@@ -156,8 +156,10 @@
     <ClCompile Include="MenuScene.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="RollerCosterPlayer.cpp" />
     <ClCompile Include="StartMesh.cpp" />
     <ClCompile Include="StartScene.cpp" />
+    <ClCompile Include="TankPlayer.cpp" />
     <ClCompile Include="TankScene.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Timer.cpp" />

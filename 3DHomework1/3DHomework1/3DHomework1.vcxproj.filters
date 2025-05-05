@@ -28,6 +28,9 @@
     <Filter Include="소스 파일\Scene\Menu">
       <UniqueIdentifier>{559bfbf8-b262-48bb-8f96-84d915501a42}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Player">
+      <UniqueIdentifier>{99e59011-31ca-467d-8a42-f79ec8fea811}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -83,9 +86,6 @@
     <ClCompile Include="GraphicsPipeline.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -112,6 +112,15 @@
     </ClCompile>
     <ClCompile Include="MenuScene.cpp">
       <Filter>소스 파일\Scene\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>소스 파일\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="TankPlayer.cpp">
+      <Filter>소스 파일\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="RollerCosterPlayer.cpp">
+      <Filter>소스 파일\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

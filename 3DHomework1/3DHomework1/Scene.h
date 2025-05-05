@@ -24,6 +24,7 @@ public:
 
 	void Setlevel(int newLevel);
 	CBaseScene* SetScene();
+	int GetLevel();
 
 	virtual void BuildObjects();
 	virtual void ReleaseObjects();
@@ -118,9 +119,14 @@ private:
 #ifdef _WITH_DRAW_AXIS
 	CGameObject* m_pWorldAxis = NULL;
 #endif
+protected:
+	std::list<std::pair<CVertex*, CVertex*>> lines;
 
 public:
 	BOOL						levelFlag = false;
+
+
+	void MoveByLine(std::list<std::pair<CVertex*, CVertex*>>&);
 
 	virtual void BuildObjects();
 	virtual void ReleaseObjects();
