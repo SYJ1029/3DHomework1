@@ -25,6 +25,9 @@
 #include <random>
 #include <numeric>
 #include <iostream>
+#include <fstream>
+#include <string>
+#include <list>
 
 #define RANDOM_COLOR XMFLOAT4(rand() / float(RAND_MAX), rand() / float(RAND_MAX), rand() / float(RAND_MAX), rand() / float(RAND_MAX))
 #include <d3d12.h>

@@ -113,6 +113,9 @@
     <ClCompile Include="FMeshBuilder.cpp">
       <Filter>Mesh</Filter>
     </ClCompile>
+    <ClCompile Include="AffinObject.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">

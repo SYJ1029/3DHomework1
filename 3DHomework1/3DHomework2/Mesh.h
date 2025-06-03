@@ -96,3 +96,21 @@ public:
 		XMFLOAT4 xmf4Color = XMFLOAT4(1.0f, 1.0f, 0.0f, 0.0f));
 	virtual ~CTankMeshDiffused();
 };
+
+
+class CMeshBuilder : public CMesh
+{
+public: 
+	CMeshBuilder(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
+		* pd3dCommandList, float fWidth = 20.0f, float fHeight = 20.0f, float fDepth = 4.0f,
+		XMFLOAT4 xmf4Color = XMFLOAT4(1.0f, 1.0f, 0.0f, 0.0f));	
+	CMeshBuilder(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
+		* pd3dCommandList, float fWidth = 20.0f, float fHeight = 20.0f, float fDepth = 4.0f,
+		XMFLOAT4 xmf4Color = XMFLOAT4(1.0f, 1.0f, 0.0f, 0.0f), 
+		std::string filename, std::list<std::pair<CVertex*, CVertex*>>&);
+	virtual ~CMeshBuilder();
+	virtual void SingleLineToCube(CDiffusedVertex*, CDiffusedVertex*, float, int);
+	virtual void LinesToCube(std::list<std::pair<CDiffusedVertex*, CDiffusedVertex*>>& lines);
+
+	void Loadlines(std::string filename, std::list<std::pair<CDiffusedVertex*, CDiffusedVertex*>>&);
+};

@@ -62,7 +62,7 @@ class CRotatingObject : public CGameObject
 public:
 	CRotatingObject();
 	virtual ~CRotatingObject();
-private:
+protected:
 	XMFLOAT3 m_xmf3RotationAxis;
 	float m_fRotationSpeed;
 public:
@@ -72,4 +72,19 @@ public:
 			xmf3RotationAxis;
 	}
 	virtual void Animate(float fTimeElapsed);
+};
+
+class CAffinObject : public CRotatingObject
+{
+public:
+	CAffinObject();
+	~CAffinObject();
+private:
+	XMFLOAT3 m_xmf3MoveDirection;
+	float m_fMoveSpeed;
+public:
+	void SetMoveSpeed(float fMoveSpeed) { m_fMoveSpeed = fMoveSpeed; }
+	void SetMoveDirection(XMFLOAT3 xmf3MoveDirextion) {
+		m_xmf3MoveDirection = xmf3MoveDirextion;
+	}
 };

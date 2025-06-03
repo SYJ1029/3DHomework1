@@ -149,6 +149,7 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AffinObject.cpp" />
     <ClCompile Include="AirplaneMesh.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CubeMesh.cpp" />
