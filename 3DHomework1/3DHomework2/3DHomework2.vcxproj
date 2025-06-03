@@ -151,6 +151,7 @@
   <ItemGroup>
     <ClCompile Include="AirplaneMesh.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CubeMesh.cpp" />
     <ClCompile Include="GameFramework.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="3DHomework2.cpp" />
@@ -159,7 +160,9 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="TankMesh.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="TriangleMesh.cpp" />
     <ClCompile Include="Vertex.cpp" />
   </ItemGroup>
   <ItemGroup>
