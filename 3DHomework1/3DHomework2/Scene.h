@@ -30,3 +30,22 @@ protected:
 	ID3D12RootSignature* m_pd3dGraphicsRootSignature = NULL;
 };
 
+class CTitleScene : CScene
+{
+
+};
+
+class CMenuScene : CScene
+{
+
+};
+
+class CRollerCosterScene : CScene
+{
+
+};
+
+class CTankScene : CScene
+{
+
+};

@@ -72,7 +72,8 @@ void CObjectsShader::ReleaseUploadBuffers()
 {
 	if (m_ppObjects)
 	{
-		for (int j = 0; j < m_nObjects; j++) m_ppObjects[j]->ReleaseUploadBuffers();
+		for (int j = 0; j < m_nObjects; j++) 
+			m_ppObjects[j]->ReleaseUploadBuffers();
 	}
 }
 
