@@ -42,6 +42,9 @@
     <Filter Include="Player">
       <UniqueIdentifier>{42da85ce-b3ff-4b90-a9a5-c54cce64ca32}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Mesh\Base">
+      <UniqueIdentifier>{0d0299e4-65de-4a11-a84b-635171503caa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="3DHomework2.cpp">
@@ -49,9 +52,6 @@
     </ClCompile>
     <ClCompile Include="GameFramework.cpp">
       <Filter>Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>Mesh</Filter>
     </ClCompile>
     <ClCompile Include="Shader.cpp">
       <Filter>Shader</Filter>
@@ -89,6 +89,30 @@
     <ClCompile Include="TankMesh.cpp">
       <Filter>Mesh</Filter>
     </ClCompile>
+    <ClCompile Include="RotatingObject.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="DiffusedShader.cpp">
+      <Filter>Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectShader.cpp">
+      <Filter>Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="InstancingShader.cpp">
+      <Filter>Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Mesh\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="RollerCosterPlayer.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="TankPlayer.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="FMeshBuilder.cpp">
+      <Filter>Mesh</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -102,9 +126,6 @@
     </ClInclude>
     <ClInclude Include="GameFramework.h">
       <Filter>Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>Mesh</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
       <Filter>Shader</Filter>
@@ -126,6 +147,9 @@
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Mesh\Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

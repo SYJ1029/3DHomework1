@@ -73,20 +73,6 @@ void CGameObject::Rotate(XMFLOAT3* pxmf3Axis, float fAngle)
 	m_xmf4x4World = Matrix4x4::Multiply(mtxRotate, m_xmf4x4World);
 }
 
-CRotatingObject::CRotatingObject()
-{
-	m_xmf3RotationAxis = XMFLOAT3(0.0f, 1.0f, 0.0f);
-	m_fRotationSpeed = 90.0f;
-}
-CRotatingObject::~CRotatingObject()
-{
-}
-
-void CRotatingObject::Animate(float fTimeElapsed)
-{
-	CGameObject::Rotate(&m_xmf3RotationAxis, m_fRotationSpeed * fTimeElapsed);
-}
-
 void CGameObject::CreateShaderVariables(ID3D12Device* pd3dDevice,
 	ID3D12GraphicsCommandList* pd3dCommandList)
 {
