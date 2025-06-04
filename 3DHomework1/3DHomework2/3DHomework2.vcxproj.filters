@@ -54,6 +54,9 @@
     <Filter Include="Object\Pattern\Rotate">
       <UniqueIdentifier>{feb886a3-ff31-407a-9a30-f518c2339572}</UniqueIdentifier>
     </Filter>
+    <Filter Include="리소스 파일\Lines">
+      <UniqueIdentifier>{782e2879-0d3c-421f-a473-925d29046938}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="3DHomework2.cpp">
@@ -196,5 +199,34 @@
     <ResourceCompile Include="3DHomework2.rc">
       <Filter>리소스 파일</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="3D게임 프로그래밍.txt">
+      <Filter>리소스 파일\Lines</Filter>
+    </Text>
+    <Text Include="End.txt">
+      <Filter>리소스 파일\Lines</Filter>
+    </Text>
+    <Text Include="Level-1.txt">
+      <Filter>리소스 파일\Lines</Filter>
+    </Text>
+    <Text Include="Level-2.txt">
+      <Filter>리소스 파일\Lines</Filter>
+    </Text>
+    <Text Include="Rail.txt">
+      <Filter>리소스 파일\Lines</Filter>
+    </Text>
+    <Text Include="Tutorial.txt">
+      <Filter>리소스 파일\Lines</Filter>
+    </Text>
+    <Text Include="Start.txt">
+      <Filter>리소스 파일\Lines</Filter>
+    </Text>
+    <Text Include="You Win!.txt">
+      <Filter>리소스 파일\Lines</Filter>
+    </Text>
+    <Text Include="송영준.txt">
+      <Filter>리소스 파일\Lines</Filter>
+    </Text>
   </ItemGroup>
 </Project>

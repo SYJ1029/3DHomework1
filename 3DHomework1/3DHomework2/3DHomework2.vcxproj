@@ -210,6 +210,17 @@
   <ItemGroup>
     <ResourceCompile Include="3DHomework2.rc" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="3D게임 프로그래밍.txt" />
+    <Text Include="End.txt" />
+    <Text Include="Level-1.txt" />
+    <Text Include="Level-2.txt" />
+    <Text Include="Rail.txt" />
+    <Text Include="Start.txt" />
+    <Text Include="Tutorial.txt" />
+    <Text Include="You Win!.txt" />
+    <Text Include="송영준.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
