@@ -130,9 +130,10 @@ void CScene::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
 {
 	m_pd3dGraphicsRootSignature = CreateGraphicsRootSignature(pd3dDevice);
 	m_nShaders = 1;
-	m_pShaders = new CTitleShader[m_nShaders];
-	m_pShaders[0].CreateShader(pd3dDevice, m_pd3dGraphicsRootSignature);
-	m_pShaders[0].BuildObjects(pd3dDevice, pd3dCommandList);
+	m_pShaders = new CInstancingShader* [m_nShaders];
+	m_pShaders[0] = new CInstancingShader;
+	m_pShaders[0]->CreateShader(pd3dDevice, m_pd3dGraphicsRootSignature);
+	m_pShaders[0]->BuildObjects(pd3dDevice, pd3dCommandList);
 }
 
 void CScene::ReleaseObjects()
@@ -140,8 +141,8 @@ void CScene::ReleaseObjects()
 	if (m_pd3dGraphicsRootSignature) m_pd3dGraphicsRootSignature->Release();
 	for (int i = 0; i < m_nShaders; i++)
 	{
-		m_pShaders[i].ReleaseShaderVariables();
-		m_pShaders[i].ReleaseObjects();
+		m_pShaders[i]->ReleaseShaderVariables();
+		m_pShaders[i]->ReleaseObjects();
 	}
 	if (m_pShaders) delete[] m_pShaders;
 }
@@ -173,14 +174,14 @@ bool CScene::ProcessInput(UCHAR* pKeysBuffer)
 
 void CScene::ReleaseUploadBuffers()
 {
-	for (int i = 0; i < m_nShaders; i++) m_pShaders[i].ReleaseUploadBuffers();
+	for (int i = 0; i < m_nShaders; i++) m_pShaders[i]->ReleaseUploadBuffers();
 }
 
 void CScene::AnimateObjects(float fTimeElapsed)
 {
 	for (int i = 0; i < m_nShaders; i++)
 	{
-		m_pShaders[i].AnimateObjects(fTimeElapsed);
+		m_pShaders[i]->AnimateObjects(fTimeElapsed);
 	}
 }
 
@@ -191,6 +192,6 @@ void CScene::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera
 	pCamera->UpdateShaderVariables(pd3dCommandList);
 	for (int i = 0; i < m_nShaders; i++)
 	{
-		m_pShaders[i].Render(pd3dCommandList, pCamera);
+		m_pShaders[i]->Render(pd3dCommandList, pCamera);
 	}
 }

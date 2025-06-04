@@ -25,19 +25,18 @@ public:
 protected:
 	//씬은 게임 객체들의 집합이다. 게임 객체는 셰이더를 포함한다.
 	// 배치(Batch) 처리를 하기 위하여 씬을 셰이더들의 리스트로 표현한다
-	CInstancingShader* m_pShaders = NULL;
+	CInstancingShader** m_pShaders = NULL;
 	int m_nShaders = 0;
 	ID3D12RootSignature* m_pd3dGraphicsRootSignature = NULL;
 };
 
-class CTitleScene : CScene
+class CTitleScene : public CScene
 {
 public:
-	CTitleScene(std::string filename);
+	CTitleScene();
 	~CTitleScene();
 
 private:
-	std::string filename;
 public:
 	virtual void BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
 		* pd3dCommandList);
@@ -46,17 +45,17 @@ public:
 	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera);
 };
 
-class CMenuScene : CScene
+class CMenuScene : public CScene
 {
 
 };
 
-class CRollerCosterScene : CScene
+class CRollerCosterScene : public CScene
 {
 
 };
 
-class CTankScene : CScene
+class CTankScene : public CScene
 {
 
 };
