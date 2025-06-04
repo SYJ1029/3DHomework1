@@ -47,7 +47,13 @@ public:
 
 class CMenuScene : public CScene
 {
-
+public:
+	CMenuScene();
+	~CMenuScene();
+private:
+public:
+	virtual void BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
+		* pd3dCommandList);
 };
 
 class CRollerCosterScene : public CScene
