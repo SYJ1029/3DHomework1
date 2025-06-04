@@ -120,7 +120,7 @@ void CMeshBuilder::SingleLineToCube(ID3D12Device* pd3dDevice, ID3D12GraphicsComm
 
 	for (int i = 0; i < 36; ++i) {
 		// 인덱스는 만들고자 하는 육면체가 바뀌면 새로운 인덱스들을 할당해주어야 한다
-		IndexList.push_back(pnIndices[i] * index);
+		IndexList.push_back(pnIndices[i] + index);
 	}
 }
 
