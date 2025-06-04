@@ -137,6 +137,9 @@
     <ClCompile Include="TitleShader.cpp">
       <Filter>Shader</Filter>
     </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">

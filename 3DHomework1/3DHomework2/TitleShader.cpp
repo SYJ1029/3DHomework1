@@ -13,7 +13,7 @@ CTitleShader::~CTitleShader()
 void CTitleShader::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
 	* pd3dCommandList)
 {
-	m_nObjects = 1;
+	m_nObjects = 2;
 	m_ppObjects = new CGameObject * [m_nObjects];
 	float fxPitch = 12.0f * 2.5f;
 	float fyPitch = 12.0f * 2.5f;
@@ -21,7 +21,7 @@ void CTitleShader::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandL
 	CExplosiveObject* pExplosiveObject = NULL;
 	for (int i = 0; i < m_nObjects; i++) {
 		pExplosiveObject = new CExplosiveObject();
-		pExplosiveObject->SetPosition(fxPitch * i, 0.0f, fzPitch * i);
+		pExplosiveObject->SetPosition(0.0f, 0.0f, 0.0f);
 		pExplosiveObject->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
 		pExplosiveObject->SetRotationSpeed(30.0f);
 		m_ppObjects[i] = pExplosiveObject;
@@ -34,6 +34,11 @@ void CTitleShader::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandL
 		"3D게임 프로그래밍.txt", lines,
 		12.0f, 3.0f, 12.0f);
 	m_ppObjects[0]->SetMesh(pNameMesh);
+
+	CMeshBuilder* pNameMesh2 = new CMeshBuilder(pd3dDevice, pd3dCommandList,
+		"송영준.txt", lines,
+		12.0f, 3.0f, 12.0f);
+	m_ppObjects[1]->SetMesh(pNameMesh2);
 
 	//인스턴싱을 위한 버퍼(Structured Buffer)를 생성한다.
 	CreateShaderVariables(pd3dDevice, pd3dCommandList);
