@@ -48,6 +48,12 @@
     <Filter Include="Object\Pattern">
       <UniqueIdentifier>{926f1f60-f155-43ee-8ac4-4c1803892fa5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Pattern\Move">
+      <UniqueIdentifier>{17520225-8796-4493-9a99-3f2f68fb427b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Pattern\Rotate">
+      <UniqueIdentifier>{feb886a3-ff31-407a-9a30-f518c2339572}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="3DHomework2.cpp">
@@ -116,14 +122,17 @@
     <ClCompile Include="FMeshBuilder.cpp">
       <Filter>Mesh</Filter>
     </ClCompile>
-    <ClCompile Include="MovePattern.cpp">
-      <Filter>Object\Pattern</Filter>
-    </ClCompile>
-    <ClCompile Include="RotationPattern.cpp">
-      <Filter>Object\Pattern</Filter>
-    </ClCompile>
     <ClCompile Include="ExplosiveObject.cpp">
       <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="MovePattern.cpp">
+      <Filter>Object\Pattern\Move</Filter>
+    </ClCompile>
+    <ClCompile Include="RotationPattern.cpp">
+      <Filter>Object\Pattern\Rotate</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleShader.cpp">
+      <Filter>Shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

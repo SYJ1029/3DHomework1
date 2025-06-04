@@ -70,8 +70,7 @@ protected:
 public:
 	void SetRotationSpeed(float fRotationSpeed) { m_fRotationSpeed = fRotationSpeed; }
 	void SetRotationAxis(XMFLOAT3 xmf3RotationAxis) {
-		m_xmf3RotationAxis =
-			xmf3RotationAxis;
+		m_xmf3RotationAxis = xmf3RotationAxis;
 	}
 	virtual void Animate(float fTimeElapsed);
 };
@@ -85,6 +84,6 @@ public:
 	virtual ~CExplosiveObject();
 protected:
 public:
-	void PrepareExplosion() {}
+	void PrepareExplosion();
 	virtual void Animate(float fTimeElapsed);
 };

@@ -172,6 +172,7 @@
     <ClCompile Include="TankMesh.cpp" />
     <ClCompile Include="TankPlayer.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="TitleShader.cpp" />
     <ClCompile Include="TriangleMesh.cpp" />
     <ClCompile Include="Vertex.cpp" />
   </ItemGroup>
