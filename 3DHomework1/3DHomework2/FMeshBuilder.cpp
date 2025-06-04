@@ -25,14 +25,18 @@ CMeshBuilder::CMeshBuilder(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* 
 	//m_nPolygons = lines.size() * 6;
 	//m_ppPolygons = new CPolygon * [m_nPolygons];
 
-	LinesToCube(pd3dDevice, pd3dCommandList, lines);
+	std::list<CDiffusedVertex> vertexList;
+	std::list<UINT> IndexList;
+
+	LinesToCube(pd3dDevice, pd3dCommandList, lines, vertexList, IndexList);
 }
 CMeshBuilder::~CMeshBuilder()
 {
 
 }
 void CMeshBuilder::SingleLineToCube(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
-	* pd3dCommandList, CDiffusedVertex* dot1, CDiffusedVertex* dot2, float depth, int index)
+	* pd3dCommandList, CDiffusedVertex* dot1, CDiffusedVertex* dot2, float depth, int index, 
+	std::list<CDiffusedVertex>& vertexList, std::list<UINT>& IndexList)
 {
 	XMVECTOR v1 = XMLoadFloat3(&dot1->GetPosition());
 	XMVECTOR v2 = XMLoadFloat3(&dot2->GetPosition());
@@ -68,30 +72,24 @@ void CMeshBuilder::SingleLineToCube(ID3D12Device* pd3dDevice, ID3D12GraphicsComm
 	//auto bottomFace = { p0, p4, p7, p3 };
 
 
+	//8개의 꼭짓점을 리스트에 추가
+	vertexList.emplace_back(p1, RANDOM_COLOR);
+	vertexList.emplace_back(p5, RANDOM_COLOR);
+	vertexList.emplace_back(p6, RANDOM_COLOR);
+	vertexList.emplace_back(p2, RANDOM_COLOR);
+
+	vertexList.emplace_back(p0, RANDOM_COLOR);
+	vertexList.emplace_back(p4, RANDOM_COLOR);
+	vertexList.emplace_back(p7, RANDOM_COLOR);
+	vertexList.emplace_back(p3, RANDOM_COLOR);
+
 	//직육면체는 꼭지점(정점)이 8개이다. 
-	m_nVertices = 8;
-	m_nStride = sizeof(CDiffusedVertex);
-	m_d3dPrimitiveTopology = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
-	//정점 버퍼는 직육면체의 꼭지점 8개에 대한 정점 데이터를 가진다. 
-	CDiffusedVertex pVertices[8];
-	pVertices[0] = CDiffusedVertex(p1, RANDOM_COLOR);
-	pVertices[1] = CDiffusedVertex(p5, RANDOM_COLOR);
-	pVertices[2] = CDiffusedVertex(p6, RANDOM_COLOR);
-	pVertices[3] = CDiffusedVertex(p2, RANDOM_COLOR);
-	pVertices[4] = CDiffusedVertex(p0, RANDOM_COLOR);
-	pVertices[5] = CDiffusedVertex(p4, RANDOM_COLOR);
-	pVertices[6] = CDiffusedVertex(p7, RANDOM_COLOR);
-	pVertices[7] = CDiffusedVertex(p3, RANDOM_COLOR);
-	m_pd3dVertexBuffer = ::CreateBufferResource(pd3dDevice, pd3dCommandList, pVertices,
-		m_nStride * m_nVertices, D3D12_HEAP_TYPE_DEFAULT,
-		D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER, &m_pd3dVertexUploadBuffer);
-	m_d3dVertexBufferView.BufferLocation = m_pd3dVertexBuffer->GetGPUVirtualAddress();
-	m_d3dVertexBufferView.StrideInBytes = m_nStride;
-	m_d3dVertexBufferView.SizeInBytes = m_nStride * m_nVertices;
+
+	
 	/*인덱스 버퍼는 직육면체의 6개의 면(사각형)에 대한 기하 정보를 갖는다. 삼각형 리스트로 직육면체를 표현할 것이
 	므로 각 면은 2개의 삼각형을 가지고 각 삼각형은 3개의 정점이 필요하다. 즉, 인덱스 버퍼는 전체 36(=6*2*3)개의 인
 	덱스를 가져야 한다.*/
-	m_nIndices = 36;
+	
 	UINT pnIndices[36];
 	//ⓐ 앞면(Front) 사각형의 위쪽 삼각형
 	pnIndices[0] = 3; pnIndices[1] = 1; pnIndices[2] = 0;
@@ -117,18 +115,18 @@ void CMeshBuilder::SingleLineToCube(ID3D12Device* pd3dDevice, ID3D12GraphicsComm
 	pnIndices[30] = 6; pnIndices[31] = 4; pnIndices[32] = 5;
 	//ⓛ 옆면(Right) 사각형의 아래쪽 삼각형
 	pnIndices[33] = 7; pnIndices[34] = 4; pnIndices[35] = 6;
-	//인덱스 버퍼를 생성한다. 
-	m_pd3dIndexBuffer = ::CreateBufferResource(pd3dDevice, pd3dCommandList, pnIndices,
-		sizeof(UINT) * m_nIndices, D3D12_HEAP_TYPE_DEFAULT, D3D12_RESOURCE_STATE_INDEX_BUFFER,
-		&m_pd3dIndexUploadBuffer);
-	//인덱스 버퍼 뷰를 생성한다. 
-	m_d3dIndexBufferView.BufferLocation = m_pd3dIndexBuffer->GetGPUVirtualAddress();
-	m_d3dIndexBufferView.Format = DXGI_FORMAT_R32_UINT;
-	m_d3dIndexBufferView.SizeInBytes = sizeof(UINT) * m_nIndices;
+
+
+
+	for (int i = 0; i < 36; ++i) {
+		// 인덱스는 만들고자 하는 육면체가 바뀌면 새로운 인덱스들을 할당해주어야 한다
+		IndexList.push_back(pnIndices[i] * index);
+	}
 }
 
 void CMeshBuilder::LinesToCube(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
-	* pd3dCommandList, std::list<std::pair<CDiffusedVertex*, CDiffusedVertex*>>& lines)
+	* pd3dCommandList, std::list<std::pair<CDiffusedVertex*, CDiffusedVertex*>>& lines, 
+	std::list<CDiffusedVertex>& vertexList, std::list<UINT>& IndexList)
 {
 	// 선을 이루는 두 점으로 육면체를 생성합니다.
 	float depth{ 0.5f };
@@ -139,12 +137,39 @@ void CMeshBuilder::LinesToCube(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLi
 		auto [dot1, dot2] = lines.front();
 		lines.pop_front();
 
-		SingleLineToCube(pd3dDevice, pd3dCommandList, dot1, dot2, depth, i);
+		SingleLineToCube(pd3dDevice, pd3dCommandList, dot1, dot2, depth, i, vertexList, IndexList);
 
-		i += 6;
+		i += 8;
 	}
 
-	std::cout << "end LTC" << std::endl;
+	m_nStride = sizeof(CDiffusedVertex);
+	m_d3dPrimitiveTopology = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
+
+	std::vector<CDiffusedVertex> pVertices{ vertexList.begin(), vertexList.end() };
+	m_nVertices = pVertices.size();
+	std::vector<UINT> pnIndices{ IndexList.begin(), IndexList.end() };
+	m_nIndices = pnIndices.size();
+
+	//정점 버퍼는 직육면체의 꼭지점 8개에 대한 정점 데이터를 가진다. 
+	m_pd3dVertexBuffer = ::CreateBufferResource(pd3dDevice, pd3dCommandList, pVertices.data(),
+		m_nStride * m_nVertices, D3D12_HEAP_TYPE_DEFAULT,
+		D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER, &m_pd3dVertexUploadBuffer);
+	m_d3dVertexBufferView.BufferLocation = m_pd3dVertexBuffer->GetGPUVirtualAddress();
+	m_d3dVertexBufferView.StrideInBytes = m_nStride;
+	m_d3dVertexBufferView.SizeInBytes = m_nStride * m_nVertices;
+
+
+
+	//인덱스 버퍼를 생성한다. 
+	m_pd3dIndexBuffer = ::CreateBufferResource(pd3dDevice, pd3dCommandList, pnIndices.data(),
+		sizeof(UINT) * m_nIndices, D3D12_HEAP_TYPE_DEFAULT, D3D12_RESOURCE_STATE_INDEX_BUFFER,
+		&m_pd3dIndexUploadBuffer);
+
+	//인덱스 버퍼 뷰를 생성한다. 
+	m_d3dIndexBufferView.BufferLocation = m_pd3dIndexBuffer->GetGPUVirtualAddress();
+	m_d3dIndexBufferView.Format = DXGI_FORMAT_R32_UINT;
+	m_d3dIndexBufferView.SizeInBytes = sizeof(UINT) * m_nIndices;
+
 }
 
 void CMeshBuilder::Loadlines(std::string filename, std::list<std::pair<CDiffusedVertex*, CDiffusedVertex*>>& lines)

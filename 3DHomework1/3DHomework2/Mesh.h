@@ -111,9 +111,13 @@ public:
 		float fWidth = 20.0f, float fHeight = 20.0f, float fDepth = 4.0f,
 		XMFLOAT4 xmf4Color = XMFLOAT4(1.0f, 1.0f, 0.0f, 0.0f));
 	virtual ~CMeshBuilder();
-	virtual void SingleLineToCube(ID3D12Device*, ID3D12GraphicsCommandList*, CDiffusedVertex*, CDiffusedVertex*, float, int);
+
+
+	virtual void SingleLineToCube(ID3D12Device*, ID3D12GraphicsCommandList*, CDiffusedVertex*, CDiffusedVertex*, float, int, 
+		std::list<CDiffusedVertex>&, std::list<UINT>&);
 	virtual void LinesToCube(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
-		* pd3dCommandList, std::list<std::pair<CDiffusedVertex*, CDiffusedVertex*>>& lines);
+		* pd3dCommandList, std::list<std::pair<CDiffusedVertex*, CDiffusedVertex*>>& lines, 
+		std::list<CDiffusedVertex>&, std::list<UINT>&);
 
 	void Loadlines(std::string filename, std::list<std::pair<CDiffusedVertex*, CDiffusedVertex*>>&);
 };
