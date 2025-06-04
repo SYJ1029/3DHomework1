@@ -45,6 +45,9 @@
     <Filter Include="Mesh\Base">
       <UniqueIdentifier>{0d0299e4-65de-4a11-a84b-635171503caa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Pattern">
+      <UniqueIdentifier>{926f1f60-f155-43ee-8ac4-4c1803892fa5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="3DHomework2.cpp">
@@ -113,7 +116,13 @@
     <ClCompile Include="FMeshBuilder.cpp">
       <Filter>Mesh</Filter>
     </ClCompile>
-    <ClCompile Include="AffinObject.cpp">
+    <ClCompile Include="MovePattern.cpp">
+      <Filter>Object\Pattern</Filter>
+    </ClCompile>
+    <ClCompile Include="RotationPattern.cpp">
+      <Filter>Object\Pattern</Filter>
+    </ClCompile>
+    <ClCompile Include="ExplosiveObject.cpp">
       <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>
@@ -153,6 +162,9 @@
     </ClInclude>
     <ClInclude Include="Mesh.h">
       <Filter>Mesh\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Patterns.h">
+      <Filter>Object\Pattern</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

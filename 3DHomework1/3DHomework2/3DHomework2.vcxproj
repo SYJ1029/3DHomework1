@@ -149,7 +149,8 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AffinObject.cpp" />
+    <ClCompile Include="ExplosiveObject.cpp" />
+    <ClCompile Include="MovePattern.cpp" />
     <ClCompile Include="AirplaneMesh.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CubeMesh.cpp" />
@@ -164,6 +165,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RollerCosterPlayer.cpp" />
     <ClCompile Include="RotatingObject.cpp" />
+    <ClCompile Include="RotationPattern.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="stdafx.cpp" />
@@ -179,6 +181,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="3DHomework2.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="Patterns.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scene.h" />

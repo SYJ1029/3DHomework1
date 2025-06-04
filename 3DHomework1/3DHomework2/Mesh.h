@@ -11,7 +11,7 @@ protected:
 public:
 	CVertex() { m_xmf3Position = XMFLOAT3(0.0f, 0.0f, 0.0f); }
 	CVertex(XMFLOAT3 xmf3Position) { m_xmf3Position = xmf3Position; }
-	~CVertex() {}
+	~CVertex() {};
 };
 
 class CDiffusedVertex : public CVertex
@@ -24,6 +24,8 @@ public:
 	CDiffusedVertex(float x, float y, float z, XMFLOAT4 xmf4Diffuse);
 	CDiffusedVertex(XMFLOAT3 xmf3Position, XMFLOAT4 xmf4Diffuse);
 	~CDiffusedVertex();
+
+	XMFLOAT3& GetPosition() { return  m_xmf3Position; }
 };
 
 class CMesh
@@ -100,17 +102,18 @@ public:
 
 class CMeshBuilder : public CMesh
 {
-public: 
+public:
 	CMeshBuilder(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
 		* pd3dCommandList, float fWidth = 20.0f, float fHeight = 20.0f, float fDepth = 4.0f,
-		XMFLOAT4 xmf4Color = XMFLOAT4(1.0f, 1.0f, 0.0f, 0.0f));	
-	CMeshBuilder(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
-		* pd3dCommandList, float fWidth = 20.0f, float fHeight = 20.0f, float fDepth = 4.0f,
-		XMFLOAT4 xmf4Color = XMFLOAT4(1.0f, 1.0f, 0.0f, 0.0f), 
-		std::string filename, std::list<std::pair<CVertex*, CVertex*>>&);
+		XMFLOAT4 xmf4Color = XMFLOAT4(1.0f, 1.0f, 0.0f, 0.0f));
+	CMeshBuilder(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList, 
+		std::string filename, std::list<std::pair<CDiffusedVertex*, CDiffusedVertex*>>& lines,
+		float fWidth = 20.0f, float fHeight = 20.0f, float fDepth = 4.0f,
+		XMFLOAT4 xmf4Color = XMFLOAT4(1.0f, 1.0f, 0.0f, 0.0f));
 	virtual ~CMeshBuilder();
-	virtual void SingleLineToCube(CDiffusedVertex*, CDiffusedVertex*, float, int);
-	virtual void LinesToCube(std::list<std::pair<CDiffusedVertex*, CDiffusedVertex*>>& lines);
+	virtual void SingleLineToCube(ID3D12Device*, ID3D12GraphicsCommandList*, CDiffusedVertex*, CDiffusedVertex*, float, int);
+	virtual void LinesToCube(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
+		* pd3dCommandList, std::list<std::pair<CDiffusedVertex*, CDiffusedVertex*>>& lines);
 
 	void Loadlines(std::string filename, std::list<std::pair<CDiffusedVertex*, CDiffusedVertex*>>&);
 };
