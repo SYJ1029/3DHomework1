@@ -175,11 +175,13 @@
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="TankMesh.cpp" />
     <ClCompile Include="TankPlayer.cpp" />
+    <ClCompile Include="TankShader.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="TitleShader.cpp" />
     <ClCompile Include="TriangleMesh.cpp" />
     <ClCompile Include="Vertex.cpp" />
+    <ClCompile Include="TankScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -191,6 +193,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />

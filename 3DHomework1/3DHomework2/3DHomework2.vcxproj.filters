@@ -57,6 +57,9 @@
     <Filter Include="리소스 파일\Lines">
       <UniqueIdentifier>{782e2879-0d3c-421f-a473-925d29046938}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene\Manager">
+      <UniqueIdentifier>{0cce0bc4-1d98-4405-98e6-d02524eabe61}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="3DHomework2.cpp">
@@ -152,6 +155,12 @@
     <ClCompile Include="RollerCosterScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
+    <ClCompile Include="TankScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="TankShader.cpp">
+      <Filter>Shader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -192,6 +201,9 @@
     </ClInclude>
     <ClInclude Include="Patterns.h">
       <Filter>Object\Pattern</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Scene\Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
