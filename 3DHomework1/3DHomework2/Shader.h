@@ -145,39 +145,55 @@ public:
 	virtual void SetFileName(std::string filename);
 };
 
-//class CMenuShader : public CInstancingShader
-//{
-//	virtual D3D12_INPUT_LAYOUT_DESC CreateInputLayout();
-//	virtual D3D12_SHADER_BYTECODE CreateVertexShader(ID3DBlob** ppd3dShaderBlob);
-//	virtual D3D12_SHADER_BYTECODE CreatePixelShader(ID3DBlob** ppd3dShaderBlob);
-//	virtual void CreateShader(ID3D12Device* pd3dDevice, ID3D12RootSignature
-//		* pd3dGraphicsRootSignature);
-//	virtual void CreateShaderVariables(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
-//		* pd3dCommandList);
-//	virtual void UpdateShaderVariables(ID3D12GraphicsCommandList* pd3dCommandList);
-//	virtual void ReleaseShaderVariables();
-//	virtual void BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
-//		* pd3dCommandList);
-//	virtual void ReleaseObjects();
-//	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera);
-//};
+class CMenuShader : public CInstancingShader
+{
+public:
+	CMenuShader();
+	~CMenuShader();
+private:
+	std::string m_filename;
+public:
+	//virtual D3D12_INPUT_LAYOUT_DESC CreateInputLayout();
+	//virtual D3D12_SHADER_BYTECODE CreateVertexShader(ID3DBlob** ppd3dShaderBlob);
+	//virtual D3D12_SHADER_BYTECODE CreatePixelShader(ID3DBlob** ppd3dShaderBlob);
+	virtual void CreateShader(ID3D12Device* pd3dDevice, ID3D12RootSignature
+		* pd3dGraphicsRootSignature);
+	//virtual void CreateShaderVariables(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
+	//	* pd3dCommandList);
+	//virtual void UpdateShaderVariables(ID3D12GraphicsCommandList* pd3dCommandList);
+	//virtual void ReleaseShaderVariables();
+	virtual void BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
+		* pd3dCommandList);
+	virtual void ReleaseObjects();
+	//virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera);
+
+	virtual void SetFileName(std::string filename);
+};
+
 //
-//class CRollerCosterShader : public CInstancingShader
-//{
-//	virtual D3D12_INPUT_LAYOUT_DESC CreateInputLayout();
-//	virtual D3D12_SHADER_BYTECODE CreateVertexShader(ID3DBlob** ppd3dShaderBlob);
-//	virtual D3D12_SHADER_BYTECODE CreatePixelShader(ID3DBlob** ppd3dShaderBlob);
-//	virtual void CreateShader(ID3D12Device* pd3dDevice, ID3D12RootSignature
-//		* pd3dGraphicsRootSignature);
-//	virtual void CreateShaderVariables(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
-//		* pd3dCommandList);
-//	virtual void UpdateShaderVariables(ID3D12GraphicsCommandList* pd3dCommandList);
-//	virtual void ReleaseShaderVariables();
-//	virtual void BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
-//		* pd3dCommandList);
-//	virtual void ReleaseObjects();
-//	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera);
-//};
+class CRollerCosterShader : public CInstancingShader
+{
+public:
+	CRollerCosterShader();
+	~CRollerCosterShader();
+private:
+	std::string m_filename;
+public:
+	//virtual D3D12_INPUT_LAYOUT_DESC CreateInputLayout();
+	//virtual D3D12_SHADER_BYTECODE CreateVertexShader(ID3DBlob** ppd3dShaderBlob);
+	//virtual D3D12_SHADER_BYTECODE CreatePixelShader(ID3DBlob** ppd3dShaderBlob);
+	virtual void CreateShader(ID3D12Device* pd3dDevice, ID3D12RootSignature
+		* pd3dGraphicsRootSignature);
+	//virtual void CreateShaderVariables(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
+	//	* pd3dCommandList);
+	//virtual void UpdateShaderVariables(ID3D12GraphicsCommandList* pd3dCommandList);
+	//virtual void ReleaseShaderVariables();
+	virtual void BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
+		* pd3dCommandList);
+	virtual void ReleaseObjects();
+	//virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera);
+	virtual void SetFileName(std::string filename);
+};
 //
 //class CTankShader : public CInstancingShader
 //{

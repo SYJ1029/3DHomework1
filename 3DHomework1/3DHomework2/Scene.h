@@ -58,6 +58,13 @@ public:
 
 class CRollerCosterScene : public CScene
 {
+public:
+	CRollerCosterScene();
+	~CRollerCosterScene();
+private:
+public:
+	virtual void BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
+		* pd3dCommandList);
 
 };
 
