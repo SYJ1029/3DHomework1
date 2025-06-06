@@ -1,5 +1,11 @@
 #include "Mesh.h"
 
+
+CMeshBuilder::CMeshBuilder()
+{
+
+}
+
 CMeshBuilder::CMeshBuilder(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
 	* pd3dCommandList, float fWidth, float fHeight, float fDepth,
 	XMFLOAT4 xmf4Color) 

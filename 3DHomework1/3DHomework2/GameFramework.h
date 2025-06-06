@@ -98,5 +98,5 @@ public:
 
 
 
-	void ChangeScene(UINT id) { m_pSceneManager->ChangeScene(id); }
+	void ChangeScene(UINT id) { sceneNum = id; }
 };
