@@ -57,6 +57,9 @@ public:
 
 	//게임 객체를 회전(x-축, y-축, z-축)한다. 
 	void Rotate(float fPitch = 10.0f, float fYaw = 10.0f, float fRoll = 10.0f);
+
+	void GenerateRayForPicking(XMVECTOR& xmvPickPosition, XMMATRIX& xmmtxView, XMVECTOR& xmvPickRayOrigin, XMVECTOR& xmvPickRayDirection);
+	int PickObjectByRayIntersection(XMVECTOR& xmPickPosition, XMMATRIX& xmmtxView, float* pfHitDistance);
 };
 
 class CRotatingObject : public CGameObject
@@ -77,6 +80,9 @@ public:
 
 
 
+#define EXPLOSION_DEBRISES 240
+
+
 class CExplosiveObject : public CGameObject, public CRotationPattern, public CMovePattern
 {
 public:
@@ -84,6 +90,8 @@ public:
 	virtual ~CExplosiveObject();
 protected:
 public:
-	void PrepareExplosion();
+	static CMesh* m_pExplosionMesh;
+	static XMFLOAT3				m_pxmf3SphereVectors[EXPLOSION_DEBRISES];
+	static void PrepareExplosion();
 	virtual void Animate(float fTimeElapsed);
 };

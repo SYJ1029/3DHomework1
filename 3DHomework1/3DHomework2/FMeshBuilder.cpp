@@ -29,6 +29,7 @@ CMeshBuilder::CMeshBuilder(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* 
 	std::list<UINT> IndexList;
 
 	LinesToCube(pd3dDevice, pd3dCommandList, lines, vertexList, IndexList);
+	m_xmOOBB = BoundingOrientedBox(XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(fHalfWidth, fHalfHeight, fHalfDepth), XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
 }
 CMeshBuilder::~CMeshBuilder()
 {
@@ -170,6 +171,9 @@ void CMeshBuilder::LinesToCube(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLi
 	m_d3dIndexBufferView.Format = DXGI_FORMAT_R32_UINT;
 	m_d3dIndexBufferView.SizeInBytes = sizeof(UINT) * m_nIndices;
 
+	
+	
+	
 }
 
 void CMeshBuilder::Loadlines(std::string filename, std::list<std::pair<CDiffusedVertex*, CDiffusedVertex*>>& lines)
@@ -186,4 +190,16 @@ void CMeshBuilder::Loadlines(std::string filename, std::list<std::pair<CDiffused
 		lines.push_back({ new CDiffusedVertex(XMFLOAT3(sx, sy, sz), RANDOM_COLOR), new CDiffusedVertex(XMFLOAT3(ex, ey, ez), RANDOM_COLOR) });
 	}
 	in.close();
+}
+
+
+int CMeshBuilder::CheckRayIntersection(XMVECTOR& xmvPickRayOrigin, XMVECTOR& xmvPickRayDirection, float* pfNearHitDistance)
+{
+	int nIntersections = 0;
+	bool bIntersected = m_xmOOBB.Intersects(xmvPickRayOrigin, xmvPickRayDirection, *pfNearHitDistance);
+	if (bIntersected)
+	{
+		nIntersections = 2;
+	}
+	return(nIntersections);
 }

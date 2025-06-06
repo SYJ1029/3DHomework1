@@ -88,3 +88,30 @@ void CObjectsShader::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera*
 		}
 	}
 }
+
+CGameObject* CObjectsShader::PickObjectPointedByCursor(int xClient, int yClient, CCamera* pCamera)
+{
+	XMFLOAT3 xmf3PickPosition;
+	xmf3PickPosition.x = (((2.0f * xClient) / (float)pCamera->GetViewport().Width) - 1) / pCamera->GetProjectionMatrix()._11;
+	xmf3PickPosition.y = -(((2.0f * yClient) / (float)pCamera->GetViewport().Height) - 1) / pCamera->GetProjectionMatrix()._22;
+	xmf3PickPosition.z = 1.0f;
+
+	XMVECTOR xmvPickPosition = XMLoadFloat3(&xmf3PickPosition);
+	XMMATRIX xmmtxView = XMLoadFloat4x4(&pCamera->GetViewMatrix());
+
+	int nIntersected = 0;
+	float fNearestHitDistance = FLT_MAX;
+	CGameObject* pNearestObject = NULL;
+	for (int i = 0; i < m_nObjects; i++)
+	{
+		float fHitDistance = FLT_MAX;
+		nIntersected = m_ppObjects[i]->PickObjectByRayIntersection(xmvPickPosition, xmmtxView, &fHitDistance);
+		if ((nIntersected > 0) && (fHitDistance < fNearestHitDistance))
+		{
+			fNearestHitDistance = fHitDistance;
+			pNearestObject = m_ppObjects[i];
+		}
+	}
+
+	return(pNearestObject);
+}

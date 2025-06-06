@@ -1,4 +1,5 @@
 #include "Scene.h"
+#include "SceneManager.h"
 
 CTitleScene::CTitleScene()
 {
@@ -56,4 +57,43 @@ void CTitleScene::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pC
 	{
 		m_pShaders[i]->Render(pd3dCommandList, pCamera);
 	}
+}
+
+UINT CTitleScene::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM
+	lParam, CCamera* pCamera)
+{
+
+	CGameObject* CapturedObject = nullptr;
+	switch (nMessageID)
+	{
+	case WM_LBUTTONDOWN:
+		//마우스 캡쳐를 하고 현재 마우스 위치를 가져온다.
+		::SetCapture(hWnd);
+		::GetCursorPos(&mousePoint);
+		CapturedObject = PickObjectPointedByCursor(LOWORD(lParam), HIWORD(lParam), pCamera);
+
+		if (CapturedObject && CapturedObject->GetPosition().y < 0.0f) {
+			return S_MENU;
+		}
+		break;
+	case WM_RBUTTONDOWN:
+		break;
+	case WM_LBUTTONUP:
+		//마우스 캡쳐를 해제한다.
+		::ReleaseCapture();
+		break;
+	case WM_RBUTTONUP:
+		break;
+	}
+
+	return S_SAFE;
+}
+
+
+
+bool CTitleScene::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM
+	lParam, CCamera* pCamera)
+{
+
+	return false;
 }

@@ -30,6 +30,13 @@
 #include <list>
 #include <vector>
 #include <memory>
+#include <algorithm>
+
+#define S_SAFE 0x00
+#define S_TITLE 0x01
+#define S_MENU 0x02
+#define S_ROLLERCOSTER 0x03
+#define S_TANK 0x04
 
 #define RANDOM_COLOR XMFLOAT4(rand() / float(RAND_MAX), rand() / float(RAND_MAX), rand() / float(RAND_MAX), rand() / float(RAND_MAX))
 #include <d3d12.h>

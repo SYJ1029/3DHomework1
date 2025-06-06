@@ -153,3 +153,25 @@ void CGameObject::Rotate(float fPitch, float fYaw, float fRoll)
 		XMConvertToRadians(fYaw), XMConvertToRadians(fRoll));
 	m_xmf4x4World = Matrix4x4::Multiply(mtxRotate, m_xmf4x4World);
 }
+
+void CGameObject::GenerateRayForPicking(XMVECTOR& xmvPickPosition, XMMATRIX& xmmtxView, XMVECTOR& xmvPickRayOrigin, XMVECTOR& xmvPickRayDirection)
+{
+	XMMATRIX xmmtxToModel = XMMatrixInverse(NULL, XMLoadFloat4x4(&m_xmf4x4World) * xmmtxView);
+
+	XMFLOAT3 xmf3CameraOrigin(0.0f, 0.0f, 0.0f);
+	xmvPickRayOrigin = XMVector3TransformCoord(XMLoadFloat3(&xmf3CameraOrigin), xmmtxToModel);
+	xmvPickRayDirection = XMVector3TransformCoord(xmvPickPosition, xmmtxToModel);
+	xmvPickRayDirection = XMVector3Normalize(xmvPickRayDirection - xmvPickRayOrigin);
+}
+
+int CGameObject::PickObjectByRayIntersection(XMVECTOR& xmPickPosition, XMMATRIX& xmmtxView, float* pfHitDistance)
+{
+	int nIntersected = 0;
+	if (m_pMesh)
+	{
+		XMVECTOR xmvPickRayOrigin, xmvPickRayDirection;
+		GenerateRayForPicking(xmPickPosition, xmmtxView, xmvPickRayOrigin, xmvPickRayDirection);
+		nIntersected = m_pMesh->CheckRayIntersection(xmvPickRayOrigin, xmvPickRayDirection, pfHitDistance);
+	}
+	return(nIntersected);
+}

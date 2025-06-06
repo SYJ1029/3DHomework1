@@ -49,3 +49,53 @@ void CMenuScene::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLis
 	m_pShaders[4]->BuildObjects(pd3dDevice, pd3dCommandList);
 	m_pShaders[4]->SetObjPos(XMFLOAT3(0.0f, -6.0f, 0.0f));
 }
+
+
+UINT CMenuScene::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM
+	lParam, CCamera* pCamera)
+{
+
+	CGameObject* CapturedObject = nullptr;
+	switch (nMessageID)
+	{
+	case WM_LBUTTONDOWN:
+		//마우스 캡쳐를 하고 현재 마우스 위치를 가져온다.
+		::SetCapture(hWnd);
+		::GetCursorPos(&mousePoint);
+		CapturedObject = PickObjectPointedByCursor(LOWORD(lParam), HIWORD(lParam), pCamera);
+
+		if (CapturedObject) {
+			switch ((int)CapturedObject->GetPosition().y / 3)
+			{
+			case 2:
+				break;
+			case 1:
+			case 0:
+				return S_ROLLERCOSTER;
+			case -1:
+				return S_TANK;
+			case -2:
+				::PostQuitMessage(0);
+				break;
+			default:
+				break;
+			}
+		}
+		break;
+	case WM_RBUTTONDOWN:
+		break;
+	case WM_LBUTTONUP:
+		//마우스 캡쳐를 해제한다.
+		::ReleaseCapture();
+		break;
+	case WM_RBUTTONUP:
+		break;
+	}
+
+	return S_SAFE;
+}
+bool CMenuScene::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM
+	lParam)
+{
+	return true;
+}

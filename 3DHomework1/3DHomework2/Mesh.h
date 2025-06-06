@@ -63,6 +63,11 @@ protected:
 	//인덱스 버퍼에서 메쉬를 그리기 위해 사용되는 시작 인덱스이다. 
 	int m_nBaseVertex = 0;
 	//인덱스 버퍼의 인덱스에 더해질 인덱스이다.
+public:
+	BoundingOrientedBox			m_xmOOBB = BoundingOrientedBox();
+
+	BOOL RayIntersectionByTriangle(XMVECTOR& xmRayOrigin, XMVECTOR& xmRayDirection, XMVECTOR v0, XMVECTOR v1, XMVECTOR v2, float* pfNearHitDistance);
+	virtual int CheckRayIntersection(XMVECTOR& xmvPickRayOrigin, XMVECTOR& xmvPickRayDirection, float* pfNearHitDistance);
 };
 
 class CTriangleMesh : public CMesh
@@ -120,4 +125,6 @@ public:
 		std::list<CDiffusedVertex>&, std::list<UINT>&);
 
 	void Loadlines(std::string filename, std::list<std::pair<CDiffusedVertex*, CDiffusedVertex*>>&);
+
+	virtual int CheckRayIntersection(XMVECTOR& xmvPickRayOrigin, XMVECTOR& xmvPickRayDirection, float* pfNearHitDistance);
 };

@@ -156,13 +156,15 @@ ID3D12RootSignature* CScene::GetGraphicsRootSignature()
 
 
 
-bool CScene::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM
-	lParam)
+UINT CScene::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM
+	lParam, CCamera* pCamera)
 {
 	return(false);
 }
-bool CScene::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM wParam,
-	LPARAM lParam)
+
+
+bool CScene::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM
+	lParam)
 {
 	return(false);
 }
@@ -194,4 +196,73 @@ void CScene::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera
 	{
 		m_pShaders[i]->Render(pd3dCommandList, pCamera);
 	}
+}
+
+CGameObject* CScene::PickObjectPointedByCursor(int xClient, int yClient, CCamera* pCamera)
+{
+	XMFLOAT3 xmf3PickPosition;
+	xmf3PickPosition.x = (((2.0f * xClient) / (float)pCamera->GetViewport().Width) - 1) / pCamera->GetProjectionMatrix()._11;
+	xmf3PickPosition.y = -(((2.0f * yClient) / (float)pCamera->GetViewport().Height) - 1) / pCamera->GetProjectionMatrix()._22;
+	xmf3PickPosition.z = 1.0f;
+
+	XMVECTOR xmvPickPosition = XMLoadFloat3(&xmf3PickPosition);
+	XMMATRIX xmmtxView = XMLoadFloat4x4(&pCamera->GetViewMatrix());
+
+	int nIntersected = 0;
+	float fNearestHitDistance = FLT_MAX;
+	CGameObject** pNearObject = new CGameObject*[m_nShaders];
+	CGameObject* pNearestObject = nullptr;
+
+	for (int i = 0; i < m_nShaders; i++)
+	{
+		pNearObject[i] = nullptr;
+
+		pNearObject[i] = m_pShaders[i]->PickObjectPointedByCursor(xClient, yClient, pCamera);
+
+		if (pNearObject[i]) {
+			if (pNearestObject && pNearObject[i]->GetPosition().z < pNearestObject->GetPosition().z);
+			else pNearestObject = pNearObject[i];
+		}
+
+	}
+
+
+
+	return(pNearestObject);
+}
+
+CInstancingShader* CScene::PickShaderPointedByCursor(int xClient, int yClient, CCamera* pCamera)
+{
+	XMFLOAT3 xmf3PickPosition;
+	xmf3PickPosition.x = (((2.0f * xClient) / (float)pCamera->GetViewport().Width) - 1) / pCamera->GetProjectionMatrix()._11;
+	xmf3PickPosition.y = -(((2.0f * yClient) / (float)pCamera->GetViewport().Height) - 1) / pCamera->GetProjectionMatrix()._22;
+	xmf3PickPosition.z = 1.0f;
+
+	XMVECTOR xmvPickPosition = XMLoadFloat3(&xmf3PickPosition);
+	XMMATRIX xmmtxView = XMLoadFloat4x4(&pCamera->GetViewMatrix());
+
+	int nIntersected = 0;
+	float fNearestHitDistance = FLT_MAX;
+	CGameObject** pNearObject = new CGameObject * [m_nShaders];
+	CGameObject* pNearestObject = nullptr;
+
+	int pNearestShaderIndex = NULL;
+
+	for (int i = 0; i < m_nShaders; i++)
+	{
+		pNearObject[i] = nullptr;
+
+		pNearObject[i] = m_pShaders[i]->PickObjectPointedByCursor(xClient, yClient, pCamera);
+
+		if (pNearObject[i]) {
+			if (pNearestObject && pNearObject[i]->GetPosition().z < pNearestObject->GetPosition().z);
+			else { 
+				pNearestObject = pNearObject[i]; 
+				pNearestShaderIndex = i;
+			}
+		}
+
+	}
+
+	return m_pShaders[pNearestShaderIndex];
 }

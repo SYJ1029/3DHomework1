@@ -107,9 +107,6 @@
     <ClCompile Include="RotatingObject.cpp">
       <Filter>Object</Filter>
     </ClCompile>
-    <ClCompile Include="DiffusedShader.cpp">
-      <Filter>Shader</Filter>
-    </ClCompile>
     <ClCompile Include="ObjectShader.cpp">
       <Filter>Shader</Filter>
     </ClCompile>
@@ -159,6 +156,9 @@
       <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="TankShader.cpp">
+      <Filter>Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="DiffusedShader.cpp">
       <Filter>Shader</Filter>
     </ClCompile>
   </ItemGroup>

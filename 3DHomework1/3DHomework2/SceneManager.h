@@ -1,10 +1,5 @@
 #pragma once
 
-#define S_TITLE 0x01
-#define S_MENU 0x02
-#define S_ROLLERCOSTER 0x03
-#define S_TANK 0x04
-
 #include "stdafx.h"
 
 
@@ -33,5 +28,9 @@ public:
 			break;
 		}
 	}
+
+	void ReleaseScene() { sceneList.clear(); }
+
+
 };
 

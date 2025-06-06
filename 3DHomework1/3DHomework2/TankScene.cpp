@@ -27,3 +27,29 @@ void CTankScene::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLis
 	m_pShaders[0]->SetObjPos(XMFLOAT3(0.0f, 6.0f, 0.0f));
 
 }
+
+UINT CTankScene::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM
+	lParam, CCamera* pCamera)
+{
+	switch (nMessageID)
+	{
+	case WM_LBUTTONDOWN:
+	case WM_RBUTTONDOWN:
+		//마우스 캡쳐를 하고 현재 마우스 위치를 가져온다.
+		::SetCapture(hWnd);
+		::GetCursorPos(&mousePoint);
+		break;
+	case WM_LBUTTONUP:
+	case WM_RBUTTONUP:
+		//마우스 캡쳐를 해제한다.
+		::ReleaseCapture();
+		break;
+	}
+
+	return S_SAFE;
+}
+bool CTankScene::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM
+	lParam)
+{
+	return true;
+}

@@ -45,6 +45,7 @@ public:
 		XMFLOAT4X4* pxmf4x4World);
 	virtual void OnPrepareRender(ID3D12GraphicsCommandList* pd3dCommandList);
 	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera);
+
 protected:
 	ID3D12PipelineState** m_ppd3dPipelineStates = NULL;
 	int m_nPipelineStates = 0;
@@ -79,6 +80,8 @@ public:
 		* pd3dGraphicsRootSignature);
 	virtual void ReleaseUploadBuffers();
 	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera);
+
+	virtual CGameObject* PickObjectPointedByCursor(int xClient, int yClient, CCamera* pCamera);
 protected:
 	CGameObject** m_ppObjects = NULL;
 	int m_nObjects = 0;

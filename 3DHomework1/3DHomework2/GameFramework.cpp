@@ -12,7 +12,7 @@ CGameFramework::CGameFramework()
 	m_pd3dPipelineState = NULL;
 	m_pd3dCommandList = NULL;
 	for (int i = 0; i < m_nSwapChainBuffers; i++) {
-		m_pScene = NULL;
+		m_pSceneManager = nullptr;
 		m_ppd3dSwapChainBackBuffers[i] = NULL;
 		m_nFenceValues[i] = 0;
 	}
@@ -327,30 +327,37 @@ void CGameFramework::CreateDepthStencilView()
 void CGameFramework::BuildObjects()
 {
 	m_pd3dCommandList->Reset(m_pd3dCommandAllocator, NULL);
-	m_pScene = new CTankScene();
+	//m_pScene = new CTankScene();
 
+	m_pSceneManager = new CSceneManager<CScene>();
+	m_pSceneManager->emplace_back(std::make_shared<CTitleScene>());
+	m_pSceneManager->emplace_back(std::make_shared<CMenuScene>());
+	m_pSceneManager->emplace_back(std::make_shared<CRollerCosterScene>());
+	m_pSceneManager->emplace_back(std::make_shared<CTankScene>());
+
+	m_pSceneManager->ChangeScene(sceneNum);
 	
-	if (m_pScene) m_pScene->BuildObjects(m_pd3dDevice, m_pd3dCommandList);
+	if (m_pSceneManager->m_pScene) m_pSceneManager->m_pScene->BuildObjects(m_pd3dDevice, m_pd3dCommandList);
 	CAirplanePlayer* pAirplanePlayer = new CAirplanePlayer(m_pd3dDevice,
-		m_pd3dCommandList, m_pScene->GetGraphicsRootSignature());
+		m_pd3dCommandList, m_pSceneManager->m_pScene->GetGraphicsRootSignature());
 	m_pPlayer = pAirplanePlayer;
 	m_pCamera = m_pPlayer->GetCamera();
 	m_pd3dCommandList->Close();
 	ID3D12CommandList* ppd3dCommandLists[] = { m_pd3dCommandList };
 	m_pd3dCommandQueue->ExecuteCommandLists(1, ppd3dCommandLists);
 	WaitForGpuComplete();
-	if (m_pScene) m_pScene->ReleaseUploadBuffers();
+	if (m_pSceneManager->m_pScene) m_pSceneManager->m_pScene->ReleaseUploadBuffers();
 	m_GameTimer.Reset();
 }
 void CGameFramework::ReleaseObjects()
 {
-	if (m_pScene) m_pScene->ReleaseObjects();
-	if (m_pScene) delete m_pScene;
+	if (m_pSceneManager) m_pSceneManager->ReleaseScene();
+	if (m_pSceneManager) delete m_pSceneManager;
 }
 
 void CGameFramework::AnimateObjects()
 {
-	if (m_pScene) m_pScene->AnimateObjects(m_GameTimer.GetTimeElapsed());
+	if (m_pSceneManager->m_pScene) m_pSceneManager->m_pScene->AnimateObjects(m_GameTimer.GetTimeElapsed());
 }
 
 void CGameFramework::MoveToNextFrame() 
@@ -365,14 +372,17 @@ void CGameFramework::MoveToNextFrame()
 	}
 }
 
+
 void CGameFramework::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wParam,
 	LPARAM lParam)
 {
+
+
 	switch (nMessageID)
 	{
 	case WM_LBUTTONDOWN:
 	case WM_RBUTTONDOWN:
-		//마우스 캡쳐를 하고 현재 마우스 위치를 가져온다.
+		////마우스 캡쳐를 하고 현재 마우스 위치를 가져온다.
 		::SetCapture(hWnd);
 		::GetCursorPos(&m_ptOldCursorPos);
 		break;
@@ -382,6 +392,18 @@ void CGameFramework::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM
 		::ReleaseCapture();
 		break;
 	}
+
+	if (m_pSceneManager && m_pSceneManager->m_pScene) {
+		UINT status = m_pSceneManager->m_pScene->OnProcessingMouseMessage(hWnd, nMessageID, wParam, lParam, m_pCamera);
+
+		if (status == S_SAFE);
+		else {
+			ReleaseObjects();
+			sceneNum = status;
+			BuildObjects();
+		}
+	}
+
 }
 
 void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM
@@ -543,7 +565,7 @@ void CGameFramework::FrameAdvance()
 		D3D12_CLEAR_FLAG_DEPTH | D3D12_CLEAR_FLAG_STENCIL, 1.0f, 0, 0, NULL);
 	m_pd3dCommandList->OMSetRenderTargets(1, &d3dRtvCPUDescriptorHandle, TRUE,
 		&d3dDsvCPUDescriptorHandle);
-	if (m_pScene) m_pScene->Render(m_pd3dCommandList, m_pCamera);
+	if (m_pSceneManager->m_pScene) m_pSceneManager->m_pScene->Render(m_pd3dCommandList, m_pCamera);
 	//3인칭 카메라일 때 플레이어가 항상 보이도록 렌더링한다.
 #ifdef _WITH_PLAYER_TOP
 //렌더 타겟은 그대로 두고 깊이 버퍼를 1.0으로 지우고 플레이어를 렌더링하면 플레이어는 무조건 그려질 것이다.
