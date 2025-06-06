@@ -58,3 +58,5 @@ bool CRollerCosterScene::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID,
 {
 	return true;
 }
+
+

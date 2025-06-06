@@ -352,7 +352,7 @@ void CGameFramework::BuildObjects()
 		case S_ROLLERCOSTER:
 		{
 			CRollerCosterPlayer* pRollerCosterPlayer = new CRollerCosterPlayer(m_pd3dDevice,
-				m_pd3dCommandList, m_pSceneManager->m_pScene->GetGraphicsRootSignature());
+				m_pd3dCommandList, m_pSceneManager->m_pScene->GetGraphicsRootSignature(), this);
 			m_pPlayer = pRollerCosterPlayer;
 			break;
 		}
@@ -543,6 +543,8 @@ void CGameFramework::ProcessInput()
 		if (dwDirection) 
 			m_pPlayer->Move(dwDirection, 50.0f * m_GameTimer.GetTimeElapsed(), true);
 	}
+
+
 	//플레이어를 실제로 이동하고 카메라를 갱신한다. 중력과 마찰력의 영향을 속도 벡터에 적용한다.
 	m_pPlayer->Update(m_GameTimer.GetTimeElapsed());
 }
