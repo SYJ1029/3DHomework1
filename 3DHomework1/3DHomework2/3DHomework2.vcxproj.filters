@@ -57,7 +57,7 @@
     <Filter Include="리소스 파일\Lines">
       <UniqueIdentifier>{782e2879-0d3c-421f-a473-925d29046938}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene\Manager">
+    <Filter Include="Manager">
       <UniqueIdentifier>{0cce0bc4-1d98-4405-98e6-d02524eabe61}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -203,7 +203,7 @@
       <Filter>Object\Pattern</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
-      <Filter>Scene\Manager</Filter>
+      <Filter>Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

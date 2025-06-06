@@ -31,6 +31,15 @@ public:
 
 	void ReleaseScene() { sceneList.clear(); }
 
-
+	size_t myDistance() {
+		
+		auto it = std::find(sceneList.begin(), sceneList.end(), m_pScene);
+		if (it != sceneList.end())
+			return std::distance(sceneList.begin(), it);
+		else
+			return -1; // 못 찾았을 때	
+	}
 };
+
+
 

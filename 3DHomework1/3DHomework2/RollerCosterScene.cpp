@@ -27,6 +27,11 @@ void CRollerCosterScene::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCo
 
 }
 
+void CRollerCosterScene::AnimateObjects(float fTimeElapsed)
+{
+
+}
+
 
 UINT CRollerCosterScene::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM
 	lParam, CCamera* pCamera)

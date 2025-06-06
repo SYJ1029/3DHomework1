@@ -337,10 +337,39 @@ void CGameFramework::BuildObjects()
 
 	m_pSceneManager->ChangeScene(sceneNum);
 	
-	if (m_pSceneManager->m_pScene) m_pSceneManager->m_pScene->BuildObjects(m_pd3dDevice, m_pd3dCommandList);
-	CAirplanePlayer* pAirplanePlayer = new CAirplanePlayer(m_pd3dDevice,
-		m_pd3dCommandList, m_pSceneManager->m_pScene->GetGraphicsRootSignature());
-	m_pPlayer = pAirplanePlayer;
+	if (m_pSceneManager->m_pScene) { 
+		m_pSceneManager->m_pScene->BuildObjects(m_pd3dDevice, m_pd3dCommandList); 
+
+		switch (m_pSceneManager->myDistance() + 1) {
+		case S_TITLE:
+		case S_MENU: 
+		{
+			CAirplanePlayer* pAirplanePlayer = new CAirplanePlayer(m_pd3dDevice,
+				m_pd3dCommandList, m_pSceneManager->m_pScene->GetGraphicsRootSignature());
+			m_pPlayer = pAirplanePlayer;
+			break;
+		}
+		case S_ROLLERCOSTER:
+		{
+			CRollerCosterPlayer* pRollerCosterPlayer = new CRollerCosterPlayer(m_pd3dDevice,
+				m_pd3dCommandList, m_pSceneManager->m_pScene->GetGraphicsRootSignature());
+			m_pPlayer = pRollerCosterPlayer;
+			break;
+		}
+		case S_TANK:
+		{
+			CTankPlayer* pTankPlayer = new CTankPlayer(m_pd3dDevice,
+				m_pd3dCommandList, m_pSceneManager->m_pScene->GetGraphicsRootSignature());
+			m_pPlayer = pTankPlayer;
+			break;
+		}
+
+		}
+	}
+
+
+
+
 	m_pCamera = m_pPlayer->GetCamera();
 	m_pd3dCommandList->Close();
 	ID3D12CommandList* ppd3dCommandLists[] = { m_pd3dCommandList };
