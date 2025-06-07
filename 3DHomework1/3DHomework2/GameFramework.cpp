@@ -427,9 +427,9 @@ void CGameFramework::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM
 
 		if (status == S_SAFE);
 		else {
-			ReleaseObjects();
+			//ReleaseObjects();
 			sceneNum = status;
-			BuildObjects();
+			//BuildObjects();
 		}
 	}
 

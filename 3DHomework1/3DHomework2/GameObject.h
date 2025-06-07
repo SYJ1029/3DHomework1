@@ -22,7 +22,12 @@ protected:
 	
 	CMesh* m_pMesh = NULL;
 	CShader* m_pShader = NULL;
+
+	bool m_pActive = true;
 public:
+	void SetActive(bool active) { m_pActive = active; }
+	bool IsActive() { return m_pActive; }
+
 	void ReleaseUploadBuffers();
 	virtual void SetMesh(CMesh* pMesh);
 	virtual void SetShader(CShader* pShader);
@@ -75,6 +80,7 @@ public:
 	void SetRotationAxis(XMFLOAT3 xmf3RotationAxis) {
 		m_xmf3RotationAxis = xmf3RotationAxis;
 	}
+
 	virtual void Animate(float fTimeElapsed);
 };
 
@@ -90,8 +96,21 @@ public:
 	virtual ~CExplosiveObject();
 protected:
 public:
+	XMFLOAT4X4					m_pxmf4x4Transforms[EXPLOSION_DEBRISES];
+
+	bool m_bBlowingUp;
+	void SetExplosion() { m_bBlowingUp = true; }
+
+	float						m_fElapsedTimes = 0.0f;
+	float						m_fDuration = 2.0f;
+	float						m_fExplosionSpeed = 10.0f;
+	float						m_fExplosionRotation = 720.0f;
+
 	static CMesh* m_pExplosionMesh;
 	static XMFLOAT3				m_pxmf3SphereVectors[EXPLOSION_DEBRISES];
-	static void PrepareExplosion();
+	static void PrepareExplosion(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
+		* pd3dCommandList);
 	virtual void Animate(float fTimeElapsed);
+	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera, UINT
+		nInstances);
 };

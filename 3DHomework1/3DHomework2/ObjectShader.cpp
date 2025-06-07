@@ -64,7 +64,8 @@ void CObjectsShader::AnimateObjects(float fTimeElapsed)
 {
 	for (int j = 0; j < m_nObjects; j++)
 	{
-		m_ppObjects[j]->Animate(fTimeElapsed);
+		if(m_ppObjects[j]->IsActive())
+			m_ppObjects[j]->Animate(fTimeElapsed);
 	}
 }
 
@@ -82,7 +83,7 @@ void CObjectsShader::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera*
 	CShader::Render(pd3dCommandList, pCamera);
 	for (int j = 0; j < m_nObjects; j++)
 	{
-		if (m_ppObjects[j])
+		if (m_ppObjects[j] && m_ppObjects[j]->IsActive())
 		{
 			m_ppObjects[j]->Render(pd3dCommandList, pCamera);
 		}

@@ -63,16 +63,18 @@ UINT CTitleScene::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wP
 	lParam, CCamera* pCamera)
 {
 
-	CGameObject* CapturedObject = nullptr;
+	CExplosiveObject* CapturedObject = nullptr;
 	switch (nMessageID)
 	{
 	case WM_LBUTTONDOWN:
 		//마우스 캡쳐를 하고 현재 마우스 위치를 가져온다.
 		::SetCapture(hWnd);
 		::GetCursorPos(&mousePoint);
-		CapturedObject = PickObjectPointedByCursor(LOWORD(lParam), HIWORD(lParam), pCamera);
+		CapturedObject = dynamic_cast<CExplosiveObject*>(PickObjectPointedByCursor(LOWORD(lParam), HIWORD(lParam), pCamera));
 
 		if (CapturedObject && CapturedObject->GetPosition().y < 0.0f) {
+			CapturedObject->SetExplosion();
+
 			return S_MENU;
 		}
 		break;

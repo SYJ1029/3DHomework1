@@ -60,3 +60,15 @@ void CTitleShader::ReleaseObjects()
 {
 
 }
+
+void CTitleShader::AnimateObjects(float fTimeElapsed)
+{
+	for (int j = 0; j < m_nObjects; j++)
+	{
+		if (m_ppObjects[j]->IsActive())
+			m_ppObjects[j]->Animate(fTimeElapsed);
+		else {
+			// 어디 하나가 Active하지 못하다는 것은 이 코드에서는 Scene을 넘어가야 함을 의미한다.
+		}
+	}
+}
