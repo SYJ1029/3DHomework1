@@ -234,3 +234,17 @@ public:
 		* pd3dCommandList);
 	virtual void ReleaseObjects();
 };
+
+class CWallShader : public CInstancingShader
+{
+public:
+	CWallShader();
+	~CWallShader();
+private:
+public:
+	virtual void CreateShader(ID3D12Device* pd3dDevice, ID3D12RootSignature
+		* pd3dGraphicsRootSignature);
+	virtual void BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
+		* pd3dCommandList);
+	virtual void ReleaseObjects();
+};
