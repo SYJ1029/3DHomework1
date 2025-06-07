@@ -220,3 +220,17 @@ private:
 	//virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera);
 	virtual void SetFileName(std::string filename);
 };
+
+class CObstacleShader : public CInstancingShader
+{
+public:
+	CObstacleShader();
+	~CObstacleShader();
+private:
+public:
+	virtual void CreateShader(ID3D12Device* pd3dDevice, ID3D12RootSignature
+		* pd3dGraphicsRootSignature);
+	virtual void BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
+		* pd3dCommandList);
+	virtual void ReleaseObjects();
+};

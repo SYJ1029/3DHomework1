@@ -16,15 +16,22 @@ void CTankScene::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLis
 	* pd3dCommandList)
 {
 	m_pd3dGraphicsRootSignature = CreateGraphicsRootSignature(pd3dDevice);
-	m_nShaders = 1;
+	m_nShaders = 2;
 	m_pShaders = new CInstancingShader * [m_nShaders];
 
 	m_pShaders[0] = new CTankShader;
 
 	m_pShaders[0]->CreateShader(pd3dDevice, m_pd3dGraphicsRootSignature);
-	m_pShaders[0]->SetFileName("Rail.txt");
+	m_pShaders[0]->SetFileName("You Win!.txt");
 	m_pShaders[0]->BuildObjects(pd3dDevice, pd3dCommandList);
-	m_pShaders[0]->SetObjPos(XMFLOAT3(0.0f, 6.0f, 0.0f));
+
+	m_pShaders[1] = new CObstacleShader;
+
+	m_pShaders[1]->CreateShader(pd3dDevice, m_pd3dGraphicsRootSignature);
+	m_pShaders[1]->SetFileName("You Win!.txt");
+	m_pShaders[1]->BuildObjects(pd3dDevice, pd3dCommandList);
+
+
 
 }
 
