@@ -93,6 +93,8 @@ int CMesh::CheckRayIntersection(XMVECTOR& xmvPickRayOrigin, XMVECTOR& xmvPickRay
 			}
 			}
 		}*/
+		std::cout << "correct" << std::endl;
+		return 2;
 	}
 	return(nIntersections);
 }
