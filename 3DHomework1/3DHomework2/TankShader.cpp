@@ -83,7 +83,7 @@ void CTankShader::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLi
 	std::uniform_int_distribution uid(0, 255);
 
 
-	m_nObjects = 10;
+	m_nObjects = 1;
 	m_ppObjects = new CGameObject * [m_nObjects];
 	float fxPitch = 12.0f * 2.5f;
 	float fyPitch = 12.0f * 2.5f;
@@ -137,6 +137,19 @@ void CTankShader::AnimateObjects(float fTimeElapsed)
 			// 어디 하나가 Active하지 못하다는 것은 이 코드에서는 Scene을 넘어가야 함을 의미한다.
 			// Active하지 못한 
 		}
+	}
+}
+
+void CTankShader::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera
+	* pCamera)
+{
+
+	if (m_ppObjects[0]->IsActive()) {
+		CShader::Render(pd3dCommandList, pCamera);
+		//모든 게임 객체의 인스턴싱 데이터를 버퍼에 저장한다.
+		UpdateShaderVariables(pd3dCommandList);
+		//하나의 정점 데이터를 사용하여 모든 게임 객체(인스턴스)들을 렌더링한다.
+		m_ppObjects[0]->Render(pd3dCommandList, pCamera, m_nObjects);
 	}
 }
 

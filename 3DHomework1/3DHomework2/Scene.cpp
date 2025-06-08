@@ -216,6 +216,8 @@ CGameObject* CScene::PickObjectPointedByCursor(int xClient, int yClient, CCamera
 	{
 		pNearObject[i] = nullptr;
 
+		
+
 		pNearObject[i] = m_pShaders[i]->PickObjectPointedByCursor(xClient, yClient, pCamera);
 
 		if (pNearObject[i]) {

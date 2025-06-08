@@ -17,27 +17,32 @@ void CTankScene::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLis
 	* pd3dCommandList)
 {
 	m_pd3dGraphicsRootSignature = CreateGraphicsRootSignature(pd3dDevice);
-	m_nShaders = 3;
+	m_nShaders = 12;
 	m_pShaders = new CInstancingShader * [m_nShaders];
 
-	m_pShaders[0] = new CTankShader;
+	int i;
 
-	m_pShaders[0]->CreateShader(pd3dDevice, m_pd3dGraphicsRootSignature);
-	m_pShaders[0]->SetFileName("You Win!.txt");
-	m_pShaders[0]->BuildObjects(pd3dDevice, pd3dCommandList);
+	for (i = 0; i < 10; ++i) {
+		m_pShaders[i] = new CTankShader;
 
-	m_pShaders[1] = new CObstacleShader;
+		m_pShaders[i]->CreateShader(pd3dDevice, m_pd3dGraphicsRootSignature);
+		m_pShaders[i]->SetFileName("You Win!.txt");
+		m_pShaders[i]->BuildObjects(pd3dDevice, pd3dCommandList);
+	}
 
-	m_pShaders[1]->CreateShader(pd3dDevice, m_pd3dGraphicsRootSignature);
-	m_pShaders[1]->SetFileName("You Win!.txt");
-	m_pShaders[1]->BuildObjects(pd3dDevice, pd3dCommandList);
+	
+	m_pShaders[i] = new CObstacleShader;
+
+	m_pShaders[i]->CreateShader(pd3dDevice, m_pd3dGraphicsRootSignature);
+	m_pShaders[i]->SetFileName("You Win!.txt");
+	m_pShaders[i++]->BuildObjects(pd3dDevice, pd3dCommandList);
 
 
-	m_pShaders[2] = new CWallShader;
+	m_pShaders[i] = new CWallShader;
 
-	m_pShaders[2]->CreateShader(pd3dDevice, m_pd3dGraphicsRootSignature);
-	m_pShaders[2]->SetFileName("You Win!.txt");
-	m_pShaders[2]->BuildObjects(pd3dDevice, pd3dCommandList);
+	m_pShaders[i]->CreateShader(pd3dDevice, m_pd3dGraphicsRootSignature);
+	m_pShaders[i]->SetFileName("You Win!.txt");
+	m_pShaders[i++]->BuildObjects(pd3dDevice, pd3dCommandList);
 }
 
 
@@ -84,6 +89,7 @@ UINT CTankScene::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wPa
 
 	return S_SAFE;
 }
+
 bool CTankScene::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM
 	lParam)
 {
@@ -220,18 +226,17 @@ void CTankScene::CheckObjectByBulletCollisions()
 		for (int j = 0; j < m_pShaders[i]->m_nObjects; ++j) {
 			for (int r = 0; r < BULLETS; r++)
 			{
-				if(ppBullets[r]->IsActive())
-					if (ppBullets[r]->IsActive() && (m_pShaders[i]->m_ppObjects[j]) &&
-						m_pShaders[i]->m_ppObjects[j]->m_xmOOBB.Intersects(ppBullets[r]->m_xmOOBB))
-					{
-						if (i == 0) {
-							CExplosiveObject* pExplosiveObject = (CExplosiveObject*)m_pShaders[i]->m_ppObjects[j];
-							pExplosiveObject->SetExplosion();
-						}
-
-
-						ppBullets[j]->Reset();
+				if (ppBullets[r]->IsActive() && (m_pShaders[i]->m_ppObjects[j]) && (m_pShaders[i]->m_ppObjects[j]->IsActive()) &&
+					m_pShaders[i]->m_ppObjects[j]->m_xmOOBB.Intersects(ppBullets[r]->m_xmOOBB))
+				{
+					if (i >= 0 && i < 10) {
+						CExplosiveObject* pExplosiveObject = (CExplosiveObject*)m_pShaders[i]->m_ppObjects[j];
+						pExplosiveObject->SetExplosion();
 					}
+
+
+					ppBullets[r]->Reset();
+				}
 			}
 
 
