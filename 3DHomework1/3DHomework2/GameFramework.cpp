@@ -401,6 +401,54 @@ void CGameFramework::MoveToNextFrame()
 	}
 }
 
+void CGameFramework::CheckRefreshObjects()
+{
+	// 조건을 충족했을 시에 Refresh(Release 후 Build)
+
+	if (m_pSceneManager && m_pSceneManager->m_pScene) {
+		switch (m_pSceneManager->myDistance()) {
+		case 0:
+		{
+			if (m_pSceneManager->m_pScene->IsInActiveObject()) {
+				//폭발이 끝난 이후에 Refresh가 이루어져야 한다
+				//InActive한 객체를 찾으면 Refresh
+				ReleaseObjects();
+				BuildObjects();
+			}
+			break;
+		}
+		case 1:
+		{
+			if (sceneNum != S_MENU) {
+				// 자기 자신이 아니면 Refresh
+				ReleaseObjects();
+				BuildObjects();
+			}
+
+			break;
+		}
+		case 2:
+		{
+			if (sceneNum == S_TANK) {
+				// Tank로 전환 예정일 경우 Refresh
+				ReleaseObjects();
+				BuildObjects();
+			}
+			break;
+		}
+		case 3:
+		{
+			break;
+		}
+
+		}
+	
+
+
+	}
+
+
+}
 
 void CGameFramework::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wParam,
 	LPARAM lParam)
@@ -614,6 +662,8 @@ void CGameFramework::FrameAdvance()
 	m_pd3dCommandQueue->ExecuteCommandLists(1, ppd3dCommandLists);
 	WaitForGpuComplete();
 	m_pdxgiSwapChain->Present(0, 0);
+
+	CheckRefreshObjects();
 	MoveToNextFrame();
 	m_GameTimer.GetFrameRate(m_pszFrameRate + 12, 37);
 	::SetWindowText(m_hWnd, m_pszFrameRate);

@@ -33,6 +33,9 @@ protected:
 	ID3D12RootSignature* m_pd3dGraphicsRootSignature = NULL;
 
 	POINT mousePoint = { NULL, NULL };
+
+public:
+	bool IsInActiveObject();
 };
 
 class CTitleScene : public CScene

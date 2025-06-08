@@ -99,4 +99,6 @@ public:
 
 
 	void ChangeScene(UINT id) { sceneNum = id; }
+
+	void CheckRefreshObjects();
 };

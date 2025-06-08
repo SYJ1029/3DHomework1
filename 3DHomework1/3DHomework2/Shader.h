@@ -46,6 +46,9 @@ public:
 	virtual void OnPrepareRender(ID3D12GraphicsCommandList* pd3dCommandList);
 	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera);
 
+	virtual void RefreshShaderVariable(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
+		* pd3dCommandList);
+
 protected:
 	ID3D12PipelineState** m_ppd3dPipelineStates = NULL;
 	int m_nPipelineStates = 0;
@@ -90,6 +93,9 @@ public:
 	void SetObjPos(XMFLOAT3 newPos) {
 		m_ppObjects[0]->SetPosition(newPos);
 	}
+
+	//virtual void RefreshShaderVariable(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
+	//	* pd3dCommandList);
 };
 
 
@@ -108,6 +114,8 @@ public:
 		* pd3dGraphicsRootSignature);
 	virtual void CreateShaderVariables(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
 		* pd3dCommandList);
+	virtual void CreateShaderVariables(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
+		* pd3dCommandList, UINT nInstances);
 	virtual void UpdateShaderVariables(ID3D12GraphicsCommandList* pd3dCommandList);
 	virtual void ReleaseShaderVariables();
 	virtual void BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
@@ -116,6 +124,11 @@ public:
 	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera);
 
 	virtual void SetFileName(std::string filename) {}
+
+	virtual CGameObject* GetInActiveObject();
+
+	virtual void RefreshShaderVariable(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
+		* pd3dCommandList);
 protected:
 	//인스턴스 정점 버퍼와 정점 버퍼 뷰이다.
 	ID3D12Resource* m_pd3dcbGameObjects = NULL;
@@ -135,9 +148,9 @@ public:
 	//virtual D3D12_SHADER_BYTECODE CreatePixelShader(ID3DBlob** ppd3dShaderBlob);
 	virtual void CreateShader(ID3D12Device* pd3dDevice, ID3D12RootSignature
 		* pd3dGraphicsRootSignature);
-	//virtual void CreateShaderVariables(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
-	//	* pd3dCommandList);
-	//virtual void UpdateShaderVariables(ID3D12GraphicsCommandList* pd3dCommandList);
+	virtual void CreateShaderVariables(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
+		* pd3dCommandList);
+	virtual void UpdateShaderVariables(ID3D12GraphicsCommandList* pd3dCommandList);
 	//virtual void ReleaseShaderVariables();
 
 	virtual void BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
@@ -169,7 +182,7 @@ public:
 	virtual void BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
 		* pd3dCommandList);
 	virtual void ReleaseObjects();
-	virtual void AnimateObjects(float fTimeElapsed);
+	//virtual void AnimateObjects(float fTimeElapsed);
 	//virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera);
 
 	virtual void SetFileName(std::string filename);
@@ -196,7 +209,7 @@ public:
 	virtual void BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
 		* pd3dCommandList);
 	virtual void ReleaseObjects();
-	virtual void AnimateObjects(float fTimeElapsed);
+	//virtual void AnimateObjects(float fTimeElapsed);
 	//virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera);
 	virtual void SetFileName(std::string filename);
 };
@@ -220,7 +233,7 @@ private:
 	virtual void BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
 		* pd3dCommandList);
 	virtual void ReleaseObjects();
-	virtual void AnimateObjects(float fTimeElapsed);
+	//virtual void AnimateObjects(float fTimeElapsed);
 	//virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera);
 	virtual void SetFileName(std::string filename);
 };

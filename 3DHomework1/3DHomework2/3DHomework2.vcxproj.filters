@@ -125,9 +125,6 @@
     <ClCompile Include="FMeshBuilder.cpp">
       <Filter>Mesh</Filter>
     </ClCompile>
-    <ClCompile Include="ExplosiveObject.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
     <ClCompile Include="MovePattern.cpp">
       <Filter>Object\Pattern\Move</Filter>
     </ClCompile>
@@ -160,6 +157,9 @@
     </ClCompile>
     <ClCompile Include="DiffusedShader.cpp">
       <Filter>Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="ExplosiveObject.cpp">
+      <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

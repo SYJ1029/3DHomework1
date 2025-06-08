@@ -266,3 +266,15 @@ CInstancingShader* CScene::PickShaderPointedByCursor(int xClient, int yClient, C
 
 	return m_pShaders[pNearestShaderIndex];
 }
+
+bool CScene::IsInActiveObject()
+{
+	// Shader를 통해서 InActive한 객체를 찾아냈으면 true를 반환
+
+	for (int i = 0; i < m_nShaders; i++) {
+		if (m_pShaders[i]->GetInActiveObject())
+			return true;
+	}
+
+	return false;
+}

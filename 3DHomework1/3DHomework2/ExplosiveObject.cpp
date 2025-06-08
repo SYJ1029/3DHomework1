@@ -1,4 +1,5 @@
 #include "GameObject.h"
+#include "Shader.h"
 
 inline float RandF(float fMin, float fMax)
 {
@@ -18,7 +19,7 @@ XMVECTOR RandomUnitVectorOnSphere()
 }
 
 XMFLOAT3 CExplosiveObject::m_pxmf3SphereVectors[EXPLOSION_DEBRISES];
-CMesh* CExplosiveObject::m_pExplosionMesh = NULL;
+CMesh* CExplosiveObject::m_pExplosionMesh = nullptr;
 
 CExplosiveObject::CExplosiveObject() 
 	: CGameObject(), CRotationPattern(), CMovePattern()
@@ -30,6 +31,9 @@ CExplosiveObject::~CExplosiveObject()
 {
 
 }
+
+
+
 
 void CExplosiveObject::Animate(float fTimeElapsed)
 {
@@ -63,13 +67,7 @@ void CExplosiveObject::Animate(float fTimeElapsed)
 	}
 }
 
-void CExplosiveObject::PrepareExplosion(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
-	* pd3dCommandList)
-{
-	for (int i = 0; i < EXPLOSION_DEBRISES; i++) XMStoreFloat3(&m_pxmf3SphereVectors[i], ::RandomUnitVectorOnSphere());
 
-	m_pExplosionMesh = new CCubeMeshDiffused(pd3dDevice, pd3dCommandList, 0.5f, 0.5f, 0.5f);
-}
 
 
 void CExplosiveObject::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera,
@@ -78,14 +76,50 @@ void CExplosiveObject::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamer
 	OnPrepareRender();
 	if (m_bBlowingUp)
 	{
-		for (int i = 0; i < EXPLOSION_DEBRISES; i++)
+
+		for (int i = 0; i < EXPLOSION_DEBRISES; i += 2)
 		{
-			if (m_pExplosionMesh) m_pExplosionMesh->Render(pd3dCommandList, nInstances);
+
+
+			if (m_pExplosionMesh) {
+				m_xmf4x4World = m_pxmf4x4Transforms[i];
+
+			}
 		}
+
+		UpdateShaderVariables(pd3dCommandList);
+		m_pShader->UpdateShaderVariables(pd3dCommandList);
+
+		if (m_pExplosionMesh) {
+			m_pExplosionMesh->Render(pd3dCommandList, EXPLOSION_DEBRISES);
+		}
+
+
 	}
 	else
 	{
 		if (m_pMesh) m_pMesh->Render(pd3dCommandList, nInstances);
 	}
 	
+}
+
+void CExplosiveObject::SetExplosion()
+{ 
+	m_bBlowingUp = true; 
+
+}
+
+void CExplosiveObject::PrepareExplosion(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
+	* pd3dCommandList)
+{
+
+	for (int i = 0; i < EXPLOSION_DEBRISES; i++) {
+		XMStoreFloat3(&m_pxmf3SphereVectors[i], ::RandomUnitVectorOnSphere());
+
+
+	}
+
+
+
+	m_pExplosionMesh = new CCubeMeshDiffused(pd3dDevice, pd3dCommandList, 0.5f, 0.5f, 0.5f);
 }

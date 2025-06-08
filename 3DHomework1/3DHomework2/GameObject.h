@@ -28,6 +28,8 @@ public:
 	void SetActive(bool active) { m_pActive = active; }
 	bool IsActive() { return m_pActive; }
 
+	virtual XMFLOAT4X4 GetMatrix(int& index) { return m_xmf4x4World; }
+
 	void ReleaseUploadBuffers();
 	virtual void SetMesh(CMesh* pMesh);
 	virtual void SetShader(CShader* pShader);
@@ -97,18 +99,24 @@ public:
 protected:
 public:
 	XMFLOAT4X4					m_pxmf4x4Transforms[EXPLOSION_DEBRISES];
+	virtual XMFLOAT4X4 GetMatrix(int& index) { 
+		if (m_bBlowingUp) {
+			return m_pxmf4x4Transforms[index];
+		}
+		return m_xmf4x4World; 
+	}
 
-	bool m_bBlowingUp;
-	void SetExplosion() { m_bBlowingUp = true; }
+	bool m_bBlowingUp = false;
+	void SetExplosion();
 
 	float						m_fElapsedTimes = 0.0f;
 	float						m_fDuration = 2.0f;
-	float						m_fExplosionSpeed = 10.0f;
+	float						m_fExplosionSpeed = 1.0f;
 	float						m_fExplosionRotation = 720.0f;
 
 	static CMesh* m_pExplosionMesh;
 	static XMFLOAT3				m_pxmf3SphereVectors[EXPLOSION_DEBRISES];
-	static void PrepareExplosion(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
+	void PrepareExplosion(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
 		* pd3dCommandList);
 	virtual void Animate(float fTimeElapsed);
 	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera, UINT

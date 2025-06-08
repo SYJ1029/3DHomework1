@@ -196,9 +196,20 @@ void CShader::UpdateShaderVariable(ID3D12GraphicsCommandList* pd3dCommandList, X
 	XMStoreFloat4x4(&xmf4x4World, XMMatrixTranspose(XMLoadFloat4x4(pxmf4x4World)));
 	pd3dCommandList->SetGraphicsRoot32BitConstants(0, 16, &xmf4x4World, 0);
 }
+
 void CShader::ReleaseShaderVariables()
 {
+
 }
+
+void CShader::RefreshShaderVariable(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
+	* pd3dCommandList)
+{
+	// 제거 후 다시 재구성
+	CreateShaderVariables(pd3dDevice, pd3dCommandList);
+}
+
+
 
 
 
