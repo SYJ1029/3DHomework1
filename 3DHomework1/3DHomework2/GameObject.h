@@ -30,6 +30,7 @@ public:
 	bool IsActive() { return m_pActive; }
 
 	virtual XMFLOAT4X4 GetMatrix(int& index) { return m_xmf4x4World; }
+	CMesh* GetMesh() { return m_pMesh; }
 
 	void ReleaseUploadBuffers();
 	virtual void SetMesh(CMesh* pMesh);
@@ -70,6 +71,7 @@ public:
 
 	void GenerateRayForPicking(XMVECTOR& xmvPickPosition, XMMATRIX& xmmtxView, XMVECTOR& xmvPickRayOrigin, XMVECTOR& xmvPickRayDirection);
 	int PickObjectByRayIntersection(XMVECTOR& xmPickPosition, XMMATRIX& xmmtxView, float* pfHitDistance);
+	int PickObjectByRayIntersection(XMVECTOR& xmPickPosition, XMMATRIX& xmmtxView, float* pfHitDistance, CMesh* pMesh);
 };
 
 class CRotatingObject : public CGameObject

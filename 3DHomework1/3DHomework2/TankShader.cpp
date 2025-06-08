@@ -49,7 +49,7 @@ void CTankShader::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLi
 		XMStoreFloat3(&moveDirection, XMVector3Normalize(XMVectorSet(uid(dre) - 128.0f, 0.0f, uid(dre) - 128.0f, 0.0f)));
 
 		pExplosiveObject->SetMoveDirection(moveDirection);
-		pExplosiveObject->SetMoveSpeed(0.0625f);
+		pExplosiveObject->SetMoveSpeed(0.0f);
 		m_ppObjects[i] = pExplosiveObject;
 	}
 

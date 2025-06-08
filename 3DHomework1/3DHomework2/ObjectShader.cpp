@@ -103,10 +103,16 @@ CGameObject* CObjectsShader::PickObjectPointedByCursor(int xClient, int yClient,
 	int nIntersected = 0;
 	float fNearestHitDistance = FLT_MAX;
 	CGameObject* pNearestObject = NULL;
+
+	CInstancingShader* test = dynamic_cast<CInstancingShader*>(this);
 	for (int i = 0; i < m_nObjects; i++)
 	{
 		float fHitDistance = FLT_MAX;
-		nIntersected = m_ppObjects[i]->PickObjectByRayIntersection(xmvPickPosition, xmmtxView, &fHitDistance);
+		if (test)
+			nIntersected = m_ppObjects[i]->PickObjectByRayIntersection(xmvPickPosition, xmmtxView, &fHitDistance, m_ppObjects[0]->GetMesh());
+		else
+			nIntersected = m_ppObjects[i]->PickObjectByRayIntersection(xmvPickPosition, xmmtxView, &fHitDistance);
+
 		if ((nIntersected > 0) && (fHitDistance < fNearestHitDistance))
 		{
 			fNearestHitDistance = fHitDistance;
