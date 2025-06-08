@@ -111,7 +111,7 @@ public:
 
 	float						m_fElapsedTimes = 0.0f;
 	float						m_fDuration = 2.0f;
-	float						m_fExplosionSpeed = 1.0f;
+	float						m_fExplosionSpeed = 10.0f;
 	float						m_fExplosionRotation = 720.0f;
 
 	static CMesh* m_pExplosionMesh;

@@ -410,7 +410,7 @@ void CGameFramework::CheckRefreshObjects()
 		case 0:
 		{
 			if (m_pSceneManager->m_pScene->IsInActiveObject()) {
-				//폭발이 끝난 이후에 Refresh가 이루어져야 한다
+				//상태 변경이 예정되어 있더라도 "폭발 후에"이루어져야 한다
 				//InActive한 객체를 찾으면 Refresh
 				ReleaseObjects();
 				BuildObjects();
@@ -438,6 +438,7 @@ void CGameFramework::CheckRefreshObjects()
 		}
 		case 3:
 		{
+
 			break;
 		}
 

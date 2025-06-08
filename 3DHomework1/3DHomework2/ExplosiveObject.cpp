@@ -82,7 +82,7 @@ void CExplosiveObject::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamer
 
 
 			if (m_pExplosionMesh) {
-				m_xmf4x4World = m_pxmf4x4Transforms[i];
+				//m_xmf4x4World = m_pxmf4x4Transforms[i];
 
 			}
 		}

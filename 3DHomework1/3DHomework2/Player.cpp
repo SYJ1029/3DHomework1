@@ -70,11 +70,13 @@ void CPlayer::Move(const XMFLOAT3& xmf3Shift, bool bUpdateVelocity)
 	{
 		//플레이어의 속도 벡터를 xmf3Shift 벡터만큼 변경한다.
 		m_xmf3Velocity = Vector3::Add(m_xmf3Velocity, xmf3Shift);
+
+		//플레이어를 현재 위치 벡터에서 xmf3Shift 벡터만큼 이동한다.
+		m_xmf3Position = Vector3::Add(m_xmf3Position, xmf3Shift);
 	}
 	else
 	{
-		//플레이어를 현재 위치 벡터에서 xmf3Shift 벡터만큼 이동한다.
-		m_xmf3Position = Vector3::Add(m_xmf3Position, xmf3Shift);
+
 
 		//플레이어의 위치가 변경되었으므로 카메라의 위치도 xmf3Shift 벡터만큼 이동한다.
 		if (m_pCamera) m_pCamera->Move(xmf3Shift);

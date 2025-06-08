@@ -53,18 +53,11 @@ void CTitleShader::UpdateShaderVariables(ID3D12GraphicsCommandList
 
 	for (int j = 0; j < m_nObjects; j++)
 	{
-		if (exploseIndex >= 0 && j != exploseIndex) {
-			m_pcbMappedGameObjects[j].m_xmcColor = (j % 2) ? XMFLOAT4(0.5f, 0.0f, 0.0f, 0.0f) :
-				XMFLOAT4(0.0f, 0.0f, 0.5f, 0.0f);
-			XMStoreFloat4x4(&m_pcbMappedGameObjects[j].m_xmf4x4Transform,
-				XMMatrixTranspose(XMLoadFloat4x4(&m_ppObjects[j]->GetMatrix(j))));
-		}
-		else {
-			m_pcbMappedGameObjects[j].m_xmcColor = (j % 2) ? XMFLOAT4(0.5f, 0.0f, 0.0f, 0.0f) :
-				XMFLOAT4(0.0f, 0.0f, 0.5f, 0.0f);
-			XMStoreFloat4x4(&m_pcbMappedGameObjects[j].m_xmf4x4Transform,
-				XMMatrixTranspose(XMLoadFloat4x4(&m_ppObjects[j]->GetMatrix(j))));
-		}
+		m_pcbMappedGameObjects[j].m_xmcColor = (j % 2) ? XMFLOAT4(0.5f, 0.0f, 0.0f, 0.0f) :
+			XMFLOAT4(0.0f, 0.0f, 0.5f, 0.0f);
+		XMStoreFloat4x4(&m_pcbMappedGameObjects[j].m_xmf4x4Transform,
+			XMMatrixTranspose(XMLoadFloat4x4(&m_ppObjects[j]->GetMatrix(j))));
+
 
 	}
 
