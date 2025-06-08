@@ -58,6 +58,10 @@ UINT CTankScene::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wPa
 		::GetCursorPos(&mousePoint);
 		pPlayer->pickedObject = dynamic_cast<CExplosiveObject*>(PickObjectPointedByCursor(LOWORD(lParam), HIWORD(lParam), pCamera));
 
+		if (pPlayer->pickedObject) {
+			pPlayer->pickedObject->m_bBlowingUp = true;
+		}
+
 		break;
 	case WM_LBUTTONUP:
 	case WM_RBUTTONUP:
