@@ -253,7 +253,11 @@ CInstancingShader* CScene::PickShaderPointedByCursor(int xClient, int yClient, C
 	{
 		pNearObject[i] = nullptr;
 
+		if (dynamic_cast<CObjectsShader*>(m_pShaders[i]) || dynamic_cast<CWallShader*>(m_pShaders[i])) continue;
+
 		pNearObject[i] = m_pShaders[i]->PickObjectPointedByCursor(xClient, yClient, pCamera);
+
+		
 
 		if (pNearObject[i]) {
 			if (pNearestObject && pNearObject[i]->GetPosition().z < pNearestObject->GetPosition().z);
