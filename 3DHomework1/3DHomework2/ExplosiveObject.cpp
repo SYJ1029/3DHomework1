@@ -60,12 +60,15 @@ void CExplosiveObject::Animate(float fTimeElapsed)
 			// Æø¹ßÀÌ ³¡³µ´Ù¸é ±×¸®¸é ¾ÈµÊ
 			SetActive(false);
 		}
+
+
 	}
 	else {
-
 		CGameObject::Rotate(&m_xmf3RotationAxis, m_fRotationSpeed * fTimeElapsed);
 		CGameObject::MoveStrafe(m_xmf3MoveDirection.x * m_fMoveSpeed);
 		CGameObject::MoveForward(m_xmf3MoveDirection.z * m_fMoveSpeed);
+
+		UpdateBoundingBox();
 	}
 }
 
@@ -75,22 +78,15 @@ void CExplosiveObject::Animate(float fTimeElapsed)
 void CExplosiveObject::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera,
 	UINT nInstances)
 {
-	OnPrepareRender();
+	//OnPrepareRender();
+	UpdateShaderVariables(pd3dCommandList);
+	if(m_pShader)
+		m_pShader->UpdateShaderVariables(pd3dCommandList);
+
 	if (m_bBlowingUp)
 	{
 
-		for (int i = 0; i < EXPLOSION_DEBRISES; i += 2)
-		{
 
-
-			if (m_pExplosionMesh) {
-				//m_xmf4x4World = m_pxmf4x4Transforms[i];
-
-			}
-		}
-
-		UpdateShaderVariables(pd3dCommandList);
-		m_pShader->UpdateShaderVariables(pd3dCommandList);
 
 		if (m_pExplosionMesh) {
 			m_pExplosionMesh->Render(pd3dCommandList, EXPLOSION_DEBRISES);

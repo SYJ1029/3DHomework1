@@ -2,6 +2,7 @@
 #include "Timer.h"
 #include "Shader.h"
 
+
 class CScene
 {
 public:
@@ -25,6 +26,13 @@ public:
 
 	virtual CGameObject* PickObjectPointedByCursor(int xClient, int yClient, CCamera* pCamera);
 	virtual CInstancingShader* PickShaderPointedByCursor(int xClient, int yClient, CCamera* pCamera);
+
+
+
+	void SetPlayer(CPlayer* player) { m_pPlayer = player; }
+	 
+
+
 protected:
 	//씬은 게임 객체들의 집합이다. 게임 객체는 셰이더를 포함한다.
 	// 배치(Batch) 처리를 하기 위하여 씬을 셰이더들의 리스트로 표현한다
@@ -33,6 +41,7 @@ protected:
 	ID3D12RootSignature* m_pd3dGraphicsRootSignature = NULL;
 
 	POINT mousePoint = { NULL, NULL };
+	CPlayer* m_pPlayer = nullptr;
 
 public:
 	bool IsInActiveObject();
@@ -102,11 +111,18 @@ public:
 	~CTankScene();
 private:
 public:
+
 	virtual void BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
 		* pd3dCommandList);
+	virtual void AnimateObjects(float fTimeElapsed);
 
 	virtual UINT OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM
 		lParam, CCamera* pCamera);
 	virtual bool OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM
 		lParam);
+
+	//virtual void CheckObjectByObjectCollisions();
+	//virtual void CheckObjectByWallCollisions();
+	virtual void CheckPlayerByWallCollision();
+	virtual void CheckObjectByBulletCollisions();
 };

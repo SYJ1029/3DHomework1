@@ -37,6 +37,15 @@ void CGameObject::UpdateBoundingBox()
 	}
 }
 
+void CGameObject::UpdateBoundingBox(CMesh* pMesh)
+{
+	if (pMesh)
+	{
+		pMesh->m_xmOOBB.Transform(m_xmOOBB, XMLoadFloat4x4(&m_xmf4x4World));
+		XMStoreFloat4(&m_xmOOBB.Orientation, XMQuaternionNormalize(XMLoadFloat4(&m_xmOOBB.Orientation)));
+	}
+}
+
 void CGameObject::ReleaseUploadBuffers()
 {
 	//정점 버퍼를 위한 업로드 버퍼를 소멸시킨다.
@@ -46,7 +55,7 @@ void CGameObject::ReleaseUploadBuffers()
 void CGameObject::Animate(float fTimeElapsed)
 {
 	// 객체들의 이동과 같은 물리적인 처리
-
+	UpdateBoundingBox();
 }
 
 void CGameObject::OnPrepareRender()

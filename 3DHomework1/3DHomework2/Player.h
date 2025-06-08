@@ -145,6 +145,15 @@ public:
 	CTankPlayer(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList,
 		ID3D12RootSignature* pd3dGraphicsRootSignature);
 	virtual ~CTankPlayer();
+protected:
+	float m_fBulletEffectiveRange = 150.0f;
+
+public:
+	CExplosiveObject* pickedObject = nullptr;
+	CBulletObject** bullets = nullptr;
+
+	virtual void CreateShaderVariables(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
+		* pd3dCommandList);
 
 	virtual CCamera* ChangeCamera(DWORD nNewCameraMode, float fTimeElapsed);
 	virtual void OnPrepareRender();
@@ -153,8 +162,5 @@ public:
 	virtual void Update(float fTimeElapsed);
 	void FireBullet(CGameObject* pLockedObject, bool bLock);
 
-	CExplosiveObject* pickedObject = nullptr;
-protected:
-	CBulletObject** bullets = nullptr;
-	float m_fBulletEffectiveRange = 150.0f;
+
 };

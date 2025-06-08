@@ -18,11 +18,12 @@ public:
 	void AddRef() { m_nReferences++; }
 	void Release() { if (--m_nReferences <= 0) delete this; }
 	XMFLOAT4X4 m_xmf4x4World;
+	BoundingOrientedBox			m_xmOOBB = BoundingOrientedBox();
+
 protected:
 	
 	CMesh* m_pMesh = NULL;
 	CShader* m_pShader = NULL;
-	BoundingOrientedBox			m_xmOOBB = BoundingOrientedBox();
 
 	bool m_pActive = true;
 public:
@@ -31,6 +32,9 @@ public:
 
 	virtual XMFLOAT4X4 GetMatrix(int& index) { return m_xmf4x4World; }
 	CMesh* GetMesh() { return m_pMesh; }
+
+	CGameObject* m_pObjectCollided = NULL;
+
 
 	void ReleaseUploadBuffers();
 	virtual void SetMesh(CMesh* pMesh);
@@ -68,6 +72,8 @@ public:
 	void Rotate(float fPitch = 10.0f, float fYaw = 10.0f, float fRoll = 10.0f);
 
 	void UpdateBoundingBox();
+	void UpdateBoundingBox(CMesh* pMesh);
+
 
 	void GenerateRayForPicking(XMVECTOR& xmvPickPosition, XMMATRIX& xmmtxView, XMVECTOR& xmvPickRayOrigin, XMVECTOR& xmvPickRayDirection);
 	int PickObjectByRayIntersection(XMVECTOR& xmPickPosition, XMMATRIX& xmmtxView, float* pfHitDistance);

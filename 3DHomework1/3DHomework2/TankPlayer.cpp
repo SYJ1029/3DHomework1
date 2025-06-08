@@ -16,18 +16,31 @@ CTankPlayer::CTankPlayer(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
 	//플레이어의 위치를 설정한다.
 	SetPosition(XMFLOAT3(0.0f, 0.0f, -15.0f));
 	//플레이어(비행기) 메쉬를 렌더링할 때 사용할 셰이더를 생성한다.
+
+	bullets = new CBulletObject * [BULLETS];
+	CCubeMeshDiffused* pCubeMesh = new CCubeMeshDiffused(pd3dDevice, pd3dCommandList,
+		3.0f, 3.0f, 3.0f);
+
+	for (int i = 0; i < BULLETS; ++i) {
+		bullets[i] = new CBulletObject(m_fBulletEffectiveRange);
+		bullets[i]->SetMesh(pCubeMesh);
+	}
+
 	CDiffusedShader* pShader = new CDiffusedShader();
 	pShader->CreateShader(pd3dDevice, pd3dGraphicsRootSignature);
 	SetShader(pShader);
 
-	bullets = new CBulletObject * [BULLETS];
 
-	for (int i = 0; i < BULLETS; ++i) {
-		bullets[i] = new CBulletObject(m_fBulletEffectiveRange);
-	}
 }
 CTankPlayer::~CTankPlayer()
 {
+}
+
+void CTankPlayer::CreateShaderVariables(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
+	* pd3dCommandList)
+{
+	CGameObject::CreateShaderVariables(pd3dDevice, pd3dCommandList);
+	if (m_pCamera) m_pCamera->CreateShaderVariables(pd3dDevice, pd3dCommandList);
 }
 
 void CTankPlayer::FireBullet(CGameObject* pLockedObject, bool bLock)
@@ -61,7 +74,9 @@ void CTankPlayer::FireBullet(CGameObject* pLockedObject, bool bLock)
 
 		pBulletObject->SetFirePosition(xmf3FirePosition);
 		pBulletObject->SetMoveDirection(xmf3Direction);
+		pBulletObject->SetMoveSpeed(100.0f);
 		pBulletObject->SetActive(true);
+
 
 		if (pLockedObject && bLock)
 		{
@@ -158,10 +173,12 @@ void CTankPlayer::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pC
 
 	// 플레이어는 자신의 렌더링 여부와는 관계 없이 active한 총알들은 Render해줘야 한다.
 
+
+	CPlayer::Render(pd3dCommandList, pCamera);
+
 	for (int i = 0; i < BULLETS; ++i) {
 		if (bullets && bullets[i] && bullets[i]->IsActive()) {
 			bullets[i]->Render(pd3dCommandList, pCamera, 1);
 		}
 	}
-	CPlayer::Render(pd3dCommandList, pCamera);
 }

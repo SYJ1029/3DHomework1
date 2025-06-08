@@ -18,6 +18,9 @@ public:
 	void SetMoveDirection(XMFLOAT3 xmf3MoveDirection) {
 		m_xmf3MoveDirection = xmf3MoveDirection;
 	}
+
+	XMFLOAT3 GetMoveDirection() { return m_xmf3MoveDirection; }
+	float GetMoveSpeed() { return m_fMoveSpeed; }
 };
 
 class CRotationPattern

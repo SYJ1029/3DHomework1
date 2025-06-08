@@ -85,9 +85,11 @@ public:
 	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera);
 
 	virtual CGameObject* PickObjectPointedByCursor(int xClient, int yClient, CCamera* pCamera);
-protected:
+
+
 	CGameObject** m_ppObjects = NULL;
 	int m_nObjects = 0;
+protected:
 
 public:
 	void SetObjPos(XMFLOAT3 newPos) {
@@ -226,16 +228,23 @@ private:
 	//virtual D3D12_SHADER_BYTECODE CreatePixelShader(ID3DBlob** ppd3dShaderBlob);
 	virtual void CreateShader(ID3D12Device* pd3dDevice, ID3D12RootSignature
 		* pd3dGraphicsRootSignature);
-	//virtual void CreateShaderVariables(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
-	//	* pd3dCommandList);
-	//virtual void UpdateShaderVariables(ID3D12GraphicsCommandList* pd3dCommandList);
+	virtual void CreateShaderVariables(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
+		* pd3dCommandList);
+	virtual void UpdateShaderVariables(ID3D12GraphicsCommandList* pd3dCommandList);
 	//virtual void ReleaseShaderVariables();
 	virtual void BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
 		* pd3dCommandList);
 	virtual void ReleaseObjects();
+	virtual void AnimateObjects(float fTimeElapsed);
 	//virtual void AnimateObjects(float fTimeElapsed);
 	//virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera);
 	virtual void SetFileName(std::string filename);
+
+
+	//virtual void CheckObjectByObjectCollisions();
+	//virtual void CheckObjectByWallCollisions();
+	//virtual void CheckPlayerByWallCollision();
+	//virtual void CheckObjectByBulletCollisions();
 };
 
 class CObstacleShader : public CInstancingShader

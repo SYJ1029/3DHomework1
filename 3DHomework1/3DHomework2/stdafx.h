@@ -31,6 +31,7 @@
 #include <vector>
 #include <memory>
 #include <algorithm>
+#include <queue>
 
 #define S_SAFE 0x00
 #define S_TITLE 0x01

@@ -361,6 +361,9 @@ void CGameFramework::BuildObjects()
 			CTankPlayer* pTankPlayer = new CTankPlayer(m_pd3dDevice,
 				m_pd3dCommandList, m_pSceneManager->m_pScene->GetGraphicsRootSignature());
 			m_pPlayer = pTankPlayer;
+
+			m_pSceneManager->m_pScene->SetPlayer(m_pPlayer);
+
 			break;
 		}
 

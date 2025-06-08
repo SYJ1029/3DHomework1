@@ -43,7 +43,7 @@ void CTitleShader::UpdateShaderVariables(ID3D12GraphicsCommandList
 
 	int nObjects = m_nObjects;
 	int exploseIndex = -1;
-	for (int j = 0; j <nObjects; j++) {
+	for (int j = 0; j < nObjects; j++) {
 		if (dynamic_cast<CExplosiveObject*>(m_ppObjects[j])->m_bBlowingUp) {
 			nObjects = EXPLOSION_DEBRISES;
 			exploseIndex = j;
