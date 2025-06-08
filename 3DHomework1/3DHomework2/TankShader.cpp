@@ -31,6 +31,7 @@ void CTankShader::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLi
 	std::default_random_engine dre{ std::random_device{}() };
 	std::uniform_int_distribution uid(0, 255);
 
+
 	m_nObjects = 9;
 	m_ppObjects = new CGameObject * [m_nObjects];
 	float fxPitch = 12.0f * 2.5f;
@@ -42,6 +43,13 @@ void CTankShader::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLi
 		pExplosiveObject->SetPosition(uid(dre) - 128, 0.0f, uid(dre) - 128);
 		pExplosiveObject->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
 		pExplosiveObject->SetRotationSpeed(0.0f);
+
+		float directionToken = (uid(dre) - 128.0f) / 256.0f;
+		XMFLOAT3 moveDirection;
+		XMStoreFloat3(&moveDirection, XMVector3Normalize(XMVectorSet(uid(dre) - 128.0f, 0.0f, uid(dre) - 128.0f, 0.0f)));
+
+		pExplosiveObject->SetMoveDirection(moveDirection);
+		pExplosiveObject->SetMoveSpeed(0.0625f);
 		m_ppObjects[i] = pExplosiveObject;
 	}
 
@@ -104,6 +112,13 @@ void CObstacleShader::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsComma
 		pExplosiveObject->SetPosition(uid(dre) - 128, 3.0f, uid(dre) - 128);
 		pExplosiveObject->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
 		pExplosiveObject->SetRotationSpeed(0.0f);
+
+		float directionToken = (uid(dre) - 128.0f) / 256.0f;
+		XMFLOAT3 moveDirection;
+		XMStoreFloat3(&moveDirection, XMVector3Normalize(XMVectorSet(uid(dre) - 128.0f, 0.0f, uid(dre) - 128.0f, 0.0f)));
+
+		pExplosiveObject->SetMoveDirection(moveDirection);
+		pExplosiveObject->SetMoveSpeed(0.03125f);
 		m_ppObjects[i] = pExplosiveObject;
 	}
 

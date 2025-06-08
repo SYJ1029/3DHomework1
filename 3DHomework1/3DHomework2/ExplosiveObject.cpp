@@ -64,6 +64,8 @@ void CExplosiveObject::Animate(float fTimeElapsed)
 	else {
 
 		CGameObject::Rotate(&m_xmf3RotationAxis, m_fRotationSpeed * fTimeElapsed);
+		CGameObject::MoveStrafe(m_xmf3MoveDirection.x * m_fMoveSpeed);
+		CGameObject::MoveForward(m_xmf3MoveDirection.z * m_fMoveSpeed);
 	}
 }
 
