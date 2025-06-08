@@ -136,6 +136,9 @@ public:
 	virtual void Update(float fTimeElapsed);
 };
 
+
+#define BULLETS 50
+
 class CTankPlayer : public CPlayer
 {
 public:
@@ -146,4 +149,12 @@ public:
 	virtual CCamera* ChangeCamera(DWORD nNewCameraMode, float fTimeElapsed);
 	virtual void OnPrepareRender();
 	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera = NULL);
+
+	virtual void Update(float fTimeElapsed);
+	void FireBullet(CGameObject* pLockedObject, bool bLock);
+
+	CExplosiveObject* pickedObject = nullptr;
+protected:
+	CBulletObject** bullets = nullptr;
+	float m_fBulletEffectiveRange = 150.0f;
 };

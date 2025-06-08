@@ -149,6 +149,7 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BulletObject.cpp" />
     <ClCompile Include="ExplosiveObject.cpp" />
     <ClCompile Include="MenuScene.cpp" />
     <ClCompile Include="MenuShader.cpp" />

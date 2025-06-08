@@ -1,4 +1,5 @@
 #include "Scene.h"
+#include "Player.h"
 
 
 CTankScene::CTankScene()
@@ -42,13 +43,21 @@ void CTankScene::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLis
 UINT CTankScene::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM
 	lParam, CCamera* pCamera)
 {
+
+	CTankPlayer* pPlayer = dynamic_cast<CTankPlayer*>(pCamera->GetPlayer());
+
 	switch (nMessageID)
 	{
 	case WM_LBUTTONDOWN:
-	case WM_RBUTTONDOWN:
-		//마우스 캡쳐를 하고 현재 마우스 위치를 가져온다.
 		::SetCapture(hWnd);
 		::GetCursorPos(&mousePoint);
+		break;
+
+	case WM_RBUTTONDOWN:
+		::SetCapture(hWnd);
+		::GetCursorPos(&mousePoint);
+		pPlayer->pickedObject = dynamic_cast<CExplosiveObject*>(PickObjectPointedByCursor(LOWORD(lParam), HIWORD(lParam), pCamera));
+
 		break;
 	case WM_LBUTTONUP:
 	case WM_RBUTTONUP:
@@ -62,5 +71,23 @@ UINT CTankScene::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wPa
 bool CTankScene::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM
 	lParam)
 {
+	switch (nMessageID)
+	{
+	case WM_KEYUP:
+		switch (wParam)
+		{
+		case VK_ESCAPE:
+			::PostQuitMessage(0);
+			break;
+		
+		case VK_CONTROL:
+			break;
+		default:
+			break;
+		}
+		break;
+	default:
+		break;
+	}
 	return true;
 }

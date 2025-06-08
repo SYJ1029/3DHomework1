@@ -19,12 +19,56 @@ CTankPlayer::CTankPlayer(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
 	CDiffusedShader* pShader = new CDiffusedShader();
 	pShader->CreateShader(pd3dDevice, pd3dGraphicsRootSignature);
 	SetShader(pShader);
+
+	bullets = new CBulletObject * [BULLETS];
+
+	for (int i = 0; i < BULLETS; ++i) {
+		bullets[i] = new CBulletObject(m_fBulletEffectiveRange);
+	}
 }
 CTankPlayer::~CTankPlayer()
 {
 }
 
+void CTankPlayer::FireBullet(CGameObject* pLockedObject, bool bLock)
+{
 
+	//if (pLockedObject) 
+	//{
+	//	LookAt(pLockedObject->GetPosition(), XMFLOAT3(0.0f, 1.0f, 0.0f));
+	//	OnUpdateTransform();
+	//}
+
+
+	CBulletObject* pBulletObject = NULL;
+	for (int i = 0; i < BULLETS; i++)
+	{
+		if (!bullets[i]->IsActive())
+		{
+			pBulletObject = bullets[i];
+			break;
+		}
+	}
+
+
+	if (pBulletObject)
+	{
+		XMFLOAT3 xmf3Position = GetPosition();
+		XMFLOAT3 xmf3Direction = GetLook();
+		XMFLOAT3 xmf3FirePosition = Vector3::Add(xmf3Position, Vector3::ScalarProduct(xmf3Direction, 6.0f, false));
+
+		pBulletObject->m_xmf4x4World = m_xmf4x4World;
+
+		pBulletObject->SetFirePosition(xmf3FirePosition);
+		pBulletObject->SetMoveDirection(xmf3Direction);
+		pBulletObject->SetActive(true);
+
+		if (pLockedObject && bLock)
+		{
+			pBulletObject->m_pLockedObject = pLockedObject;
+		}
+	}
+}
 
 void CTankPlayer::OnPrepareRender()
 {
@@ -95,7 +139,29 @@ CCamera* CTankPlayer::ChangeCamera(DWORD nNewCameraMode, float fTimeElapsed)
 	return(m_pCamera);
 }
 
+
+void CTankPlayer::Update(float fTimeElapsed)
+{
+	CPlayer::Update(fTimeElapsed);
+
+	//player는 active해진 총알에 대하여 Animate를 수행해야 한다
+
+	for (int i = 0; i < BULLETS; ++i) {
+		if (bullets && bullets[i] && bullets[i]->IsActive()) {
+			bullets[i]->Animate(fTimeElapsed);
+		}
+	}
+}
+
 void CTankPlayer::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera) {
 	OnPrepareRender();
+
+	// 플레이어는 자신의 렌더링 여부와는 관계 없이 active한 총알들은 Render해줘야 한다.
+
+	for (int i = 0; i < BULLETS; ++i) {
+		if (bullets && bullets[i] && bullets[i]->IsActive()) {
+			bullets[i]->Render(pd3dCommandList, pCamera, 1);
+		}
+	}
 	CPlayer::Render(pd3dCommandList, pCamera);
 }

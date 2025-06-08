@@ -487,6 +487,7 @@ void CGameFramework::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM
 void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM
 	wParam, LPARAM lParam)
 {
+	CTankPlayer* pPlayer = dynamic_cast<CTankPlayer*>(m_pPlayer);
 	switch (nMessageID)
 	{
 	case WM_KEYUP:
@@ -507,6 +508,11 @@ void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPA
 		case VK_F2:
 		case VK_F3:
 			if (m_pPlayer) m_pCamera = m_pPlayer->ChangeCamera((wParam - VK_F1 + 1), m_GameTimer.GetTimeElapsed());
+			break;
+		case VK_CONTROL:
+			if (pPlayer) {
+				pPlayer->FireBullet(pPlayer->pickedObject, true);
+			}
 			break;
 		default:
 			break;
