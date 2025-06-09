@@ -73,10 +73,11 @@ UINT CTankScene::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wPa
 	case WM_RBUTTONDOWN:
 		::SetCapture(hWnd);
 		::GetCursorPos(&mousePoint);
-		pPlayer->pickedObject = dynamic_cast<CExplosiveObject*>(PickObjectPointedByCursor(LOWORD(lParam), HIWORD(lParam), pCamera));
+		if (usePicking) {
+			pPlayer->pickedObject = dynamic_cast<CExplosiveObject*>(PickObjectPointedByCursor(LOWORD(lParam), HIWORD(lParam), pCamera));
+		}
 
 		if (pPlayer->pickedObject) {
-			//pPlayer->pickedObject->m_bBlowingUp = true;
 		}
 
 		break;
@@ -104,10 +105,19 @@ bool CTankScene::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM 
 		
 		case VK_CONTROL:
 			break;
+		case 'A': case 'a':
+			break;
 		default:
 			break;
 		}
 		break;
+	case WM_KEYDOWN:
+		switch (wParam)
+		{
+		case 'A' : case 'a':
+			usePicking = !(usePicking);
+			break;
+		}
 	default:
 		break;
 	}
@@ -211,10 +221,24 @@ bool CTankScene::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM 
 void CTankScene::CheckPlayerByWallCollision()
 {
 	BoundingOrientedBox xmOOBBPlayerMoveCheck;
-	//m_pWallsObject->m_xmOOBBPlayerMoveCheck.Transform(xmOOBBPlayerMoveCheck, XMLoadFloat4x4(&m_pWallsObject->m_xmf4x4World));
-	XMStoreFloat4(&xmOOBBPlayerMoveCheck.Orientation, XMQuaternionNormalize(XMLoadFloat4(&xmOOBBPlayerMoveCheck.Orientation)));
+	CWallShader* pWallsShader = nullptr;
+	for (int i = m_nShaders - 1; i >= 0; --i) {
+		// 높은 확률로 벽은 맨 마지막에 만들었기 때문에 뒤에서부터 검사한다.
+		pWallsShader = dynamic_cast<CWallShader*>(m_pShaders[i]);
+		if (pWallsShader)break;
+	}
 
-	//if (!xmOOBBPlayerMoveCheck.Intersects(m_pPlayer->m_xmOOBB)) m_pWallsObject->SetPosition(m_pPlayer->m_xmf3Position);
+	if (pWallsShader) {
+		for (int i = 0; i < pWallsShader->m_nObjects; ++i) {
+			CExplosiveObject* pObjects = dynamic_cast<CExplosiveObject*>(pWallsShader->m_ppObjects[i]);
+
+			pObjects->m_xmOOBB.Transform(xmOOBBPlayerMoveCheck, XMLoadFloat4x4(&pObjects->m_xmf4x4World));
+			XMStoreFloat4(&xmOOBBPlayerMoveCheck.Orientation, XMQuaternionNormalize(XMLoadFloat4(&xmOOBBPlayerMoveCheck.Orientation)));
+
+		}
+
+		//if (!xmOOBBPlayerMoveCheck.Intersects(m_pPlayer->m_xmOOBB)) m_pWallsObject->SetPosition(m_pPlayer->m_xmf3Position);
+	}
 }
 
 void CTankScene::CheckObjectByBulletCollisions()
