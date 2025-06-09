@@ -354,6 +354,7 @@ void CGameFramework::BuildObjects()
 			CRollerCosterPlayer* pRollerCosterPlayer = new CRollerCosterPlayer(m_pd3dDevice,
 				m_pd3dCommandList, m_pSceneManager->m_pScene->GetGraphicsRootSignature(), this);
 			m_pPlayer = pRollerCosterPlayer;
+			m_pCamera = m_pPlayer->ChangeCamera(THIRD_PERSON_CAMERA, m_GameTimer.GetTimeElapsed());
 			break;
 		}
 		case S_TANK:
@@ -507,15 +508,19 @@ void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPA
 			//“F9” 키가 눌려지면 윈도우 모드와 전체화면 모드의 전환을 처리한다.
 			ChangeSwapChainState();
 			break;
-		case VK_F1:
-		case VK_F2:
-		case VK_F3:
-			if (m_pPlayer) m_pCamera = m_pPlayer->ChangeCamera((wParam - VK_F1 + 1), m_GameTimer.GetTimeElapsed());
-			break;
+		//case VK_F1:
+		//case VK_F2:
+		//case VK_F3:
+		//	if (m_pPlayer) m_pCamera = m_pPlayer->ChangeCamera((wParam - VK_F1 + 1), m_GameTimer.GetTimeElapsed());
+		//	break;
 		case VK_CONTROL:
 			if (pPlayer) {
 				pPlayer->FireBullet(pPlayer->pickedObject, true);
 			}
+			break;
+		case 'N': case 'n':
+			if (sceneNum == S_ROLLERCOSTER)
+				sceneNum = S_TANK;
 			break;
 		default:
 			break;

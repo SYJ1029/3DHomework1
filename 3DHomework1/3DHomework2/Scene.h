@@ -126,4 +126,6 @@ public:
 	//virtual void CheckObjectByWallCollisions();
 	virtual void CheckPlayerByWallCollision();
 	virtual void CheckObjectByBulletCollisions();
+
+	bool CheckGameEnd();
 };

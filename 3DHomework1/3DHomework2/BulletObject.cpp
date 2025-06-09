@@ -76,5 +76,7 @@ void CBulletObject::Animate(float fElapsedTime)
 
 	UpdateBoundingBox();
 
-	if ((m_fMovingDistance > m_fBulletEffectiveRange) || (m_fElapsedTimeAfterFire > m_fLockingTime)) Reset();
+	if ((m_fMovingDistance > m_fBulletEffectiveRange) || (m_fElapsedTimeAfterFire > m_fLockingTime)) 
+		Reset();
+
 }

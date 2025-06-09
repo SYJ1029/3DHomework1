@@ -138,7 +138,8 @@ void CInstancingShader::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCame
 	//모든 게임 객체의 인스턴싱 데이터를 버퍼에 저장한다.
 	UpdateShaderVariables(pd3dCommandList);
 	//하나의 정점 데이터를 사용하여 모든 게임 객체(인스턴스)들을 렌더링한다.
-	m_ppObjects[0]->Render(pd3dCommandList, pCamera, m_nObjects);
+	if(m_ppObjects[0]->IsActive())
+		m_ppObjects[0]->Render(pd3dCommandList, pCamera, m_nObjects);
 }
 
 CGameObject* CInstancingShader::GetInActiveObject()

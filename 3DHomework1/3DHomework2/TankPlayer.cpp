@@ -74,7 +74,7 @@ void CTankPlayer::FireBullet(CGameObject* pLockedObject, bool bLock)
 
 		pBulletObject->SetFirePosition(xmf3FirePosition);
 		pBulletObject->SetMoveDirection(xmf3Direction);
-		pBulletObject->SetMoveSpeed(100.0f);
+		pBulletObject->SetMoveSpeed(250.0f);
 		pBulletObject->SetActive(true);
 
 

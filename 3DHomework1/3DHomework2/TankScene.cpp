@@ -17,7 +17,7 @@ void CTankScene::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLis
 	* pd3dCommandList)
 {
 	m_pd3dGraphicsRootSignature = CreateGraphicsRootSignature(pd3dDevice);
-	m_nShaders = 12;
+	m_nShaders = 13;
 	m_pShaders = new CInstancingShader * [m_nShaders];
 
 	int i;
@@ -35,25 +35,52 @@ void CTankScene::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLis
 
 	m_pShaders[i]->CreateShader(pd3dDevice, m_pd3dGraphicsRootSignature);
 	m_pShaders[i]->SetFileName("You Win!.txt");
-	m_pShaders[i++]->BuildObjects(pd3dDevice, pd3dCommandList);
-
+	m_pShaders[i++]->BuildObjects(pd3dDevice, pd3dCommandList);	
 
 	m_pShaders[i] = new CWallShader;
 
 	m_pShaders[i]->CreateShader(pd3dDevice, m_pd3dGraphicsRootSignature);
 	m_pShaders[i]->SetFileName("You Win!.txt");
 	m_pShaders[i++]->BuildObjects(pd3dDevice, pd3dCommandList);
+
+
+
+	m_pShaders[i] = new CTitleShader;
+	m_pShaders[i]->CreateShader(pd3dDevice, m_pd3dGraphicsRootSignature);
+	m_pShaders[i]->SetFileName("You Win!.txt");
+	m_pShaders[i]->BuildObjects(pd3dDevice, pd3dCommandList);
+	m_pShaders[i++]->m_ppObjects[0]->SetActive(false);
 }
 
 
 void CTankScene::AnimateObjects(float fTimeElapsed)
 {
+	if (CheckGameEnd()) {
+		m_pShaders[m_nShaders - 1]->m_ppObjects[0]->SetActive(true);
+	}
+
 	for (int i = 0; i < m_nShaders; i++)
 	{
 		m_pShaders[i]->AnimateObjects(fTimeElapsed);
 	}
 
 	CheckObjectByBulletCollisions();
+
+}
+
+bool CTankScene::CheckGameEnd()
+{
+	for (int i = 0; i < m_nShaders; ++i) {
+		// 하나라도 Tankshader가 active 하다면 끝나지 않은 것
+
+		if(i >= 0 && i < 10 && m_pShaders[i]->m_ppObjects[0]->IsActive())
+			return false;
+
+
+	}
+
+	
+	return true;
 }
 
 
@@ -62,7 +89,6 @@ UINT CTankScene::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wPa
 {
 
 	CTankPlayer* pPlayer = dynamic_cast<CTankPlayer*>(pCamera->GetPlayer());
-
 	switch (nMessageID)
 	{
 	case WM_LBUTTONDOWN:
@@ -73,12 +99,14 @@ UINT CTankScene::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wPa
 	case WM_RBUTTONDOWN:
 		::SetCapture(hWnd);
 		::GetCursorPos(&mousePoint);
+		// 이전 피킹 값은 지운다
+		pPlayer->pickedObject = nullptr;
+
 		if (usePicking) {
+
 			pPlayer->pickedObject = dynamic_cast<CExplosiveObject*>(PickObjectPointedByCursor(LOWORD(lParam), HIWORD(lParam), pCamera));
 		}
 
-		if (pPlayer->pickedObject) {
-		}
 
 		break;
 	case WM_LBUTTONUP:

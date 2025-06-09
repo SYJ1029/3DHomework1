@@ -12,6 +12,7 @@ CRollerCosterPlayer::CRollerCosterPlayer(ID3D12Device* pd3dDevice, ID3D12Graphic
 	CMeshBuilder token;
 
 	token.Loadlines("Rail.txt", lineList);
+
 }
 CRollerCosterPlayer::~CRollerCosterPlayer()
 {
