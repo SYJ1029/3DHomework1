@@ -151,6 +151,7 @@
   <ItemGroup>
     <ClCompile Include="BulletObject.cpp" />
     <ClCompile Include="ExplosiveObject.cpp" />
+    <ClCompile Include="HeightMap.cpp" />
     <ClCompile Include="MenuScene.cpp" />
     <ClCompile Include="MenuShader.cpp" />
     <ClCompile Include="MovePattern.cpp" />

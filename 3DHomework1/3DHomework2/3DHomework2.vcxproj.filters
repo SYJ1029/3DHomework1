@@ -164,6 +164,9 @@
     <ClCompile Include="BulletObject.cpp">
       <Filter>Object</Filter>
     </ClCompile>
+    <ClCompile Include="HeightMap.cpp">
+      <Filter>Mesh</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">

@@ -75,6 +75,13 @@ extern ID3D12Resource* CreateBufferResource(ID3D12Device* pd3dDevice,
 	D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER, ID3D12Resource** ppd3dUploadBuffer =
 	NULL);
 
+#define EPSILON 1.0e-10f
+inline bool IsZero(float fValue) { return((fabsf(fValue) < EPSILON)); }
+inline bool IsEqual(float fA, float fB) { return(::IsZero(fA - fB)); }
+inline float InverseSqrt(float fValue) { return 1.0f / sqrtf(fValue); }
+inline void Swap(float* pfS, float* pfT) { float fTemp = *pfS; *pfS = *pfT; *pfT = fTemp; }
+
+
 
 namespace Vector3
 {
@@ -180,6 +187,14 @@ namespace Vector3
 	{
 		return(TransformCoord(xmf3Vector, XMLoadFloat4x4(&xmmtx4x4Matrix)));
 	}
+
+	//3-차원 벡터가 영벡터인 가를 반환하는 함수이다.
+	inline bool IsZero(XMFLOAT3& xmf3Vector)
+	{
+		if (::IsZero(xmf3Vector.x) && ::IsZero(xmf3Vector.y) && ::IsZero(xmf3Vector.z))
+			return(true);
+		return(false);
+	}
 }
 //4차원 벡터의 연산
 namespace Vector4
@@ -204,7 +219,12 @@ namespace Vector4
 		XMStoreFloat4(&xmf4Result, fScalar * XMLoadFloat4(&xmf4Vector));
 		return(xmf4Result);
 	}
+
+	
 }
+
+
+
 //행렬의 연산
 namespace Matrix4x4
 {
@@ -279,3 +299,5 @@ namespace Matrix4x4
 		return(xmmtx4x4Result);
 	}
 }
+
+
