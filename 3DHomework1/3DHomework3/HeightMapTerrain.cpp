@@ -42,7 +42,7 @@ CHeightMapTerrain::CHeightMapTerrain(ID3D12Device* pd3dDevice, ID3D12GraphicsCom
 		}
 	}
 	//지형을 렌더링하기 위한 셰이더를 생성한다.
-	CDiffusedShader* pShader = new CDiffusedShader();
+	CTerrainShader* pShader = new CTerrainShader();
 	pShader->CreateShader(pd3dDevice, pd3dGraphicsRootSignature);
 	SetShader(pShader);
 }

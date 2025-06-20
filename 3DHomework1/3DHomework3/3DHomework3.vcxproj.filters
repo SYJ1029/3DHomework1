@@ -21,9 +21,6 @@
     <Filter Include="Shader">
       <UniqueIdentifier>{223f6cdf-b158-4ef8-b1d7-aed69b73ee53}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Shader\HLSL">
-      <UniqueIdentifier>{5965a149-297a-4690-994b-fde7ebdddf8f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Camera">
       <UniqueIdentifier>{ce110c6a-5d47-4c4b-98e1-1d3bc43ef29f}</UniqueIdentifier>
     </Filter>
@@ -62,6 +59,9 @@
     </Filter>
     <Filter Include="Object\Terrain">
       <UniqueIdentifier>{385031c0-f7f1-43b5-8f01-52e3eadde1be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HLSL">
+      <UniqueIdentifier>{5965a149-297a-4690-994b-fde7ebdddf8f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -176,6 +176,9 @@
     <ClCompile Include="TerrainPlayer.cpp">
       <Filter>Player</Filter>
     </ClCompile>
+    <ClCompile Include="TerrainShader.cpp">
+      <Filter>Shader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -223,10 +226,10 @@
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="PixelShader.hlsl">
-      <Filter>Shader\HLSL</Filter>
+      <Filter>HLSL</Filter>
     </FxCompile>
     <FxCompile Include="VertexShader.hlsl">
-      <Filter>Shader\HLSL</Filter>
+      <Filter>HLSL</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

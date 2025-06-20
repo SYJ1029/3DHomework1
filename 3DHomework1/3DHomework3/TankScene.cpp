@@ -17,7 +17,29 @@ void CTankScene::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLis
 	* pd3dCommandList)
 {
 	m_pd3dGraphicsRootSignature = CreateGraphicsRootSignature(pd3dDevice);
-	m_nShaders = 13;
+
+
+	//지형을 확대할 스케일 벡터이다. x-축과 z-축은 8배, y-축은 2배 확대한다.
+	XMFLOAT3 xmf3Scale(8.0f, 2.0f, 8.0f);
+	XMFLOAT4 xmf4Color(0.0f, 0.2f, 0.0f, 0.0f);
+	//지형을 높이 맵 이미지 파일(HeightMap.raw)을 사용하여 생성한다. 높이 맵의 크기는 가로x세로(257x257)이다.
+#ifdef _WITH_TERRAIN_PARTITION
+/*하나의 격자 메쉬의 크기는 가로x세로(17x17)이다. 지형 전체는 가로 방향으로 16개, 세로 방향으로 16의 격자 메
+쉬를 가진다. 지형을 구성하는 격자 메쉬의 개수는 총 256(16x16)개가 된다.*/
+	m_pTerrain = new CHeightMapTerrain(pd3dDevice, pd3dCommandList,
+		m_pd3dGraphicsRootSignature, _T("../Assets/Image/Terrain/HeightMap.raw"), 257, 257, 17,
+		17, xmf3Scale, xmf4Color);
+#else
+//지형을 하나의 격자 메쉬(257x257)로 생성한다.  
+	m_pTerrain = new CHeightMapTerrain(pd3dDevice, pd3dCommandList,
+		m_pd3dGraphicsRootSignature, _T("Assets/Image/Terrain/HeightMap.raw"), 257, 257, 257,
+		257, xmf3Scale, xmf4Color);
+#endif
+
+
+
+
+	m_nShaders = 12;
 	m_pShaders = new CInstancingShader * [m_nShaders];
 
 	int i;
@@ -27,7 +49,7 @@ void CTankScene::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLis
 
 		m_pShaders[i]->CreateShader(pd3dDevice, m_pd3dGraphicsRootSignature);
 		m_pShaders[i]->SetFileName("You Win!.txt");
-		m_pShaders[i]->BuildObjects(pd3dDevice, pd3dCommandList);
+		m_pShaders[i]->BuildObjects(pd3dDevice, pd3dCommandList, m_pTerrain);
 	}
 
 	
@@ -35,20 +57,15 @@ void CTankScene::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLis
 
 	m_pShaders[i]->CreateShader(pd3dDevice, m_pd3dGraphicsRootSignature);
 	m_pShaders[i]->SetFileName("You Win!.txt");
-	m_pShaders[i++]->BuildObjects(pd3dDevice, pd3dCommandList);	
+	m_pShaders[i++]->BuildObjects(pd3dDevice, pd3dCommandList, m_pTerrain);
 
-	m_pShaders[i] = new CWallShader;
-
-	m_pShaders[i]->CreateShader(pd3dDevice, m_pd3dGraphicsRootSignature);
-	m_pShaders[i]->SetFileName("You Win!.txt");
-	m_pShaders[i++]->BuildObjects(pd3dDevice, pd3dCommandList);
 
 
 
 	m_pShaders[i] = new CTitleShader;
 	m_pShaders[i]->CreateShader(pd3dDevice, m_pd3dGraphicsRootSignature);
 	m_pShaders[i]->SetFileName("You Win!.txt");
-	m_pShaders[i]->BuildObjects(pd3dDevice, pd3dCommandList);
+	m_pShaders[i]->BuildObjects(pd3dDevice, pd3dCommandList, m_pTerrain);
 	m_pShaders[i++]->m_ppObjects[0]->SetActive(false);
 }
 

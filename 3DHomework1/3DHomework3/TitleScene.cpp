@@ -20,12 +20,12 @@ void CTitleScene::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLi
 	m_pShaders[1] = new CTitleShader;
 	m_pShaders[0]->CreateShader(pd3dDevice, m_pd3dGraphicsRootSignature);
 	m_pShaders[0]->SetFileName("3D게임 프로그래밍.txt");
-	m_pShaders[0]->BuildObjects(pd3dDevice, pd3dCommandList);
+	m_pShaders[0]->BuildObjects(pd3dDevice, pd3dCommandList, m_pTerrain);
 	m_pShaders[0]->SetObjPos(XMFLOAT3(0.0f, 0.0f, 0.0f));
 
 	m_pShaders[1]->CreateShader(pd3dDevice, m_pd3dGraphicsRootSignature);
 	m_pShaders[1]->SetFileName("송영준.txt");
-	m_pShaders[1]->BuildObjects(pd3dDevice, pd3dCommandList);
+	m_pShaders[1]->BuildObjects(pd3dDevice, pd3dCommandList, m_pTerrain);
 	m_pShaders[1]->SetObjPos(XMFLOAT3(0.0f, -3.0f, 0.0f));
 }
 

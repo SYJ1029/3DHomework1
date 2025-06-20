@@ -132,7 +132,7 @@ void CScene::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
 	m_pShaders = new CInstancingShader* [m_nShaders];
 	m_pShaders[0] = new CInstancingShader;
 	m_pShaders[0]->CreateShader(pd3dDevice, m_pd3dGraphicsRootSignature);
-	m_pShaders[0]->BuildObjects(pd3dDevice, pd3dCommandList);
+	m_pShaders[0]->BuildObjects(pd3dDevice, pd3dCommandList, m_pTerrain);
 }
 
 void CScene::ReleaseObjects()
@@ -144,6 +144,7 @@ void CScene::ReleaseObjects()
 		m_pShaders[i]->ReleaseObjects();
 	}
 	if (m_pShaders) delete[] m_pShaders;
+	if (m_pTerrain) delete m_pTerrain;
 }
 
 
@@ -176,6 +177,7 @@ bool CScene::ProcessInput(UCHAR* pKeysBuffer)
 void CScene::ReleaseUploadBuffers()
 {
 	for (int i = 0; i < m_nShaders; i++) m_pShaders[i]->ReleaseUploadBuffers();
+	if (m_pTerrain) m_pTerrain->ReleaseUploadBuffers();
 }
 
 void CScene::AnimateObjects(float fTimeElapsed)
@@ -191,10 +193,13 @@ void CScene::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera
 	pCamera->SetViewportsAndScissorRects(pd3dCommandList);
 	pd3dCommandList->SetGraphicsRootSignature(m_pd3dGraphicsRootSignature);
 	pCamera->UpdateShaderVariables(pd3dCommandList);
+	if (m_pTerrain) m_pTerrain->Render(pd3dCommandList, pCamera);
 	for (int i = 0; i < m_nShaders; i++)
 	{
 		m_pShaders[i]->Render(pd3dCommandList, pCamera);
 	}
+
+
 }
 
 CGameObject* CScene::PickObjectPointedByCursor(int xClient, int yClient, CCamera* pCamera)

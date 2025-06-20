@@ -19,9 +19,11 @@ struct VS_VB_INSTANCE
 
 class CShader
 {
+
 public:
 	CShader();
 	virtual ~CShader();
+
 private:
 	int m_nReferences = 0;
 public:
@@ -72,8 +74,8 @@ class CObjectsShader : public CShader
 public:
 	CObjectsShader();
 	virtual ~CObjectsShader();
-	virtual void BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
-		* pd3dCommandList);
+virtual void BuildObjects(ID3D12Device *pd3dDevice, ID3D12GraphicsCommandList 
+*pd3dCommandList, void *pContext);
 	virtual void AnimateObjects(float fTimeElapsed);
 	virtual void ReleaseObjects();
 	virtual D3D12_INPUT_LAYOUT_DESC CreateInputLayout();
@@ -121,7 +123,7 @@ public:
 	virtual void UpdateShaderVariables(ID3D12GraphicsCommandList* pd3dCommandList);
 	virtual void ReleaseShaderVariables();
 	virtual void BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
-		* pd3dCommandList);
+		* pd3dCommandList, void* pContext);
 	virtual void ReleaseObjects();
 	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera);
 
@@ -156,7 +158,7 @@ public:
 	//virtual void ReleaseShaderVariables();
 
 	virtual void BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
-		* pd3dCommandList);
+		* pd3dCommandList, void* pContext);
 	virtual void ReleaseObjects();
 	virtual void AnimateObjects(float fTimeElapsed);
 	//virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera);
@@ -182,7 +184,7 @@ public:
 	//virtual void UpdateShaderVariables(ID3D12GraphicsCommandList* pd3dCommandList);
 	//virtual void ReleaseShaderVariables();
 	virtual void BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
-		* pd3dCommandList);
+		* pd3dCommandList, void* pContext);
 	virtual void ReleaseObjects();
 	//virtual void AnimateObjects(float fTimeElapsed);
 	//virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera);
@@ -209,7 +211,7 @@ public:
 	//virtual void UpdateShaderVariables(ID3D12GraphicsCommandList* pd3dCommandList);
 	//virtual void ReleaseShaderVariables();
 	virtual void BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
-		* pd3dCommandList);
+		* pd3dCommandList, void* pContext);
 	virtual void ReleaseObjects();
 	//virtual void AnimateObjects(float fTimeElapsed);
 	//virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera);
@@ -234,7 +236,7 @@ private:
 	virtual void UpdateShaderVariables(ID3D12GraphicsCommandList* pd3dCommandList);
 	//virtual void ReleaseShaderVariables();
 	virtual void BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
-		* pd3dCommandList);
+		* pd3dCommandList, void* pContext);
 	virtual void ReleaseObjects();
 	virtual void AnimateObjects(float fTimeElapsed);
 	//virtual void AnimateObjects(float fTimeElapsed);
@@ -258,7 +260,7 @@ public:
 	virtual void CreateShader(ID3D12Device* pd3dDevice, ID3D12RootSignature
 		* pd3dGraphicsRootSignature);
 	virtual void BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
-		* pd3dCommandList);
+		* pd3dCommandList, void* pContext);
 	virtual void ReleaseObjects();
 };
 
@@ -272,6 +274,18 @@ public:
 	virtual void CreateShader(ID3D12Device* pd3dDevice, ID3D12RootSignature
 		* pd3dGraphicsRootSignature);
 	virtual void BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
-		* pd3dCommandList);
+		* pd3dCommandList, void* pContext);
 	virtual void ReleaseObjects();
+};
+
+class CTerrainShader : public CShader
+{
+public:
+	CTerrainShader();
+	virtual ~CTerrainShader();
+	virtual D3D12_INPUT_LAYOUT_DESC CreateInputLayout();
+	virtual D3D12_SHADER_BYTECODE CreateVertexShader(ID3DBlob** ppd3dShaderBlob);
+	virtual D3D12_SHADER_BYTECODE CreatePixelShader(ID3DBlob** ppd3dShaderBlob);
+	virtual void CreateShader(ID3D12Device* pd3dDevice, ID3D12RootSignature
+		* pd3dGraphicsRootSignature);
 };

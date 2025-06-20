@@ -180,6 +180,7 @@
     <ClCompile Include="TankShader.cpp" />
     <ClCompile Include="HeightMapTerrain.cpp" />
     <ClCompile Include="TerrainPlayer.cpp" />
+    <ClCompile Include="TerrainShader.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="TitleShader.cpp" />

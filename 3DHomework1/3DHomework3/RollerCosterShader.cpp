@@ -23,7 +23,7 @@ void CRollerCosterShader::CreateShader(ID3D12Device* pd3dDevice, ID3D12RootSigna
 }
 
 void CRollerCosterShader::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
-	* pd3dCommandList)
+	* pd3dCommandList, void* pContext)
 {
 	m_nObjects = 1;
 	m_ppObjects = new CGameObject * [m_nObjects];

@@ -33,6 +33,7 @@ public:
 	 
 
 
+
 protected:
 	//씬은 게임 객체들의 집합이다. 게임 객체는 셰이더를 포함한다.
 	// 배치(Batch) 처리를 하기 위하여 씬을 셰이더들의 리스트로 표현한다
@@ -45,6 +46,11 @@ protected:
 
 public:
 	bool IsInActiveObject();
+
+protected:
+	CHeightMapTerrain* m_pTerrain = NULL;
+public:
+	CHeightMapTerrain* GetTerrain() { return(m_pTerrain); }
 };
 
 class CTitleScene : public CScene

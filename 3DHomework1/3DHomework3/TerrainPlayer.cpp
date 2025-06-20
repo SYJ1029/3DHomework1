@@ -6,6 +6,10 @@ CTerrainPlayer::CTerrainPlayer(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLi
 	* pd3dCommandList, ID3D12RootSignature* pd3dGraphicsRootSignature, void* pContext, int
 	nMeshes) : CPlayer(nMeshes)
 {
+	CMesh* pTankMesh = new CTankMeshDiffused(pd3dDevice, pd3dCommandList, 12.0f,
+		4.0f, 12.0f, XMFLOAT4(0.0f, 0.5f, 0.0f, 0.0f));
+	SetMesh(0, pTankMesh);
+
 	m_pCamera = ChangeCamera(THIRD_PERSON_CAMERA, 0.0f);
 	CHeightMapTerrain* pTerrain = (CHeightMapTerrain*)pContext;
 	/*플레이어의 위치를 지형의 가운데(y - 축 좌표는 지형의 높이보다 1500 높게)로 설정한다.플레이어 위치 벡터의 y

@@ -100,7 +100,7 @@ void CInstancingShader::RefreshShaderVariable(ID3D12Device* pd3dDevice, ID3D12Gr
 
 
 void CInstancingShader::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
-	* pd3dCommandList)
+	* pd3dCommandList, void* pContext)
 {
 
 	m_nObjects = 9;
@@ -123,6 +123,8 @@ void CInstancingShader::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCom
 
 	//인스턴싱을 위한 버퍼(Structured Buffer)를 생성한다.
 	CreateShaderVariables(pd3dDevice, pd3dCommandList);
+
+
 }
 
 

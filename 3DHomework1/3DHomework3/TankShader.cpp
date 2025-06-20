@@ -77,29 +77,63 @@ void CTankShader::UpdateShaderVariables(ID3D12GraphicsCommandList
 
 
 void CTankShader::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
-	* pd3dCommandList)
+	* pd3dCommandList, void* pContext)
 {
-	std::default_random_engine dre{ std::random_device{}() };
-	std::uniform_int_distribution uid(0, 255);
 
+	CHeightMapTerrain* pTerrain = (CHeightMapTerrain*)pContext;
+	float fTerrainWidth = pTerrain->GetWidth(), fTerrainLength = pTerrain->GetLength();
 
 	m_nObjects = 1;
 	m_ppObjects = new CGameObject * [m_nObjects];
-	float fxPitch = 12.0f * 2.5f;
-	float fyPitch = 12.0f * 2.5f;
-	float fzPitch = 12.0f * 2.5f;
+	float fxPitch = 12.0f * 3.5f;
+	float fyPitch = 12.0f * 3.5f;
+	float fzPitch = 12.0f * 3.5f;
 	CExplosiveObject* pExplosiveObject = NULL;
+
+
+
+	std::default_random_engine dre{ std::random_device{}() };
+	std::uniform_int_distribution uidX(0, int(fTerrainWidth / fxPitch));
+	std::uniform_int_distribution uidZ(0, int(fTerrainLength / fzPitch));
+	std::uniform_int_distribution uid(0, 255);
+
+	float x{ static_cast<float>(uidX(dre))};
+	float y{ static_cast<float>(uid(dre) / 2) };
+	float z{ static_cast<float>(uidZ(dre))};
+
+	XMFLOAT3 xmf3RotateAxis, xmf3SurfaceNormal;
+
 
 	//인스턴싱을 사용하여 렌더링하기 위하여 하나의 게임 객체만 메쉬를 가진다.
 	CTankMeshDiffused* pTankMesh = new CTankMeshDiffused(pd3dDevice, pd3dCommandList,
 		12.0f, 3.0f, 12.0f);
 	for (int i = 0; i < m_nObjects; i++) {
+		float xPosition = x * fxPitch;
+		float zPosition = z * fzPitch;
+		float fHeight = pTerrain->GetHeight(xPosition, zPosition);
+
 		pExplosiveObject = new CExplosiveObject();
-		pExplosiveObject->SetPosition(uid(dre) - 128, 0.0f, uid(dre) - 128);
+		pExplosiveObject->SetPosition(xPosition, fHeight + (y * 10.0f * fyPitch) + 6.0f, zPosition);
+
+		if (y == 0)
+		{
+			/*지형의 표면에 위치하는 직육면체는 지형의 기울기에 따라 방향이 다르게 배치한다. 직육면체가 위치할 지형의 법선
+		   벡터 방향과 직육면체의 y-축이 일치하도록 한다.*/
+			xmf3SurfaceNormal = pTerrain->GetNormal(xPosition, zPosition);
+			xmf3RotateAxis = Vector3::CrossProduct(XMFLOAT3(0.0f, 1.0f, 0.0f),
+				xmf3SurfaceNormal);
+			if (Vector3::IsZero(xmf3RotateAxis)) xmf3RotateAxis = XMFLOAT3(0.0f, 1.0f,
+				0.0f);
+			float fAngle = acos(Vector3::DotProduct(XMFLOAT3(0.0f, 1.0f, 0.0f),
+				xmf3SurfaceNormal));
+			pExplosiveObject->Rotate(&xmf3RotateAxis, XMConvertToDegrees(fAngle));
+		}
+
 		pExplosiveObject->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
-		pExplosiveObject->SetRotationSpeed(0.0f);
+		pExplosiveObject->SetRotationSpeed(10.0f);
 		pExplosiveObject->PrepareExplosion(pd3dDevice, pd3dCommandList);
 		pExplosiveObject->SetShader(this);
+
 
 
 		float directionToken = (uid(dre) - 128.0f) / 256.0f;
@@ -111,6 +145,8 @@ void CTankShader::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLi
 		m_ppObjects[i] = pExplosiveObject;
 		m_ppObjects[i]->SetMesh(0, pTankMesh);
 
+
+
 	}
 
 	std::list<std::pair<CDiffusedVertex*, CDiffusedVertex*>> lines;
@@ -120,6 +156,7 @@ void CTankShader::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLi
 
 	//인스턴싱을 위한 버퍼(Structured Buffer)를 생성한다.
 	CreateShaderVariables(pd3dDevice, pd3dCommandList);
+
 }
 
 void CTankShader::ReleaseObjects()
@@ -178,7 +215,7 @@ void CObstacleShader::CreateShader(ID3D12Device* pd3dDevice, ID3D12RootSignature
 
 
 void CObstacleShader::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
-	* pd3dCommandList)
+	* pd3dCommandList, void* pContext)
 {
 	std::default_random_engine dre{ std::random_device{}() };
 	std::uniform_int_distribution uid(0, 255);
@@ -248,7 +285,7 @@ void CWallShader::CreateShader(ID3D12Device* pd3dDevice, ID3D12RootSignature* pd
 
 
 void CWallShader::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
-	* pd3dCommandList)
+	* pd3dCommandList, void* pContext)
 {
 	std::default_random_engine dre{ std::random_device{}() };
 	std::uniform_int_distribution uid(0, 255);

@@ -6,7 +6,6 @@ CTankPlayer::CTankPlayer(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
 	* pd3dCommandList, ID3D12RootSignature* pd3dGraphicsRootSignature, int nMeshes)
 	: CPlayer(nMeshes)
 {
-	//비행기 메쉬를 생성한다.
 	CMesh* pTankMesh = new CTankMeshDiffused(pd3dDevice, pd3dCommandList, 12.0f,
 		4.0f, 12.0f, XMFLOAT4(0.0f, 0.5f, 0.0f, 0.0f));
 	SetMesh(0, pTankMesh);
