@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Entry">
+      <UniqueIdentifier>{3f411c5a-5cbc-40ab-b054-bbc7ffd25a4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework">
+      <UniqueIdentifier>{7979e251-bcdd-44a0-95c0-a3fb34f99055}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mesh">
+      <UniqueIdentifier>{39740c25-d1cd-4d77-8d23-64602a5e7014}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{223f6cdf-b158-4ef8-b1d7-aed69b73ee53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader\HLSL">
+      <UniqueIdentifier>{5965a149-297a-4690-994b-fde7ebdddf8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Camera">
+      <UniqueIdentifier>{ce110c6a-5d47-4c4b-98e1-1d3bc43ef29f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{459db692-28dc-4eb3-b3be-9744714aefa7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{90cb1d16-2d13-4be8-844f-ce082b153f3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="pch">
+      <UniqueIdentifier>{2b42d303-a7b3-4631-9e54-3bff90fcd1af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Timer">
+      <UniqueIdentifier>{369f045e-ff15-47c8-bd58-7ba4fdda05b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player">
+      <UniqueIdentifier>{42da85ce-b3ff-4b90-a9a5-c54cce64ca32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mesh\Base">
+      <UniqueIdentifier>{0d0299e4-65de-4a11-a84b-635171503caa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Pattern">
+      <UniqueIdentifier>{926f1f60-f155-43ee-8ac4-4c1803892fa5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Pattern\Move">
+      <UniqueIdentifier>{17520225-8796-4493-9a99-3f2f68fb427b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Pattern\Rotate">
+      <UniqueIdentifier>{feb886a3-ff31-407a-9a30-f518c2339572}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="리소스 파일\Lines">
+      <UniqueIdentifier>{782e2879-0d3c-421f-a473-925d29046938}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{0cce0bc4-1d98-4405-98e6-d02524eabe61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Terrain">
+      <UniqueIdentifier>{385031c0-f7f1-43b5-8f01-52e3eadde1be}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="3DHomework3.cpp">
+      <Filter>Entry</Filter>
+    </ClCompile>
+    <ClCompile Include="GameFramework.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="AirplaneMesh.cpp">
+      <Filter>Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Vertex.cpp">
+      <Filter>Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>pch</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="TriangleMesh.cpp">
+      <Filter>Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="CubeMesh.cpp">
+      <Filter>Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="TankMesh.cpp">
+      <Filter>Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="RotatingObject.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectShader.cpp">
+      <Filter>Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="InstancingShader.cpp">
+      <Filter>Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Mesh\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="RollerCosterPlayer.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="TankPlayer.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="FMeshBuilder.cpp">
+      <Filter>Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="MovePattern.cpp">
+      <Filter>Object\Pattern\Move</Filter>
+    </ClCompile>
+    <ClCompile Include="RotationPattern.cpp">
+      <Filter>Object\Pattern\Rotate</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleShader.cpp">
+      <Filter>Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuShader.cpp">
+      <Filter>Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="RollerCosterShader.cpp">
+      <Filter>Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="RollerCosterScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="TankScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="TankShader.cpp">
+      <Filter>Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="DiffusedShader.cpp">
+      <Filter>Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="ExplosiveObject.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletObject.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="HeightMap.cpp">
+      <Filter>Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="HeightMapTerrain.cpp">
+      <Filter>Object\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainPlayer.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Resource.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="3DHomework3.h">
+      <Filter>Entry</Filter>
+    </ClInclude>
+    <ClInclude Include="GameFramework.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>pch</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Mesh\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Patterns.h">
+      <Filter>Object\Pattern</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="PixelShader.hlsl">
+      <Filter>Shader\HLSL</Filter>
+    </FxCompile>
+    <FxCompile Include="VertexShader.hlsl">
+      <Filter>Shader\HLSL</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="3DHomework3.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="3DHomework3.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="3D게임 프로그래밍.txt">
+      <Filter>리소스 파일\Lines</Filter>
+    </Text>
+    <Text Include="End.txt">
+      <Filter>리소스 파일\Lines</Filter>
+    </Text>
+    <Text Include="Level-1.txt">
+      <Filter>리소스 파일\Lines</Filter>
+    </Text>
+    <Text Include="Level-2.txt">
+      <Filter>리소스 파일\Lines</Filter>
+    </Text>
+    <Text Include="Rail.txt">
+      <Filter>리소스 파일\Lines</Filter>
+    </Text>
+    <Text Include="Tutorial.txt">
+      <Filter>리소스 파일\Lines</Filter>
+    </Text>
+    <Text Include="Start.txt">
+      <Filter>리소스 파일\Lines</Filter>
+    </Text>
+    <Text Include="You Win!.txt">
+      <Filter>리소스 파일\Lines</Filter>
+    </Text>
+    <Text Include="송영준.txt">
+      <Filter>리소스 파일\Lines</Filter>
+    </Text>
+  </ItemGroup>
+</Project>
