@@ -123,6 +123,14 @@ namespace Vector3
 			XMLoadFloat3(&xmf3Vector2));
 		return(xmf3Result);
 	}
+
+	inline XMFLOAT3 Multiply(const XMFLOAT3& v, float scalar)
+	{
+		XMFLOAT3 result;
+		XMStoreFloat3(&result, XMVectorScale(XMLoadFloat3(&v), scalar));
+		return result;
+	}	
+
 	inline float DotProduct(XMFLOAT3& xmf3Vector1, XMFLOAT3& xmf3Vector2)
 	{
 		XMFLOAT3 xmf3Result;

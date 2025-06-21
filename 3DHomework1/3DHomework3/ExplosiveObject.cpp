@@ -64,15 +64,34 @@ void CExplosiveObject::Animate(float fTimeElapsed)
 
 	}
 	else {
+
+
 		CGameObject::Rotate(&m_xmf3RotationAxis, m_fRotationSpeed * fTimeElapsed);
 		CGameObject::MoveStrafe(m_xmf3MoveDirection.x * m_fMoveSpeed);
 		CGameObject::MoveForward(m_xmf3MoveDirection.z * m_fMoveSpeed);
+
+		if (m_pTerrain) {
+			// Terrain에 맞춰 y좌표가 Terrain보다 위에 오도록 수정한다.
+
+			XMFLOAT3 xmf3Position = GetPosition();
+
+			float fHeight = m_pTerrain->GetHeight(xmf3Position.x, xmf3Position.z);
+
+			if (xmf3Position.y < fHeight) {
+				xmf3Position.y = fHeight;
+
+				SetPosition(xmf3Position);
+			}
+		}
 
 		UpdateBoundingBox();
 	}
 }
 
+void CExplosiveObject::Animate(float fTimeElapsed, void* pContext)
+{
 
+}
 
 
 void CExplosiveObject::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera,

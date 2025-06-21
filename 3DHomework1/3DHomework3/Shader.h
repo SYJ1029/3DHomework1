@@ -224,7 +224,7 @@ public:
 	CTankShader();
 	~CTankShader();
 private: 
-
+	void* m_pContext = NULL;
 	std::string m_filename;
 	//virtual D3D12_INPUT_LAYOUT_DESC CreateInputLayout();
 	//virtual D3D12_SHADER_BYTECODE CreateVertexShader(ID3DBlob** ppd3dShaderBlob);

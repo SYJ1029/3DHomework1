@@ -13,6 +13,7 @@ CPlayer::CPlayer(int nMeshes) : CGameObject(nMeshes)
 	m_fMaxVelocityXZ = 0.0f;
 	m_fMaxVelocityY = 0.0f;
 	m_fFriction = 0.0f;
+	m_fSpeed = 0.0f;
 	m_fPitch = 0.0f;
 	m_fRoll = 0.0f;
 	m_fYaw = 0.0f;
@@ -59,6 +60,7 @@ void CPlayer::Move(DWORD dwDirection, float fDistance, bool bUpdateVelocity)
 		//‘Page Up’을 누르면 로컬 y-축 방향으로 이동한다. ‘Page Down’을 누르면 반대 방향으로 이동한다.
 		if (dwDirection & DIR_UP) xmf3Shift = Vector3::Add(xmf3Shift, m_xmf3Up, fDistance);
 		if (dwDirection & DIR_DOWN) xmf3Shift = Vector3::Add(xmf3Shift, m_xmf3Up, -fDistance);
+
 		//플레이어를 현재 위치 벡터에서 xmf3Shift 벡터만큼 이동한다.
 		Move(xmf3Shift, bUpdateVelocity);
 	}
@@ -69,17 +71,21 @@ void CPlayer::Move(const XMFLOAT3& xmf3Shift, bool bUpdateVelocity)
 	if (bUpdateVelocity)
 	{
 		//플레이어의 속도 벡터를 xmf3Shift 벡터만큼 변경한다.
-		m_xmf3Velocity = Vector3::Add(m_xmf3Velocity, xmf3Shift);
 
-		//플레이어를 현재 위치 벡터에서 xmf3Shift 벡터만큼 이동한다.
-		m_xmf3Position = Vector3::Add(m_xmf3Position, xmf3Shift);
+		m_xmf3Velocity = Vector3::Add(m_xmf3Velocity, Vector3::Multiply(xmf3Shift, m_fSpeed));
+
 	}
 	else
 	{
 
 
+		//플레이어를 현재 위치 벡터에서 xmf3Shift 벡터만큼 이동한다.
+		m_xmf3Position = Vector3::Add(m_xmf3Position, xmf3Shift);
+
 		//플레이어의 위치가 변경되었으므로 카메라의 위치도 xmf3Shift 벡터만큼 이동한다.
 		if (m_pCamera) m_pCamera->Move(xmf3Shift);
+
+
 	}
 
 
@@ -214,7 +220,10 @@ void CPlayer::Update(float fTimeElapsed)
 	fLength = Vector3::Length(m_xmf3Velocity);
 	float fDeceleration = (m_fFriction * fTimeElapsed);
 	if (fDeceleration > fLength) fDeceleration = fLength;
-	//m_xmf3Velocity = Vector3::Add(m_xmf3Velocity, Vector3::ScalarProduct(m_xmf3Velocity, -fDeceleration, true));
+
+
+
+	m_xmf3Velocity = Vector3::Add(m_xmf3Velocity, Vector3::ScalarProduct(m_xmf3Velocity, -fDeceleration, false));
 	
 }
 
@@ -344,6 +353,7 @@ CCamera* CAirplanePlayer::ChangeCamera(DWORD nNewCameraMode, float fTimeElapsed)
 		//플레이어의 특성을 1인칭 카메라 모드에 맞게 변경한다. 중력은 적용하지 않는다.
 		SetFriction(200.0f);
 		SetGravity(XMFLOAT3(0.0f, 0.0f, 0.0f));
+		SetSpeed(100.0f);
 		SetMaxVelocityXZ(125.0f);
 		SetMaxVelocityY(400.0f);
 		m_pCamera = OnChangeCamera(FIRST_PERSON_CAMERA, nCurrentCameraMode);
@@ -359,6 +369,7 @@ CCamera* CAirplanePlayer::ChangeCamera(DWORD nNewCameraMode, float fTimeElapsed)
 		//플레이어의 특성을 스페이스-쉽 카메라 모드에 맞게 변경한다. 중력은 적용하지 않는다.
 		SetFriction(125.0f);
 		SetGravity(XMFLOAT3(0.0f, 0.0f, 0.0f));
+		SetSpeed(100.0f);
 		SetMaxVelocityXZ(400.0f);
 		SetMaxVelocityY(400.0f);
 		m_pCamera = OnChangeCamera(SPACESHIP_CAMERA, nCurrentCameraMode);
@@ -373,6 +384,7 @@ CCamera* CAirplanePlayer::ChangeCamera(DWORD nNewCameraMode, float fTimeElapsed)
 		//플레이어의 특성을 3인칭 카메라 모드에 맞게 변경한다. 지연 효과와 카메라 오프셋을 설정한다.
 		SetFriction(250.0f);
 		SetGravity(XMFLOAT3(0.0f, 20.0f, -30.0f));
+		SetSpeed(100.0f);
 		SetMaxVelocityXZ(125.0f);
 		SetMaxVelocityY(400.0f);
 		m_pCamera = OnChangeCamera(THIRD_PERSON_CAMERA, nCurrentCameraMode);

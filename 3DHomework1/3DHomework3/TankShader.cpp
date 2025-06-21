@@ -81,6 +81,7 @@ void CTankShader::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLi
 {
 
 	CHeightMapTerrain* pTerrain = (CHeightMapTerrain*)pContext;
+	
 	float fTerrainWidth = pTerrain->GetWidth(), fTerrainLength = pTerrain->GetLength();
 
 	m_nObjects = 1;
@@ -113,7 +114,7 @@ void CTankShader::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLi
 		float fHeight = pTerrain->GetHeight(xPosition, zPosition);
 
 		pExplosiveObject = new CExplosiveObject();
-		pExplosiveObject->SetPosition(xPosition, fHeight + (y * 10.0f * fyPitch) + 6.0f, zPosition);
+		pExplosiveObject->SetPosition(xPosition, fHeight, zPosition);
 
 		if (y == 0)
 		{
@@ -134,7 +135,7 @@ void CTankShader::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLi
 		pExplosiveObject->PrepareExplosion(pd3dDevice, pd3dCommandList);
 		pExplosiveObject->SetShader(this);
 
-
+		pExplosiveObject->SetTerrain(pTerrain);
 
 		float directionToken = (uid(dre) - 128.0f) / 256.0f;
 		XMFLOAT3 moveDirection;
@@ -152,7 +153,7 @@ void CTankShader::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLi
 	std::list<std::pair<CDiffusedVertex*, CDiffusedVertex*>> lines;
 
 
-
+	m_pContext = pTerrain;
 
 	//인스턴싱을 위한 버퍼(Structured Buffer)를 생성한다.
 	CreateShaderVariables(pd3dDevice, pd3dCommandList);
@@ -168,8 +169,9 @@ void CTankShader::AnimateObjects(float fTimeElapsed)
 {
 	for (int j = 0; j < m_nObjects; j++)
 	{
-		if (m_ppObjects[j]->IsActive())
+		if (m_ppObjects[j]->IsActive()) {
 			m_ppObjects[j]->Animate(fTimeElapsed);
+		}
 		else {
 			// 어디 하나가 Active하지 못하다는 것은 이 코드에서는 Scene을 넘어가야 함을 의미한다.
 			// Active하지 못한 

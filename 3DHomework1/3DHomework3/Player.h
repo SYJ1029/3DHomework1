@@ -50,6 +50,8 @@ protected:
 	//플레이어에 작용하는 마찰력을 나타낸다.
 	float		m_fFriction;
 
+	float		m_fSpeed;
+
 	//플레이어의 위치가 바뀔 때마다 호출되는 OnPlayerUpdateCallback() 함수에서 사용하는 데이터이다.
 	LPVOID		m_pPlayerUpdatedContext;
 
@@ -66,6 +68,7 @@ public:
 	XMFLOAT3 GetLookVector() { return(m_xmf3Look); }
 	XMFLOAT3 GetUpVector() { return(m_xmf3Up); }
 	XMFLOAT3 GetRightVector() { return(m_xmf3Right); }
+	void SetSpeed(float fspeed) { m_fSpeed = fspeed; }
 	void SetFriction(float fFriction) { m_fFriction = fFriction; }
 	void SetGravity(XMFLOAT3& xmf3Gravity) { m_xmf3Gravity = xmf3Gravity; }
 	void SetMaxVelocityXZ(float fMaxVelocity) { m_fMaxVelocityXZ = fMaxVelocity; }
@@ -151,11 +154,11 @@ public:
 
 #define BULLETS 50
 
-class CTankPlayer : public CPlayer
+class CTankPlayer : public CTerrainPlayer
 {
 public:
 	CTankPlayer(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList,
-		ID3D12RootSignature* pd3dGraphicsRootSignature, int nMeshes = 1);
+		ID3D12RootSignature* pd3dGraphicsRootSignature, void* pContext, int nMeshes = 1);
 	virtual ~CTankPlayer();
 protected:
 	float m_fBulletEffectiveRange = 150.0f;

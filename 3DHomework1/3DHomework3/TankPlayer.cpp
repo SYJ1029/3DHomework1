@@ -2,20 +2,26 @@
 
 #include "Shader.h"
 
-CTankPlayer::CTankPlayer(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
-	* pd3dCommandList, ID3D12RootSignature* pd3dGraphicsRootSignature, int nMeshes)
-	: CPlayer(nMeshes)
+CTankPlayer::CTankPlayer(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList,
+	ID3D12RootSignature* pd3dGraphicsRootSignature, void* pContext, int nMeshes)
+	: CTerrainPlayer(pd3dDevice, pd3dCommandList, pd3dGraphicsRootSignature, pContext, nMeshes) 
 {
 	CMesh* pTankMesh = new CTankMeshDiffused(pd3dDevice, pd3dCommandList, 12.0f,
 		4.0f, 12.0f, XMFLOAT4(0.0f, 0.5f, 0.0f, 0.0f));
 	SetMesh(0, pTankMesh);
-	//플레이어의 카메라를 스페이스-쉽 카메라로 변경(생성)한다.
-	m_pCamera = ChangeCamera(THIRD_PERSON_CAMERA, 0.0f);
-	//플레이어를 위한 셰이더 변수를 생성한다.
-	CreateShaderVariables(pd3dDevice, pd3dCommandList);
-	//플레이어의 위치를 설정한다.
-	SetPosition(XMFLOAT3(0.0f, 0.0f, -15.0f));
-	//플레이어(비행기) 메쉬를 렌더링할 때 사용할 셰이더를 생성한다.
+
+
+
+	CHeightMapTerrain* pTerrain = (CHeightMapTerrain*)pContext;
+	float fHeight = pTerrain->GetHeight(pTerrain->GetWidth() * 0.5f, pTerrain->GetLength() * 0.5f);
+	SetPosition(XMFLOAT3(pTerrain->GetWidth() * 0.5f, fHeight, pTerrain->GetLength() * 0.5f));
+
+	//플레이어의 위치가 변경될 때 지형의 정보에 따라 플레이어의 위치를 변경할 수 있도록 설정한다.
+	SetPlayerUpdatedContext(pTerrain);
+	//카메라의 위치가 변경될 때 지형의 정보에 따라 카메라의 위치를 변경할 수 있도록 설정한다.
+	SetCameraUpdatedContext(pTerrain);
+
+
 
 	bullets = new CBulletObject * [BULLETS];
 	CCubeMeshDiffused* pCubeMesh = new CCubeMeshDiffused(pd3dDevice, pd3dCommandList,
@@ -26,11 +32,14 @@ CTankPlayer::CTankPlayer(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
 		bullets[i]->SetMesh(0, pCubeMesh);
 	}
 
+
 	CDiffusedShader* pShader = new CDiffusedShader();
 	pShader->CreateShader(pd3dDevice, pd3dGraphicsRootSignature);
 	SetShader(pShader);
 
-
+	m_pCamera = ChangeCamera(FIRST_PERSON_CAMERA, 0.0f);
+	m_pCamera = ChangeCamera(THIRD_PERSON_CAMERA, 0.0f);
+	CreateShaderVariables(pd3dDevice, pd3dCommandList);
 }
 CTankPlayer::~CTankPlayer()
 {
@@ -102,10 +111,12 @@ CCamera* CTankPlayer::ChangeCamera(DWORD nNewCameraMode, float fTimeElapsed)
 	switch (nNewCameraMode)
 	{
 	case FIRST_PERSON_CAMERA:
-		//플레이어의 특성을 1인칭 카메라 모드에 맞게 변경한다. 중력은 적용하지 않는다.
-		SetFriction(200.0f);
-		SetGravity(XMFLOAT3(0.0f, 0.0f, 0.0f));
-		SetMaxVelocityXZ(125.0f);
+		SetFriction(250.0f);
+		//1인칭 카메라일 때 플레이어에 y-축 방향으로 중력이 작용한다.
+		SetGravity(XMFLOAT3(0.0f, -250.0f, 0.0f));
+		SetSpeed(100.0f);
+
+		SetMaxVelocityXZ(300.0f);
 		SetMaxVelocityY(400.0f);
 		m_pCamera = OnChangeCamera(FIRST_PERSON_CAMERA, nCurrentCameraMode);
 		m_pCamera->SetTimeLag(0.25f);
@@ -120,6 +131,7 @@ CCamera* CTankPlayer::ChangeCamera(DWORD nNewCameraMode, float fTimeElapsed)
 		//플레이어의 특성을 스페이스-쉽 카메라 모드에 맞게 변경한다. 중력은 적용하지 않는다.
 		SetFriction(125.0f);
 		SetGravity(XMFLOAT3(0.0f, 0.0f, 0.0f));
+		SetSpeed(50.0f);
 		SetMaxVelocityXZ(400.0f);
 		SetMaxVelocityY(400.0f);
 		m_pCamera = OnChangeCamera(SPACESHIP_CAMERA, nCurrentCameraMode);
@@ -131,10 +143,12 @@ CCamera* CTankPlayer::ChangeCamera(DWORD nNewCameraMode, float fTimeElapsed)
 		m_pCamera->SetScissorRect(0, 0, FRAME_BUFFER_WIDTH, FRAME_BUFFER_HEIGHT);
 		break;
 	case THIRD_PERSON_CAMERA:
-		//플레이어의 특성을 3인칭 카메라 모드에 맞게 변경한다. 지연 효과와 카메라 오프셋을 설정한다.
-		SetFriction(125.0f);
-		SetGravity(XMFLOAT3(0.0f, 0.0f, 0.0f));
-		SetMaxVelocityXZ(125.0f);
+		//플레이어의 특성을 3인칭 카메라 모드에 맞게 변경한다. 지연 효과와 카메라 오프셋을 설정한다. 중력도 적용한다.
+		SetFriction(250.0f);
+		//3인칭 카메라일 때 플레이어에 y-축 방향으로 중력이 작용한다.
+		SetGravity(XMFLOAT3(0.0f, -250.0f, 0.0f));
+		SetSpeed(100.0f);
+		SetMaxVelocityXZ(300.0f);
 		SetMaxVelocityY(400.0f);
 		m_pCamera = OnChangeCamera(THIRD_PERSON_CAMERA, nCurrentCameraMode);
 		//3인칭 카메라의 지연 효과를 설정한다. 값을 0.25f 대신에 0.0f와 1.0f로 설정한 결과를 비교하기 바란다.

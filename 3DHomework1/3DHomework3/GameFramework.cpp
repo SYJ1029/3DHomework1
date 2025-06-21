@@ -360,7 +360,7 @@ void CGameFramework::BuildObjects()
 		case S_TANK:
 		{
 			CTankPlayer* pTankPlayer = new CTankPlayer(m_pd3dDevice,
-				m_pd3dCommandList, m_pSceneManager->m_pScene->GetGraphicsRootSignature());
+				m_pd3dCommandList, m_pSceneManager->m_pScene->GetGraphicsRootSignature(), m_pSceneManager->m_pScene->GetTerrain());
 			m_pPlayer = pTankPlayer;
 
 			m_pSceneManager->m_pScene->SetPlayer(m_pPlayer);
