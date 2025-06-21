@@ -92,6 +92,8 @@ public:
 	void Move(float fxOffset = 0.0f, float fyOffset = 0.0f, float fzOffset = 0.0f);
 	//플레이어를 회전하는 함수이다.
 	void Rotate(float x, float y, float z);
+	//축을 중심으로 회전 + xyz로컬 축을 회전 양만큼 갱신
+	void Rotate(XMFLOAT3* axis, float fAngle);
 	//플레이어의 위치와 회전 정보를 경과 시간에 따라 갱신하는 함수이다.
 	virtual void Update(float fTimeElapsed);
 	//플레이어의 위치가 바뀔 때마다 호출되는 함수와 그 함수에서 사용하는 정보를 설정하는 함수이다.

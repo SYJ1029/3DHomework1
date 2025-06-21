@@ -105,6 +105,20 @@ void CTerrainPlayer::OnPlayerUpdateCallback(float fTimeElapsed)
 		xmf3PlayerPosition.y = fHeight;
 		SetPosition(xmf3PlayerPosition);
 	}
+
+	XMFLOAT3 pNormal = pTerrain->GetNormal(xmf3PlayerPosition.x, xmf3PlayerPosition.z);
+
+	XMFLOAT3 xmf3RotateAxis = Vector3::CrossProduct(m_xmf3Up, pNormal, true);
+	if (Vector3::IsZero(xmf3RotateAxis));
+	else {
+
+		float anglef = Vector3::Angle(m_xmf3Up, pNormal);
+
+		m_xmf3Up = pNormal;
+
+		Rotate(&xmf3RotateAxis, anglef);
+
+	}
 }
 
 void CTerrainPlayer::OnCameraUpdateCallback(float fTimeElapsed)

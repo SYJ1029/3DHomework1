@@ -169,6 +169,29 @@ void CPlayer::Rotate(float x, float y, float z)
 	m_xmf3Up = Vector3::CrossProduct(m_xmf3Look, m_xmf3Right, true);
 }
 
+void CPlayer::Rotate(XMFLOAT3* axis, float fAngle)
+{
+	// Player를 새로운 축을 중심으로 회전시킨 다는 것은, Player의 기준이 바뀜을 의미한다
+	// 때문에 로컬 축도 같이 회전하여 Player의 기준을 바꿔야 한다.
+	// 즉, 이 함수는 실제 회전에 더해 로컬 축또한 회전시키고자 할 때 실행한다.
+	
+	XMMATRIX mtxRotate = XMMatrixRotationAxis(XMLoadFloat3(axis),
+		XMConvertToRadians(fAngle));
+
+	
+	m_xmf3Look = Vector3::TransformNormal(m_xmf3Look, mtxRotate);
+	m_xmf3Right = Vector3::TransformNormal(m_xmf3Right, mtxRotate);
+
+
+	//m_xmf3Look = Vector3::Normalize(m_xmf3Look);
+	//m_xmf3Right = Vector3::CrossProduct(m_xmf3Up, m_xmf3Look, true);
+	//m_xmf3Up = Vector3::CrossProduct(m_xmf3Look, m_xmf3Right, true);
+
+
+	// 실제 플레이어를 회전시킨다
+	CGameObject::Rotate(axis, fAngle);
+}
+
 
 //이 함수는 매 프레임마다 호출된다. 플레이어의 속도 벡터에 중력과 마찰력 등을 적용한다.
 void CPlayer::Update(float fTimeElapsed)
