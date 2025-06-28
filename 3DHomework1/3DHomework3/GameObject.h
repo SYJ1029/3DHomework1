@@ -195,14 +195,14 @@ public:
 public:
 	virtual void Animate(float fElapsedTime);
 
-	float						m_fBulletEffectiveRange = 50.0f;
+	float						m_fBulletEffectiveRange = 1000.0f;
 	float						m_fMovingDistance = 0.0f;
 	float						m_fRotationAngle = 0.0f;
 	XMFLOAT3					m_xmf3FirePosition = XMFLOAT3(0.0f, 0.0f, 1.0f);
 
 	float						m_fElapsedTimeAfterFire = 0.0f;
 	float						m_fLockingDelayTime = 0.3f;
-	float						m_fLockingTime = 4.0f;
+	float						m_fLockingTime = 1000.0f;
 	CGameObject* m_pLockedObject = NULL;
 
 	void SetFirePosition(XMFLOAT3 xmf3FirePosition);

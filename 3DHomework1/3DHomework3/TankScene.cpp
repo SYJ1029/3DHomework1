@@ -39,12 +39,12 @@ void CTankScene::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLis
 
 
 
-	m_nShaders = 32;
+	m_nShaders = 102;
 	m_pShaders = new CInstancingShader * [m_nShaders];
 
 	int i;
 
-	for (i = 0; i < 30; ++i) {
+	for (i = 0; i < 100; ++i) {
 		m_pShaders[i] = new CTankShader;
 
 		m_pShaders[i]->CreateShader(pd3dDevice, m_pd3dGraphicsRootSignature);
@@ -298,7 +298,7 @@ void CTankScene::CheckObjectByBulletCollisions()
 				if (ppBullets[r]->IsActive() && (m_pShaders[i]->m_ppObjects[j]) && (m_pShaders[i]->m_ppObjects[j]->IsActive()) &&
 					m_pShaders[i]->m_ppObjects[j]->m_xmOOBB.Intersects(ppBullets[r]->m_xmOOBB))
 				{
-					if (i >= 0 && i < 10) {
+					if (i >= 0 && i < 100) {
 						CExplosiveObject* pExplosiveObject = (CExplosiveObject*)m_pShaders[i]->m_ppObjects[j];
 						pExplosiveObject->SetExplosion();
 					}

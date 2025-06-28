@@ -219,23 +219,47 @@ void CObstacleShader::CreateShader(ID3D12Device* pd3dDevice, ID3D12RootSignature
 void CObstacleShader::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
 	* pd3dCommandList, void* pContext)
 {
-	std::default_random_engine dre{ std::random_device{}() };
-	std::uniform_int_distribution uid(0, 255);
+	CHeightMapTerrain* pTerrain = (CHeightMapTerrain*)pContext;
 
-	m_nObjects = 10;
+	float fTerrainWidth = pTerrain->GetWidth(), fTerrainLength = pTerrain->GetLength();
+
+
+	m_nObjects = 20;
 	m_ppObjects = new CGameObject * [m_nObjects];
 	float fxPitch = 12.0f * 2.5f;
 	float fyPitch = 12.0f * 2.5f;
 	float fzPitch = 12.0f * 2.5f;
 	CExplosiveObject* pExplosiveObject = NULL;
 
+
+	std::default_random_engine dre{ std::random_device{}() };
+	std::uniform_int_distribution uidX(0, int(fTerrainWidth / fxPitch));
+	std::uniform_int_distribution uidZ(0, int(fTerrainLength / fzPitch));
+	std::uniform_int_distribution uid(0, 255);
+
+	
+
+	XMFLOAT3 xmf3RotateAxis, xmf3SurfaceNormal;
+
+
+
+
+
 	//인스턴싱을 사용하여 렌더링하기 위하여 하나의 게임 객체만 메쉬를 가진다.
 	CCubeMeshDiffused* pCubeMesh = new CCubeMeshDiffused(pd3dDevice, pd3dCommandList,
 		12.0f, 10.0f, 10.0f);
 
 	for (int i = 0; i < m_nObjects; i++) {
+		float x{ static_cast<float>(uidX(dre)) };
+		float y{ static_cast<float>(uid(dre) / 2) };
+		float z{ static_cast<float>(uidZ(dre)) };
+
+		float xPosition = x * fxPitch;
+		float zPosition = z * fzPitch;
+		float fHeight = pTerrain->GetHeight(xPosition, zPosition);
+
 		pExplosiveObject = new CExplosiveObject();
-		pExplosiveObject->SetPosition(uid(dre) - 128, 3.0f, uid(dre) - 128);
+		pExplosiveObject->SetPosition(xPosition, fHeight, zPosition);
 		pExplosiveObject->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
 		pExplosiveObject->SetRotationSpeed(0.0f);
 
@@ -245,6 +269,7 @@ void CObstacleShader::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsComma
 
 		pExplosiveObject->SetMoveDirection(moveDirection);
 		pExplosiveObject->SetMoveSpeed(0.03125f);
+		pExplosiveObject->SetTerrain(pTerrain);
 		m_ppObjects[i] = pExplosiveObject;
 		m_ppObjects[i]->SetMesh(0, pCubeMesh);
 	}
@@ -260,6 +285,15 @@ void CObstacleShader::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsComma
 void CObstacleShader::ReleaseObjects()
 {
 
+}
+
+void CObstacleShader::AnimateObjects(float fTimeElapsed)
+{
+	for (int j = 0; j < m_nObjects; j++)
+	{
+		if (m_ppObjects[j]->IsActive())
+			m_ppObjects[j]->Animate(fTimeElapsed);
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////

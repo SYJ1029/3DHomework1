@@ -163,7 +163,7 @@ public:
 		ID3D12RootSignature* pd3dGraphicsRootSignature, void* pContext, int nMeshes = 1);
 	virtual ~CTankPlayer();
 protected:
-	float m_fBulletEffectiveRange = 150.0f;
+	float m_fBulletEffectiveRange = 1000.0f;
 
 public:
 	CExplosiveObject* pickedObject = nullptr;

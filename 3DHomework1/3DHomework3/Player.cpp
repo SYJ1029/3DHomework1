@@ -200,6 +200,9 @@ void CPlayer::Update(float fTimeElapsed)
    적용한다는 의미이다.*/
 	m_xmf3Velocity = Vector3::Add(m_xmf3Velocity, Vector3::ScalarProduct(m_xmf3Gravity,
 		fTimeElapsed, false));
+
+	if (abs(Vector3::Length(m_xmf3Gravity)) > 250.0f)
+		std::cout << std::endl;
 	/*플레이어의 속도 벡터의 XZ-성분의 크기를 구한다. 이것이 XZ-평면의 최대 속력보다 크면 속도 벡터의 x와 z-방향
    성분을 조정한다.*/
    //플레이어에 중력 적용하기
