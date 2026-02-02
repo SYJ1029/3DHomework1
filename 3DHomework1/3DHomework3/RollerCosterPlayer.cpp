@@ -11,6 +11,11 @@ CRollerCosterPlayer::CRollerCosterPlayer(ID3D12Device* pd3dDevice, ID3D12Graphic
 	m_backref = framework;
 
 
+
+	CMeshBuilder token;
+
+	token.Loadlines("Rail.txt", lineList);
+
 	// 컴포넌트 세팅
 	m_Components.emplace_back(new RollerCosterScript());
 
@@ -20,9 +25,8 @@ CRollerCosterPlayer::CRollerCosterPlayer(ID3D12Device* pd3dDevice, ID3D12Graphic
 	}
 
 	m_Components.front()->Init();
-	//CMeshBuilder token;
 
-	//token.Loadlines("Rail.txt", lineList);
+
 
 }
 CRollerCosterPlayer::~CRollerCosterPlayer()
@@ -32,10 +36,12 @@ CRollerCosterPlayer::~CRollerCosterPlayer()
 
 void CRollerCosterPlayer::Update(float fTimeElapsed)
 {
-	for(auto& comp : m_Components)
+	for (auto& comp : m_Components)
 	{
 		comp->Update(fTimeElapsed);
 	}
+
+
 	//auto [start, end] = lineList.front();
 
 
@@ -77,5 +83,6 @@ void CRollerCosterPlayer::Update(float fTimeElapsed)
 	////카메라가 3인칭 카메라이면 카메라가 변경된 플레이어 위치를 바라보도록 한다.
 	//if (nCameraMode == THIRD_PERSON_CAMERA)m_pCamera->SetLookAt(m_xmf3Position);
 
-	//m_pCamera->RegenerateViewMatrix();
+	m_pCamera->RegenerateViewMatrix();
+
 }

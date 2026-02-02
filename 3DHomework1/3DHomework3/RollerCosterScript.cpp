@@ -16,8 +16,8 @@ void RollerCosterScript::Update(float fTimeElapsed)
 	auto [start, end] = lineList.front();
 
 	// 플레이어의 현재 위치와 직선의 끝점을 XMVECTOR로 변환
-	XMFLOAT3 m_xmf3Position = player->GetPosition();
-	XMVECTOR playerPos = XMLoadFloat3(&m_xmf3Position);
+	XMFLOAT3 xmf3Position = player->GetPosition();
+	XMVECTOR playerPos = XMLoadFloat3(&xmf3Position);
 	XMVECTOR endPos = XMLoadFloat3(&end->GetPosition());
 
 	XMVECTOR dir = XMVectorSubtract(endPos, playerPos);
@@ -28,10 +28,8 @@ void RollerCosterScript::Update(float fTimeElapsed)
 
 	// 이동
 	playerPos = XMVectorAdd(playerPos, XMVectorScale(dir, speed * fTimeElapsed));
-	XMStoreFloat3(&m_xmf3Position, playerPos);
+	XMStoreFloat3(&xmf3Position, playerPos);
 
-	// 새로운 위치로 갱신
-	player->SetPosition(m_xmf3Position);
 
 	// 목표에 거의 다 왔으면 다음 선으로
 	XMVECTOR diff = XMVectorSubtract(endPos, playerPos);
@@ -49,6 +47,11 @@ void RollerCosterScript::Update(float fTimeElapsed)
 		}
 
 	}
+	else 
+	{
+		// SetPosition 함수는 단 한번만 실행되도록 바꾸자
+		player->SetPosition_Override(xmf3Position);
+	}
 
 	// GetCamera() 함수는 CCamera 클래스의 객체 포인터를 반환하므로
 	// Get - 작업 - Set이 필요가 없다. 그냥 포인터에 들이대면 바뀌니까
@@ -58,16 +61,16 @@ void RollerCosterScript::Update(float fTimeElapsed)
 	DWORD nCameraMode = pCamera->GetMode();
 
 	//플레이어의 위치가 변경되었으므로 3인칭 카메라를 갱신한다.
-	if (nCameraMode == THIRD_PERSON_CAMERA)pCamera->Update(m_xmf3Position,
+	if (nCameraMode == THIRD_PERSON_CAMERA)pCamera->Update(xmf3Position,
 		fTimeElapsed);
 	//카메라의 위치가 변경될 때 추가로 수행할 작업을 수행한다. 
 	// 하지만 이 함수는 당장 하는 역할이 없다
 	//if (m_pCameraUpdatedContext) OnCameraUpdateCallback(fTimeElapsed);
 
 	//카메라가 3인칭 카메라이면 카메라가 변경된 플레이어 위치를 바라보도록 한다.
-	if (nCameraMode == THIRD_PERSON_CAMERA)pCamera->SetLookAt(m_xmf3Position);
+	if (nCameraMode == THIRD_PERSON_CAMERA)pCamera->SetLookAt(xmf3Position);
 
-	pCamera->RegenerateViewMatrix();
+	//pCamera->RegenerateViewMatrix();
 }
 
 void RollerCosterScript::Render()
