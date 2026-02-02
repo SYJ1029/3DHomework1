@@ -30,7 +30,8 @@ void RollerCosterScript::Update(float fTimeElapsed)
 	playerPos = XMVectorAdd(playerPos, XMVectorScale(dir, speed * fTimeElapsed));
 	XMStoreFloat3(&m_xmf3Position, playerPos);
 
-
+	// 새로운 위치로 갱신
+	player->SetPosition(m_xmf3Position);
 
 	// 목표에 거의 다 왔으면 다음 선으로
 	XMVECTOR diff = XMVectorSubtract(endPos, playerPos);
@@ -40,11 +41,12 @@ void RollerCosterScript::Update(float fTimeElapsed)
 
 		// 씬 전환을 프레임워크를 통해 하고 있다
 		// 임시로 이건 막아놓자
-		//if (lineList.size() <= 0) {
-		//	m_backref->ChangeScene(S_TANK);
-		//	m_backref->ReleaseObjects();
-		//	m_backref->BuildObjects();
-		//}
+		if (lineList.size() <= 0) {
+			//m_backref->ChangeScene(S_TANK);
+			//m_backref->ReleaseObjects();
+			//m_backref->BuildObjects();
+
+		}
 
 	}
 
