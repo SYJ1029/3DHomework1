@@ -26,6 +26,8 @@ protected:
 	XMFLOAT3		m_xmf3Look;
 
 
+	// 컴포넌트를 저장하는 리스트
+	std::list<class Component*> m_Components;
 
 
 	//플레이어가 로컬 x-축(Right), y-축(Up), z-축(Look)으로 얼마만큼 회전했는가를 나타낸다.
@@ -60,6 +62,7 @@ protected:
 
 		//플레이어에 현재 설정된 카메라이다.
 		CCamera	*m_pCamera = NULL;
+
 
 public:
 	CPlayer(int nMeshes = 1);

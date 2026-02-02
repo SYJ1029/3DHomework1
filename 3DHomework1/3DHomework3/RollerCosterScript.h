@@ -10,6 +10,7 @@ class RollerCosterScript :
 private:
 	std::list<std::pair<CDiffusedVertex*, CDiffusedVertex*>> lineList;
 	std::string fileName = "Rail.txt";
+	CPlayer* player = nullptr;
 public:
 	virtual void Init() override;
 	virtual void Update(float fTimeElapsed) override;

@@ -1,12 +1,12 @@
 #pragma once
 
 
-class GameObject;
+class CGameObject;
 
 class Component
 {
-private:
-	GameObject* m_pOwner = nullptr;
+protected:
+	CGameObject* m_pOwner = nullptr;
 
 public:
 	Component() = default;
@@ -16,5 +16,8 @@ public:
 	virtual void Update(float fTimeElapsed) {}
 	virtual void Render() {}
 	virtual void Release() {}
+
+
+	void SetOwner(CGameObject* owner) { m_pOwner = owner; }
 };
 

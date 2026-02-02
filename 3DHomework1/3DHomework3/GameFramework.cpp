@@ -1,5 +1,6 @@
 ﻿#include "stdafx.h"
 #include "GameFramework.h"
+#include "RollerCosterScript.h"
 
 
 CGameFramework::CGameFramework() 

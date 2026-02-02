@@ -354,6 +354,9 @@ CAirplanePlayer::CAirplanePlayer(ID3D12Device* pd3dDevice, ID3D12GraphicsCommand
 	CDiffusedShader* pShader = new CDiffusedShader();
 	pShader->CreateShader(pd3dDevice, pd3dGraphicsRootSignature);
 	SetShader(pShader);
+
+
+
 }
 CAirplanePlayer::~CAirplanePlayer()
 {
