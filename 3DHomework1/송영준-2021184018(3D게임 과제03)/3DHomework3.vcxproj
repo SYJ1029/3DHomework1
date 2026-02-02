@@ -150,7 +150,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BulletObject.cpp" />
-    <ClCompile Include="Component.cpp" />
     <ClCompile Include="ExplosiveObject.cpp" />
     <ClCompile Include="HeightMap.cpp" />
     <ClCompile Include="MenuScene.cpp" />
@@ -170,7 +169,6 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RollerCosterPlayer.cpp" />
     <ClCompile Include="RollerCosterScene.cpp" />
-    <ClCompile Include="RollerCosterScript.cpp" />
     <ClCompile Include="RollerCosterShader.cpp" />
     <ClCompile Include="RotatingObject.cpp" />
     <ClCompile Include="RotationPattern.cpp" />
@@ -192,7 +190,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="Component.h" />
     <ClInclude Include="GameFramework.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="3DHomework3.h" />
@@ -200,7 +197,6 @@
     <ClInclude Include="Patterns.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="RollerCosterScript.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Shader.h" />

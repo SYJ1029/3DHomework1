@@ -63,9 +63,6 @@
     <Filter Include="HLSL">
       <UniqueIdentifier>{5965a149-297a-4690-994b-fde7ebdddf8f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component">
-      <UniqueIdentifier>{1a17ea7c-05cb-4dc1-961b-1d73ff444139}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="3DHomework3.cpp">
@@ -182,12 +179,6 @@
     <ClCompile Include="TerrainShader.cpp">
       <Filter>Shader</Filter>
     </ClCompile>
-    <ClCompile Include="Component.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
-    <ClCompile Include="RollerCosterScript.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -231,12 +222,6 @@
     </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Component.h">
-      <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="RollerCosterScript.h">
-      <Filter>Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
